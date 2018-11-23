@@ -1,0 +1,31 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "cd server && cd Routes && node routes.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.0",
+    "compression": "^1.7.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.0",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.1",
+    "helmet": "^3.13.0",
+    "ip": "^1.1.5",
+    "mongoose": "^5.2.10",
+    "nconf": "^0.10.0",
+    "ngrok": "^3.0.1"
+  },
+  "devDependencies": {
+    "concurrently": "^4.0.1",
+    "react-scripts": "^1.1.5"
+  }
+}
