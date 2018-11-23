@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import LobbyEntry from "./Partials/LobbyEntry"
+
 import joinLobby from "../actions/joiningLobby"
 
 class LobbyList extends Component {
@@ -11,11 +13,6 @@ class LobbyList extends Component {
         this.state = {lobbies: []};
     }
     
-    onClick() {
-        console.log("click");
-        this.props.joinLobby();
-    }
-
     async getLobbies() {
         let lobbies = await fetch("http://localhost:3001/lobby");
         lobbies = await lobbies.json();
@@ -23,17 +20,11 @@ class LobbyList extends Component {
 
         let elementLobbies = [];
         for(let i = 0; i < lobbies.length; i++) {
+            let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
+            let name  = lobbies[i].name;
+
             elementLobbies.push(
-                <div className="container justify-content-center">
-                    <div className="row animated fadeIn">
-                        <div className="col align-self-center text-right font-weight-bold">
-                            {lobbies[i].name} {lobbies[i].current}/{lobbies[i].max}
-                        </div>
-                        <div className="col align-self-center text-left">
-                            <button className="btn-sm btn-outline-dark" onClick={this.onClick.bind(this)}>Join Game</button>
-                        </div>
-                    </div>
-                </div>
+                <LobbyEntry name={name} title={title}/>
             );
         }
 

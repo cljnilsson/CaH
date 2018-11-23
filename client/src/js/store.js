@@ -8,6 +8,7 @@ const reducer = function(state={state: "Login", users: []}, action) {
 	switch(action.type) {
 		case "JOIN_LOBBY": {
 			state.state = "Lobby"
+			state.currentGame = action.value;
 			return {...state}
 		}
 		case "CARDS_LOADED": {

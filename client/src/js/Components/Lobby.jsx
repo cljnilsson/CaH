@@ -4,17 +4,21 @@ import {bindActionCreators} from "redux"; // Write
 
 
 class Lobby extends Component {
+    constructor() {
+        super();
+    }
+    
     render() {
         return(
             <div>
-                game
+                <h3>{this.props.store.currentGame}</h3>
             </div>
         );
     }
 }
 
 function read(store) {
-	return{};
+	return{store: store.general};
 }
   
 function write(dispatch) {

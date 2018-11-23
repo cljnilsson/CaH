@@ -114,7 +114,6 @@ class App extends Component {
 	get content() {
 		let store = this.props.store;
 		let state = store.state;
-		console.log(state);
 		if (state === "Login") {
 			return (<Login/>);
 		} else if(state === "LobbyList") {
