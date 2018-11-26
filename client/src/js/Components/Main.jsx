@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import {Get} from "../Libs/Request";
+
 // Components
 import BlackCard from "./Partials/BlackCard";
 import WhiteCard from "./Partials/WhiteCard";
@@ -22,7 +24,7 @@ class App extends Component {
 	}
 
 	async getCards() {
-		let cards = await fetch("http://localhost:3001/cards")
+		let cards = await new Get("/cards").send();
 		cards = await cards.json();
 		this.props.cardsFinishedLoading(cards);
 	}

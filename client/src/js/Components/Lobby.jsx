@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-
 class Lobby extends Component {
     constructor() {
         super();
+        //socket.emit("joinedLobby", "joined!");
     }
     
     render() {

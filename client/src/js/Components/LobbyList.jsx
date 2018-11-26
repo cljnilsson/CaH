@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import {Get} from "../Libs/Request";
+
 import LobbyEntry from "./Partials/LobbyEntry"
 
 import joinLobby from "../actions/joiningLobby"
@@ -14,7 +16,7 @@ class LobbyList extends Component {
     }
     
     async getLobbies() {
-        let lobbies = await fetch("http://localhost:3001/lobby");
+        let lobbies = await new Get("/lobby").send();
         lobbies = await lobbies.json();
         lobbies = lobbies.lobbies;
 

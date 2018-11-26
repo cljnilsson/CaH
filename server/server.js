@@ -2,6 +2,7 @@ const
     express     = require("express"),
     app         = express(),
     server      = require("http").createServer(app),
+    io          = require("socket.io")(server);
     bodyParser  =  require("body-parser"),
     exphbs      = require("express-handlebars"),
     session     = require('express-session'),
@@ -83,6 +84,12 @@ class Server {
         console.log(`started on port ${this.port}`);
         await this.setupPublicPreview();
         console.log("Public url: " + this.url);
+
+        io.on('connection', (client) => {
+           client.on("joinedLobby", function(test) {
+               console.log(`${test.user} joined ${test.lobby}`);
+           }) 
+        });
     }
 
     async setupPublicPreview() {
@@ -97,3 +104,4 @@ class Server {
 let webServer = new Server();
 
 module.exports.a = app;
+module.exports.io = io;

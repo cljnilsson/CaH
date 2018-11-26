@@ -1,6 +1,8 @@
 import {applyMiddleware, combineReducers, createStore} from "redux"
 import logger from "redux-logger"
 import thunk from "redux-thunk"
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:3001');
 
 const middleware = applyMiddleware(thunk, logger);
 
@@ -9,6 +11,8 @@ const reducer = function(state={state: "Login", users: []}, action) {
 		case "JOIN_LOBBY": {
 			state.state = "Lobby"
 			state.currentGame = action.value;
+			console.log(state.name);
+			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state}
 		}
 		case "CARDS_LOADED": {
