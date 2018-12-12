@@ -23,6 +23,10 @@ async function getXBlackCards(num) {
     return await getXCards(num, {type: "Black"});
 }
 
+app.get("/", (req, res) => {
+    res.sendfile("./public/index.html")
+})
+
 app.get("/cards", async function(req, res) {
     let whiteCards = await getXWhiteCards(4)
     let blackCards = await getXBlackCards(1)

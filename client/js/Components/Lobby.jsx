@@ -5,7 +5,6 @@ import {bindActionCreators} from "redux"; // Write
 class Lobby extends Component {
     constructor() {
         super();
-        //socket.emit("joinedLobby", "joined!");
     }
     
     render() {
