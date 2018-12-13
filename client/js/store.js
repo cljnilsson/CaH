@@ -1,34 +1,34 @@
-import {applyMiddleware, combineReducers, createStore} from "redux"
-import logger from "redux-logger"
-import thunk from "redux-thunk"
-import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:3001');
+import {applyMiddleware, combineReducers, createStore} from "redux";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+import socket from "./Libs/io"
 
 const middleware = applyMiddleware(thunk, logger);
 
 const reducer = function(state={state: "Login", users: []}, action) {
 	switch(action.type) {
+		case "SEND_MESSAGE": {
+			socket.emit("chatMessage", action.value)
+			return state;
+		}
 		case "JOIN_LOBBY": {
-			state.state = "Lobby"
+			state.state = "Lobby";
 			state.currentGame = action.value;
 			console.log(state.name);
+			console.log("yay");
 			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
-			return {...state}
+			return {...state};
 		}
 		case "CARDS_LOADED": {
-			return {...state, waiting: false, cards: action.value}
+			return {...state, waiting: false, cards: action.value};
 		}
 		case "CARDS_START_LOAD": {
-			return {...state, waiting: true}
+			return {...state, waiting: true};
 		}
 		case "CONFIRM_SELECTION": {
-			console.log("Confirming:");
-			console.log(state.selection);
 			return state;
 		}
 		case "CARD_SELECTION_CHANGED": {
-			console.log("CURRENT SELECTION: ");
-			console.log(action.value);
 			return {...state, selection : action.value};
 		}
 		case "CONFIRM_NAME": {
@@ -41,7 +41,7 @@ const reducer = function(state={state: "Login", users: []}, action) {
 			return state;
 		}
 	}
-}
+};
 
 const reducers = combineReducers({
 	general: reducer

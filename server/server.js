@@ -88,7 +88,11 @@ class Server {
         io.on('connection', (client) => {
            client.on("joinedLobby", function(test) {
                console.log(`${test.user} joined ${test.lobby}`);
-           }) 
+           })
+           client.on("chatMessage", function(test) {
+                console.log(`${test.name}: ${test.text}`)
+                io.emit("messageFromServer", test);
+           }); 
         });
     }
 
