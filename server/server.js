@@ -90,7 +90,7 @@ class Server {
                console.log(`${test.user} joined ${test.lobby}`);
            })
            client.on("chatMessage", function(test) {
-                console.log(`${test.name}: ${test.text}`)
+                console.log(`@${test.destination} ${test.name}: ${test.text}`)
                 io.emit("messageFromServer", test);
            }); 
         });

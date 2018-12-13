@@ -13,19 +13,24 @@ class Lobby extends Component {
         this.state = {};
         this.state.messages = [];
         socket.on("messageFromServer", function(x) {
-            let messages = this.state.messages
-            messages.push({user: x.name, text: x.text});
-            this.setState({
-                messages: messages
-            });
+            if(x.destination == this.props.store.currentGame) {
+                let messages = this.state.messages
+                messages.push({user: x.name, text: x.text});
+                this.setState({
+                    messages: messages
+                });
+            }
         }.bind(this));
-        console.log("LLLLLLL");
+    }
+
+    sendMessage() {
+        this.props.sendMessage(this.nameRef.current.value)
+        this.nameRef.current.value = ""
     }
 
     onEnter(e) {
         if(e.key === "Enter") {
-            this.props.sendMessage({name: this.props.store.name, text: this.nameRef.current.value})
-            this.nameRef.current.value = ""
+            this.sendMessage();
         }
     }
 
@@ -33,7 +38,7 @@ class Lobby extends Component {
         let all = [];
 
         this.state.messages.forEach(function(obj) {
-            all.push(<p>{obj.user}: {obj.text}</p>)
+            all.push(<p className="mb-0">{obj.user}: {obj.text}</p>)
         });
 
         return all;
@@ -41,10 +46,21 @@ class Lobby extends Component {
 
     render() {
         return (
-            <div className="text-center">
-                <h3>{this.props.store.currentGame}</h3>
-                 {this.chatMessages()}
-                <input ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+            <div>
+                <div className="text-center border-bottom">
+                    <h3>{this.props.store.currentGame}</h3>
+                </div>
+                <div className="chat">
+                    {this.chatMessages()}
+                </div>¨
+                <div className="row">
+                    <div className="col">
+                        <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+                    </div>
+                    <div className="col-md-auto align-self-center">
+                        <button className="btn-sm btn-primary" onClick={this.sendMessage.bind(this)}>Send</button>
+                    </div>
+                </div>
             </div>
         );
     }

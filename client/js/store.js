@@ -8,7 +8,8 @@ const middleware = applyMiddleware(thunk, logger);
 const reducer = function(state={state: "Login", users: []}, action) {
 	switch(action.type) {
 		case "SEND_MESSAGE": {
-			socket.emit("chatMessage", action.value)
+			console.log(action);
+			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
 			return state;
 		}
 		case "JOIN_LOBBY": {

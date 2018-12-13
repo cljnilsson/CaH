@@ -29,3 +29,8 @@ nav {
     width: 60%;
     background-color: rgb(240, 240, 240);
   }
+
+.chat {
+    height: 500px;
+    overflow-y: auto;
+}
