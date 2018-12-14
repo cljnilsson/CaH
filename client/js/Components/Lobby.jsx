@@ -12,10 +12,30 @@ class Lobby extends Component {
         this.nameRef = React.createRef();
         this.state = {};
         this.state.messages = [];
+        socket.on("userLeft", function(obj) {
+            if(obj.destination == this.props.store.currentGame) {
+                let messages = this.state.messages
+                messages.push({text: `${obj.user} has left!`});
+                this.setState({
+                    messages: messages
+                });
+            }
+        }.bind(this));
+
         socket.on("messageFromServer", function(x) {
             if(x.destination == this.props.store.currentGame) {
                 let messages = this.state.messages
                 messages.push({user: x.name, text: x.text});
+                this.setState({
+                    messages: messages
+                });
+            }
+        }.bind(this));
+
+        socket.on("userJoin", function(x) {
+            if(x.lobby == this.props.store.currentGame) {
+                let messages = this.state.messages
+                messages.push({text: `${x.user} has joined!`});
                 this.setState({
                     messages: messages
                 });
@@ -38,7 +58,13 @@ class Lobby extends Component {
         let all = [];
 
         this.state.messages.forEach(function(obj) {
-            all.push(<p className="mb-0">{obj.user}: {obj.text}</p>)
+            let text;
+            if(obj.user) {
+                text = <p className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
+            } else {
+                text = <p className="mb-0">{obj.text}</p>;
+            }
+            all.push(text)
         });
 
         return all;
@@ -54,10 +80,10 @@ class Lobby extends Component {
                     {this.chatMessages()}
                 </div>¨
                 <div className="row">
-                    <div className="col">
+                    <div className="col pr-0">
                         <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
                     </div>
-                    <div className="col-md-auto align-self-center">
+                    <div className="col-md-auto pl-1 align-self-center">
                         <button className="btn-sm btn-primary" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
