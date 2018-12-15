@@ -88,6 +88,9 @@ class Server {
         console.log("Public url: " + this.url);
 
         io.on('connection', (client) => {
+            client.on("startGame", function(obj) {
+                io.emit("newGame", obj);
+            });
             client.once("disconnect", function() {
                 let user = users.get(client);
                 io.emit("userLeft", {destination: user.lobby, user: user.user})

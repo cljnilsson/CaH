@@ -7,6 +7,13 @@ const middleware = applyMiddleware(thunk, logger);
 
 const reducer = function(state={state: "Login", users: []}, action) {
 	switch(action.type) {
+		case "START_GAME_CLICK": {
+			socket.emit("startGame", {destination: state.currentGame});
+			return state;
+		}
+		case "START_GAME": {
+			return {...state, state: "GAME"};
+		}
 		case "SEND_MESSAGE": {
 			console.log(action);
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
@@ -33,7 +40,6 @@ const reducer = function(state={state: "Login", users: []}, action) {
 			return {...state, selection : action.value};
 		}
 		case "CONFIRM_NAME": {
-			state.users.push(action.value);
 			state.name = action.value;
 			state.state = "LobbyList";
 			return {...state};

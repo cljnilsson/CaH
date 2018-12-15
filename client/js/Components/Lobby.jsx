@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { connect } from "react-redux"; // Read
 import { bindActionCreators } from "redux"; // Write
 import sendMessage from "../actions/sendMessage"
+
+import startGameClick from "../actions/startGameClick"
+import startGame from "../actions/startGame"
+import newUser from "../actions/newUser"
+
 import socket from "../Libs/io"
 
 socket.on("text")
@@ -12,6 +17,13 @@ class Lobby extends Component {
         this.nameRef = React.createRef();
         this.state = {};
         this.state.messages = [];
+
+        socket.on("newGame", function(obj) {
+            if(obj.destination == this.props.store.currentGame) {
+                this.props.startGame();
+            }
+        }.bind(this));
+
         socket.on("userLeft", function(obj) {
             if(obj.destination == this.props.store.currentGame) {
                 let messages = this.state.messages
@@ -39,8 +51,14 @@ class Lobby extends Component {
                 this.setState({
                     messages: messages
                 });
+                this.props.store.users.push(x.user);
+                //this.props.newUser(x.user)
             }
         }.bind(this));
+    }
+
+    onClick() {
+        this.props.startGameClick();
     }
 
     sendMessage() {
@@ -87,6 +105,11 @@ class Lobby extends Component {
                         <button className="btn-sm btn-primary" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col">
+                        <button className="btn-lg btn-primary" onClick={this.onClick.bind(this)}>Start</button>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -98,7 +121,10 @@ function read(store) {
 
 function write(dispatch) {
     return bindActionCreators({
-        sendMessage: sendMessage
+        sendMessage: sendMessage,
+        startGameClick: startGameClick,
+        startGame: startGame,
+        newUser: newUser
     }, dispatch);
 }
 
