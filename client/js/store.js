@@ -12,18 +12,15 @@ const reducer = function(state={state: "Login", users: []}, action) {
 			return state;
 		}
 		case "START_GAME": {
-			return {...state, state: "GAME"};
+			return {...state, state: "GAME", users: action.value};
 		}
 		case "SEND_MESSAGE": {
-			console.log(action);
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
 			return state;
 		}
 		case "JOIN_LOBBY": {
 			state.state = "Lobby";
 			state.currentGame = action.value;
-			console.log(state.name);
-			console.log("yay");
 			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state};
 		}

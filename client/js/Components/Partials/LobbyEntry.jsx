@@ -35,5 +35,5 @@ function write(dispatch) {
         joinLobby: joinLobby
 	}, dispatch);
 }
-connect(read, write)(LobbyEntry);
+
 export default connect(read, write)(LobbyEntry);

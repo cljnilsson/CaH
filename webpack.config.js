@@ -31,10 +31,13 @@ const fileSettings =
 			)
 		},
 		{
-			test: /\.(png|jpg|gif)$/,
+			test: /\.(png|jpg|gif|webm)$/,
 			use: [
 				{
-					loader: "file-loader"
+					loader: "file-loader",
+					options: {
+						name: "[name].[ext]"
+					}
 				}
 			]
 		}

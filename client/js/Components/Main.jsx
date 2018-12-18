@@ -134,7 +134,7 @@ class App extends Component {
 	render() {
 		return(
 			<div>
-				<nav className="text-center">
+				<nav className="text-center text-light shadow">
 					<h2>Cards Against Humanity</h2>
 				</nav>
 				<div className="jumbotron">

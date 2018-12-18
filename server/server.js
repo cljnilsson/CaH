@@ -26,8 +26,6 @@ const sessionSettings = {
     }
 };
 
-let users = new Map();
-
 function join(dir) {
     return path.join(__dirname, dir);
 }
@@ -86,31 +84,6 @@ class Server {
         console.log(`started on port ${this.port}`);
         await this.setupPublicPreview();
         console.log("Public url: " + this.url);
-
-        io.on('connection', (client) => {
-            client.on("startGame", function(obj) {
-                io.emit("newGame", obj);
-            });
-            client.once("disconnect", function() {
-                let user = users.get(client);
-                io.emit("userLeft", {destination: user.lobby, user: user.user})
-                users.delete(client)
-            });
-
-            client.on("joinedLobby", function(test) {
-                console.log(`${test.user} joined ${test.lobby}`);
-                io.emit("userJoin", test);
-                users.set(client, {
-                    user: test.user,
-                    lobby: test.lobby
-                });
-            });
-
-            client.on("chatMessage", function(test) {
-                console.log(`(@${test.destination}) ${test.name}: ${test.text}`)
-                io.emit("messageFromServer", test);
-            }); 
-        });
     }
 
     async setupPublicPreview() {
