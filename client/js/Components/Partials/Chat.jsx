@@ -79,7 +79,7 @@ class Chat extends Component {
             <div>
                 <div className="chat">
                     {this.chatMessages()}
-                </div>¨
+                </div>
                 <div className="row">
                     <div className="col pr-0">
                         <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>

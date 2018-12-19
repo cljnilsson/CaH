@@ -24,12 +24,18 @@ class Login extends Component {
 
     render() {
         return(
-            <div className="row justify-content-center">
-                <div className="text-center pb-3 col-5">
-                    <h3>Select a usename</h3>
-                    <div className="form-inline justify-content-center">
+            <div>
+                <div className="row">
+                    <div className="col text-center">
+                        <h3>Select Username</h3>
+                    </div>
+                </div>
+                <div className="row justify-content-center">
+                    <div className="col-5 align-self-center">
                         <input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef}/>
-                        <button className="btn btn-primary" onClick={this.onSubmit.bind(this)}>Submit</button>
+                    </div>
+                    <div className="col-md-auto pl-0">
+                        <button className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>
                     </div>
                 </div>
             </div>

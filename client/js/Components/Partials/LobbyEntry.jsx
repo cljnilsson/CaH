@@ -17,8 +17,8 @@ class LobbyEntry extends Component {
                     <div className="col align-self-center text-right font-weight-bold">
                         <span>{this.props.title}</span>
                     </div>
-                    <div className="col align-self-center text-left">
-                        <button className="btn-sm btn-outline-dark" onClick={this.onClick.bind(this)}>Join Game</button>
+                    <div className="col align-self-center text-left pl-0">
+                        <button className="btn-sm btn-outline-light" onClick={this.onClick.bind(this)}>Join Game</button>
                     </div>
                 </div>
             </div>

@@ -137,7 +137,7 @@ class App extends Component {
 				<nav className="text-center text-light shadow">
 					<h2>Cards Against Humanity</h2>
 				</nav>
-				<div className="jumbotron">
+				<div className="jumbotron text-light">
 					<div className="App container align-items-center">
 						{this.content}
 					</div>
