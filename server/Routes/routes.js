@@ -1,36 +1,23 @@
 const mongoose = require('mongoose');
+const Mongo    = require("../MongoDB/mongo")
 const app = require("../server.js").a;
-const io  = require("../io");
-const schemas = require("../MongoDB/schemas/schemas")
+const Game = require("../game");
+const io  = require("../io"); //required
 
-function getRandomArbitrary(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-async function getXCards(num, filter) {
-    let cards = mongoose.model("cards", schemas.get("cards"));
-    let max = cards.countDocuments(filter);
-    let rng = getRandomArbitrary(0, await max - num);
-    console.log(rng);
-    let found = cards.find(filter, "text type").skip(rng).limit(num);
-    return found;
-}
-
-async function getXWhiteCards(num) {
-    return await getXCards(num, {type: "White"});
-}
-
-async function getXBlackCards(num) {
-    return await getXCards(num, {type: "Black"});
-}
 
 app.get("/", (req, res) => {
     res.sendfile("./public/index.html")
 })
 
-app.get("/cards", async function(req, res) {
-    let whiteCards = await getXWhiteCards(4)
-    let blackCards = await getXBlackCards(1)
+app.get("/:game/:player/cards", async function(req, res) {
+    let name = req.params.game;
+    let game = Game.getByName(name);
+    let pname = req.params.player;
+    let player = game.getPlayer(pname);
+    
+    let whiteCards = player.hand;
+    let blackCards = game.blackCard;
+
     res.send(JSON.stringify({
         blackCards: blackCards,
         whiteCards: whiteCards
@@ -52,8 +39,7 @@ class Lobby {
 }
 
 async function getAllLobbies() {
-    let lobbies = mongoose.model("lobbies", schemas.get("lobby"));
-    return await lobbies.find({});
+    return await Mongo.getLobbies();
 }
 
 app.get("/lobby", async function(req, res) {

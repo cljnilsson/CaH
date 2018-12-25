@@ -32,7 +32,7 @@ class Lobby extends Component {
                 <Chat/>
                 <div className="row mt-3">
                     <div className="col text-center">
-                        <button className="btn-lg btn-primary" onClick={this.onClick.bind(this)}>Start Game</button>
+                        <button className="btn-lg btn-outline-light" onClick={this.onClick.bind(this)}>Start Game</button>
                     </div>
                 </div>
             </div>

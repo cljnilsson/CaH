@@ -5,30 +5,33 @@ import socket from "./Libs/io"
 
 const middleware = applyMiddleware(thunk, logger);
 
-const reducer = function(state={state: "Login", users: []}, action) {
+const GameState = {
+	Lobby: "Lobby",
+	Login: "Login",
+	Game: "Game"
+};
+
+const reducer = function(state={waiting: true, state: GameState.Login, users: []}, action) {
 	switch(action.type) {
 		case "START_GAME_CLICK": {
 			socket.emit("startGame", {destination: state.currentGame});
 			return state;
 		}
 		case "START_GAME": {
-			return {...state, state: "GAME", users: action.value};
+			return {...state, state: GameState.Game, users: action.value};
 		}
 		case "SEND_MESSAGE": {
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
 			return state;
 		}
 		case "JOIN_LOBBY": {
-			state.state = "Lobby";
+			state.state = GameState.Lobby;
 			state.currentGame = action.value;
 			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state};
 		}
 		case "CARDS_LOADED": {
 			return {...state, waiting: false, cards: action.value};
-		}
-		case "CARDS_START_LOAD": {
-			return {...state, waiting: true};
 		}
 		case "CONFIRM_SELECTION": {
 			return state;

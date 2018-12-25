@@ -21,6 +21,4 @@ export class Post {
 
 }
 
-console.log(new Get("/").send());
-
 export default Request;

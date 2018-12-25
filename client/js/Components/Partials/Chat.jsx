@@ -42,7 +42,7 @@ class Chat extends Component {
                 this.setState({
                     messages: messages
                 });
-                //this.props.store.users.push(x.user);
+                this.props.store.users.push(x.user);
             }
         }.bind(this));
     }
@@ -85,7 +85,7 @@ class Chat extends Component {
                         <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
                     </div>
                     <div className="col-md-auto pl-1 align-self-center">
-                        <button className="btn-sm btn-primary" onClick={this.sendMessage.bind(this)}>Send</button>
+                        <button className="btn-sm btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
                     </div>
                 </div>
             </div>

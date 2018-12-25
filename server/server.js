@@ -10,6 +10,7 @@ const
     nconf       = require('nconf'),
     compression = require("compression"),
     ngrok       = require('ngrok'),
+    opn         = require('opn');
     path        = require('path');
 
 require("./MongoDB/mongo")
@@ -82,6 +83,7 @@ class Server {
     async startup() {
         server.listen(this.port);
         console.log(`started on port ${this.port}`);
+        opn(`http://localhost:${this.port}`);
         await this.setupPublicPreview();
         console.log("Public url: " + this.url);
     }

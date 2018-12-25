@@ -1,20 +1,59 @@
+const Mongo = require("./MongoDB/mongo");
+
 let games = []
-class Game {
+
+class Player {
     constructor(name) {
-        games[name] = this
+        this.generateHand();
         this.name = name;
-        this.players = []
     }
 
-    addPlayer(name) {
-        this.players.push(name);
+    async generateHand() {
+        this.hand = await Mongo.getXWhiteCards(4);
+    }
+    /*
+        To be implemented
+    */
+
+    drawCard() {
+
     }
 
-    removePlayer(name) {
-        this.players = this.players.filter(p => p != name);
-        console.log(this.players);
+    removeCard() {
+
     }
 }
 
-module.exports.Game = Game;
-module.exports.games = games;
+class Game {
+    constructor(name) {
+        games[name] = this
+        this.generateNewBlackCard();
+        this.name = name;
+        this.players = new Map();
+    }
+
+    async generateNewBlackCard() {
+        this.blackCard = await Mongo.getXBlackCards(1);
+    }
+
+    addPlayer(name) {
+        let p = new Player(name);
+        this.players.set(name, p);
+        console.log(this.players);
+    }
+
+    removePlayer(name) {
+        //this.players = this.players.filter(p => p.name != name);
+        this.players.delete(name);
+    }
+
+    getPlayer(name) {
+        return this.players.get(name);
+    }
+
+    static getByName(name) {
+        return games[name];
+    }
+}
+
+module.exports = Game;
