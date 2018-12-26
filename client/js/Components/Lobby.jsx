@@ -6,6 +6,7 @@ import startGameClick from "../actions/startGameClick";
 import startGame from "../actions/startGame";
 
 import Chat from "./Partials/Chat";
+import Users from "./Partials/Users";
 
 import socket from "../Libs/io";
 
@@ -23,19 +24,23 @@ class Lobby extends Component {
         this.props.startGameClick();
     }
 
+    users() {
+        return "test";
+    }
+
     render() {
         return (
             <div>
                 <div className="text-center border-bottom">
                     <h3>{this.props.store.currentGame}</h3>
                 </div>
-                <Chat/>
-                <div className="row mt-3">
-                    <div className="col text-center">
-                        <button className="btn-lg btn-outline-light" onClick={this.onClick.bind(this)}>Start Game</button>
+                    <Chat/>
+                    <div className="row mt-3">
+                        <div className="col text-center">
+                            <button className="btn-lg btn-outline-light" onClick={this.onClick.bind(this)}>Start Game</button>
+                        </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

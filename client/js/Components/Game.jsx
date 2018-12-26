@@ -7,6 +7,7 @@ import {Get} from "../Libs/Request";
 // Components
 import BlackCard from "./Partials/BlackCard";
 import WhiteCard from "./Partials/WhiteCard";
+import Users     from "./Partials/Users";
 
 // Actions
 import loadedCardsAction from "../actions/recievedCards"
@@ -64,8 +65,11 @@ class Game extends Component {
 		let fill = this.props.store.cards.blackCards[0].text;
 		if(selection !== undefined) {
 			selection.forEach(function(card) {
-				let index = fill.indexOf(lookFor);
-				fill = fill.substring(0, index) + card.props.text + fill.substring(index + lookFor.length);
+				let index  = fill.indexOf(lookFor);
+				let prefix = fill.substring(0, index);
+				let suffix = fill.substring(index + lookFor.length);
+
+				fill = prefix + card.props.text + suffix;
 			})
 		}
 		return fill;
@@ -82,19 +86,6 @@ class Game extends Component {
 		);
 	}
 
-
-	get users() {
-		let users = [];
-		for(let i = 0; i < this.props.store.users.length; i++) {
-			users.push(<p>{this.props.store.users[i]}</p>)
-		}
-		return(
-			<div className="col-2 text-center border-right">
-				{users}
-			</div>
-		);
-	}
-
 	onClick() {
 		this.props.confirmSelection({type: "CONFIRM_SELECTION"});
 	}
@@ -106,7 +97,7 @@ class Game extends Component {
             return(
                 <div className="text-center">
                     <div className="row">
-                        {this.users}
+                        <Users/>
                         {this.game}
                     </div>
                 </div>

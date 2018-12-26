@@ -11,6 +11,10 @@ const GameState = {
 	Game: "Game"
 };
 
+/*
+	NOTE TO SELF, SPREAD OPERATOR FORCE UPDATE, RETURNING state DOES NOT!
+*/
+
 const reducer = function(state={waiting: true, state: GameState.Login, users: []}, action) {
 	switch(action.type) {
 		case "START_GAME_CLICK": {
@@ -23,6 +27,10 @@ const reducer = function(state={waiting: true, state: GameState.Login, users: []
 		case "SEND_MESSAGE": {
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
 			return state;
+		}
+		case "UPDATE_USERS": {
+			state.users = action.value;
+			return {...state};
 		}
 		case "JOIN_LOBBY": {
 			state.state = GameState.Lobby;

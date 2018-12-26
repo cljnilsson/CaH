@@ -38,12 +38,8 @@ class Lobby {
     }
 }
 
-async function getAllLobbies() {
-    return await Mongo.getLobbies();
-}
-
 app.get("/lobby", async function(req, res) {
-    let lobbies = await getAllLobbies();
+    let lobbies = await Mongo.getLobbies();
     res.send(JSON.stringify({
         lobbies: lobbies
     }));

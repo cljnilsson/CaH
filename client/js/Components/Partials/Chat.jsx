@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import Users from "./Users";
+
 import sendMessage from "../../actions/sendMessage";
-import joinLobby from "../../actions/joiningLobby"
+import joinLobby from "../../actions/joiningLobby";
+import updateUsers from "../../actions/updateUsers";
 
 import socket from "../../Libs/io";
 
@@ -39,10 +42,12 @@ class Chat extends Component {
             if(x.lobby == this.props.store.currentGame) {
                 let messages = this.state.messages
                 messages.push({text: `${x.user} has joined!`});
+
+                this.props.updateUsers(x.all);
+
                 this.setState({
                     messages: messages
                 });
-                this.props.store.users.push(x.user);
             }
         }.bind(this));
     }
@@ -76,16 +81,19 @@ class Chat extends Component {
 
     render() {
         return (
-            <div>
-                <div className="chat">
-                    {this.chatMessages()}
-                </div>
-                <div className="row">
-                    <div className="col pr-0">
-                        <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+            <div className="row">
+                <Users/>
+                <div className="col">
+                    <div className="chat">
+                        {this.chatMessages()}
                     </div>
-                    <div className="col-md-auto pl-1 align-self-center">
-                        <button className="btn-sm btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
+                    <div className="row">
+                        <div className="col pr-0">
+                            <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+                        </div>
+                        <div className="col-md-auto pl-1 align-self-center">
+                            <button className="btn-sm btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -100,7 +108,8 @@ function read(store) {
 function write(dispatch) {
 	return bindActionCreators({
         sendMessage: sendMessage,
-        joinLobby: joinLobby
+        joinLobby: joinLobby,
+        updateUsers: updateUsers
 	}, dispatch);
 }
 

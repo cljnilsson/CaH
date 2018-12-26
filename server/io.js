@@ -8,7 +8,7 @@ io.on('connection', (client) => {
     client.on("startGame", function(obj) {
         obj.users = [];
         for (var [key, value] of Game.getByName(obj.destination).players) {
-            obj.users.push(value.name);
+            obj.users.push({name: value.name, type: value.type});
         }
         io.emit("newGame", obj);
     });
@@ -23,11 +23,15 @@ io.on('connection', (client) => {
 
     client.on("joinedLobby", function(test) {
         console.log(`${test.user} joined ${test.lobby}`);
-        if(Game.getByName(test.lobby) === undefined) {
-            new Game(test.lobby);
+
+        let game = Game.getByName(test.lobby);
+        if(game === undefined) {
+            game = new Game(test.lobby);
         }
 
-        Game.getByName(test.lobby).addPlayer(test.user);
+        game.addPlayer(test.user);
+
+        test.all = Array.from(game.players.values());
 
         io.emit("userJoin", test);
         users.set(client, {
