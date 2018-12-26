@@ -15,9 +15,11 @@ io.on('connection', (client) => {
     client.once("disconnect", function() {
         let user = users.get(client);
         if(user != undefined) {
-            io.emit("userLeft", {destination: user.lobby, user: user.user})
-            Game.getByName(user.lobby).removePlayer(user.user);
-            users.delete(client)
+            let game = Game.getByName(user.lobby);
+            game.removePlayer(user.user);
+            users.delete(client);
+
+            io.emit("userLeft", {destination: user.lobby, user: user.user, all: Array.from(game.players.values())});
         }
     });
 

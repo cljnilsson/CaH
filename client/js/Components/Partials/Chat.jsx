@@ -17,39 +17,48 @@ class Chat extends Component {
         this.state = {};
         this.state.messages = [];
 
+        this.onLeave = this.onLeave.bind(this);
+        this.onJoin = this.onJoin.bind(this);
+        this.onMessage = this.onMessage.bind(this);
 
-        socket.on("userLeft", function(obj) {
-            if(obj.destination == this.props.store.currentGame) {
-                let messages = this.state.messages
-                messages.push({text: `${obj.user} has left!`});
-                this.setState({
-                    messages: messages
-                });
-            }
-        }.bind(this));
+        socket.on("userLeft", this.onLeave);
+        socket.on("messageFromServer", this.onMessage);
+        socket.on("userJoin", this.onJoin);
+    }
 
-        socket.on("messageFromServer", function(x) {
-            if(x.destination == this.props.store.currentGame) {
-                let messages = this.state.messages
-                messages.push({user: x.name, text: x.text});
-                this.setState({
-                    messages: messages
-                });
-            }
-        }.bind(this));
+    onJoin(x) {
+        if(x.lobby == this.props.store.currentGame) {
+            let messages = this.state.messages
+            messages.push({text: `${x.user} has joined!`});
 
-        socket.on("userJoin", function(x) {
-            if(x.lobby == this.props.store.currentGame) {
-                let messages = this.state.messages
-                messages.push({text: `${x.user} has joined!`});
+            this.props.updateUsers(x.all);
 
-                this.props.updateUsers(x.all);
+            this.setState({
+                messages: messages
+            });
+        }
+    }
 
-                this.setState({
-                    messages: messages
-                });
-            }
-        }.bind(this));
+    onLeave(obj) {
+        if(obj.destination == this.props.store.currentGame) {
+            this.props.updateUsers(obj.all);
+
+            let messages = this.state.messages;
+            messages.push({text: `${obj.user} has left!`});
+            this.setState({
+                messages: messages
+            });
+        }
+    }
+
+    onMessage(x) {
+        if(x.destination == this.props.store.currentGame) {
+            let messages = this.state.messages
+            messages.push({user: x.name, text: x.text});
+            this.setState({
+                messages: messages
+            });
+        }
     }
 
     sendMessage() {
