@@ -48,6 +48,7 @@ const reducer = function(state={waiting: true, state: GameState.Login, users: []
 			return {...state, waiting: false, cards: action.value};
 		}
 		case "CONFIRM_SELECTION": {
+			console.log(`${state.me.name} selected ${state.selection[0].props.text} ${state.selection[1].props.text}`);
 			return state;
 		}
 		case "CARD_SELECTION_CHANGED": {

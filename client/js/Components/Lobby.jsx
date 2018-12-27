@@ -20,12 +20,29 @@ class Lobby extends Component {
         }.bind(this));
     }
 
-    onClick() {
-        this.props.startGameClick();
+    get startButton() {
+        return <button className="btn-lg btn-outline-light" onClick={this.onClick.bind(this)}>Start Game</button>
     }
 
-    users() {
-        return "test";
+    buttonIfHost () {
+        let html = "";
+
+        if(this.props.store.me !== undefined && this.props.store.me.type === "Judge") {
+            console.log(this.props.store.users.length);
+            html = (
+                <div className="row mt-3">
+                    <div className="col text-center">
+                        {this.props.store.users.length > 1 ? this.startButton : "Waiting for players..."}
+                    </div>
+                </div>
+            );
+        }
+
+        return html;
+    }
+
+    onClick() {
+        this.props.startGameClick();
     }
 
     render() {
@@ -34,13 +51,9 @@ class Lobby extends Component {
                 <div className="text-center border-bottom">
                     <h3>{this.props.store.currentGame}</h3>
                 </div>
-                    <Chat/>
-                    <div className="row mt-3">
-                        <div className="col text-center">
-                            <button className="btn-lg btn-outline-light" onClick={this.onClick.bind(this)}>Start Game</button>
-                        </div>
-                    </div>
-                </div>
+                <Chat/>
+                {this.buttonIfHost()}
+            </div>
         );
     }
 }

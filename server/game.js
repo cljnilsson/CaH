@@ -21,7 +21,7 @@ class Player {
 
     // Converts map to array before returning
     get hand() {
-        return Array.from(this._hand.values()); //maybe .keys()?
+        return Array.from(this._hand.values())[0];
     }
     /*
         To be implemented

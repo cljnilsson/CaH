@@ -4,8 +4,6 @@ import {bindActionCreators} from "redux"; // Write
 
 class Users extends Component {
     render() {
-        console.log(this.props.store.users.length);
-        console.log(this.props.store.users);
         let users = [];
 		for(let i = 0; i < this.props.store.users.length; i++) {
 			let u = this.props.store.users[i];
