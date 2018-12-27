@@ -22,13 +22,19 @@ const reducer = function(state={waiting: true, state: GameState.Login, users: []
 			return state;
 		}
 		case "START_GAME": {
+			state.me = action.value.filter(function(value) {
+				return value.name == state.name;
+			})[0];
 			return {...state, state: GameState.Game, users: action.value};
 		}
 		case "SEND_MESSAGE": {
-			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame})
+			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame});
 			return state;
 		}
 		case "UPDATE_USERS": {
+			state.me = action.value.filter(function(value) {
+				return value.name == state.name;
+			})[0];
 			state.users = action.value;
 			return {...state};
 		}

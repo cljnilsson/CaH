@@ -98,7 +98,7 @@ class Game extends Component {
                 <div className="text-center">
                     <div className="row">
                         <Users/>
-                        {this.game}
+                        {this.props.store.me.type === "Player" ? this.game : "You are the judge!"}
                     </div>
                 </div>
             );

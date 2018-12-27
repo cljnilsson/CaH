@@ -42,7 +42,11 @@ class Game {
         games[name] = this
         this.generateNewBlackCard();
         this.name = name;
-        this.players = new Map();
+        this._players = new Map();
+    }
+
+    get players() {
+        return Array.from(this._players.values());
     }
 
     async generateNewBlackCard() {
@@ -51,7 +55,7 @@ class Game {
 
     addPlayer(name) {
         let p;
-        this.players.set(name, p);
+
         if(this.judge == undefined) {
             p = new Player(name, PlayerTypes.Judge);
             this.judge = p;
@@ -59,15 +63,15 @@ class Game {
             p = new Player(name, PlayerTypes.Player);
         }
 
-        this.players.set(name, p);
+        this._players.set(name, p);
     }
 
     removePlayer(name) {
         let p = this.getPlayer(name);
         switch(p.type) {
             case PlayerTypes.Judge:
-                if(this.players.size > 1) {
-                    let arr = Array.from(this.players.values());
+                if(this._players.size > 1) {
+                    let arr = this.players;
                     let index = arr.indexOf(p);
 
                     let next = arr[index + 1];
@@ -82,11 +86,11 @@ class Game {
             case PlayerTypes.Player:
                 break;
         }
-        this.players.delete(name);
+        this._players.delete(name);
     }
 
     getPlayer(name) {
-        return this.players.get(name);
+        return this._players.get(name);
     }
 
     static getByName(name) {
