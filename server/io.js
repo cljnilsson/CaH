@@ -11,6 +11,7 @@ function onConnection(client) {
     client.once("disconnect", onDisconnect.bind(client));
     client.on("joinedLobby" , onJoinLobby.bind(client));
     client.on("chatMessage" , onChatMessage.bind(client));
+    client.on("usedCards"   , onUseCard.bind(client));
 }
 
 function onGameStart(obj) {
@@ -38,6 +39,7 @@ function onJoinLobby(test) {
     }
 
     game.addPlayer(test.user);
+    console.log(game.players[0]);
 
     test.all = game.players;
 
@@ -51,4 +53,13 @@ function onJoinLobby(test) {
 function onChatMessage(test) {
     console.log(`(@${test.destination}) ${test.name}: ${test.text}`)
     io.emit("messageFromServer", test);
+}
+
+async function onUseCard(obj) {
+    let game = Game.getByName(obj.game);
+    let player = game.getPlayer(obj.user);
+    obj.cards.forEach((card) => player.removeCard(card));
+    await player.draw(obj.cards.length);
+
+    io.emit("updateCards", {user: obj.user, all: game.players});
 }

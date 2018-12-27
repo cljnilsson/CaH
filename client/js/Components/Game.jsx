@@ -3,6 +3,7 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 import {Get} from "../Libs/Request";
+import socket from "../Libs/io";
 
 // Components
 import BlackCard from "./Partials/BlackCard";
@@ -12,18 +13,28 @@ import Users     from "./Partials/Users";
 // Actions
 import loadedCardsAction from "../actions/recievedCards"
 import confirmSelection from "../actions/confirmCardSelection"
+import updateCards from "../actions/updateCards";
 
 class Game extends Component {
     constructor(props) {
         super(props);
 		this.getCards();
-    }
+		this.onNewCards = this.onNewCards.bind(this);
+		socket.on("updateCards", this.onNewCards);
+	}
 
     async getCards() {
 		let store = this.props.store;
 		let cards = await new Get(`/${store.currentGame}/${store.name}/cards`).send();
 		cards = await cards.json();
 		this.props.cardsFinishedLoading(cards);
+	}
+
+	onNewCards(obj) {
+		console.log(obj);
+		if(this.props.store.me.name === obj.user){
+			this.props.updateCards(obj.all);
+		}
 	}
 
 	get confirmButton() {
@@ -87,7 +98,7 @@ class Game extends Component {
 	}
 
 	onClick() {
-		this.props.confirmSelection({type: "CONFIRM_SELECTION"});
+		this.props.confirmSelection();
 	}
 
     render() {
@@ -113,7 +124,8 @@ function read(store) {
 function write(dispatch) {
 	return bindActionCreators({
 		cardsFinishedLoading: loadedCardsAction,
-		confirmSelection: confirmSelection
+		confirmSelection: confirmSelection,
+		updateCards: updateCards
 	}, dispatch);
 }
 

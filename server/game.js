@@ -11,12 +11,14 @@ class Player {
         this.name = name;
         this.type = type;
         this._hand = new Map();
+        this.cards = []; // Specially made for React Client since socket.io cannot transports Map and hand getters does not get included
 
         this.generateHand();
     }
 
     async generateHand() {
         this._hand.set(0, await Mongo.getXWhiteCards(4));
+        this.cards = this.hand;
     }
 
     // Converts map to array before returning
@@ -27,13 +29,17 @@ class Player {
         To be implemented
     */
 
-    async drawCard() {
-        let drawn = await Mongo.getXWhiteCards(1);
-        this.hand = this.hand.concat(drawn);
+    async draw(num=1) {
+        let drawn = await Mongo.getXWhiteCards(num);
+        this._hand.set(0, this.hand.concat(drawn));
+        this.cards = this.hand;
     }
 
-    removeCard() {
-
+    removeCard(text) {
+        let current = this.hand;
+        let updated = current.filter((value) => value.text != text);
+        this._hand.set(0, updated);
+        this.cards = this.hand;
     }
 }
 
