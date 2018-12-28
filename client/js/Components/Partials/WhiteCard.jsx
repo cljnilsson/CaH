@@ -48,7 +48,7 @@ class WhiteCard extends Component {
     
     render() {
         return(
-            <div className={"card border-dark " + this.color} onClick={this.onClick.bind(this)}>
+            <div className={"card border-dark animated fadeIn " + this.color} onClick={this.onClick.bind(this)}>
                 <div className="card-body text-center">
                     <p className="card-text">{this.props.text}</p>
                 </div>

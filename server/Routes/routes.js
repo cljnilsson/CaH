@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Mongo    = require("../MongoDB/mongo")
 const app = require("../server.js").a;
-const Game = require("../game");
+const Game = require("../Game/Game");
 const io  = require("../io"); //required
 
 

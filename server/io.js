@@ -1,6 +1,6 @@
 const
     io = require("./server").io,
-    Game = require("./game");
+    Game = require("./Game/Game");
 
 let users = new Map();
 
@@ -59,6 +59,10 @@ async function onUseCard(obj) {
     let player = game.getPlayer(obj.user);
     obj.cards.forEach((card) => player.removeCard(card));
     await player.draw(obj.cards.length);
+    game.turn.playerSubmit(player);
+    if(game.turn.usersSubmitted === true) {
+        io.emit("judgeTurn", game.name);
+    }
 
     io.emit("updateCards", {user: obj.user, all: game.players});
 }

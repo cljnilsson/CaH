@@ -8,14 +8,30 @@ const middleware = applyMiddleware(thunk, logger);
 const GameState = {
 	Lobby: "Lobby",
 	Login: "Login",
+	LobbyList: "LobbyList",
 	Game: "Game"
 };
+
+const turn = {
+	Players: "Players",
+	Judge: "Judge"
+}
+
+let user = Math.random().toString(36).substring(7);
+
+const standard = {waiting: true, turn: turn.Players, submitted: false, state: GameState.Login, selection: [], users: []};
+const lobby    = {waiting: true, turn: turn.Players, submitted: false, name: user, state: GameState.LobbyList, selection: [], users: []};
+
+const settings = {
+	standard: standard,
+	lobby: lobby
+}
 
 /*
 	NOTE TO SELF, SPREAD OPERATOR FORCE UPDATE, RETURNING state DOES NOT!
 */
 
-const reducer = function(state={waiting: true, state: GameState.Login, selection: [], users: []}, action) {
+const reducer = function(state=settings.lobby, action) {
 	switch(action.type) {
 		case "START_GAME_CLICK": {
 			socket.emit("startGame", {destination: state.currentGame});
@@ -31,8 +47,17 @@ const reducer = function(state={waiting: true, state: GameState.Login, selection
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame});
 			return state;
 		}
+		case "UPDATE_TURN": {
+			if(action.value === "Judge") {
+				state.turn = turn.Judge;
+			} else {
+				state.turn = turn.Players;
+			}
+			return {...state};
+		}
 		case "UPDATE_CARDS": {
 			state.users = action.value;
+
 			let c = action.value.filter((value) => value.name === state.me.name)[0].cards
 			state.cards.whiteCards = c;
 			return {...state};
@@ -42,6 +67,8 @@ const reducer = function(state={waiting: true, state: GameState.Login, selection
 				return value.name == state.name;
 			})[0];
 			state.users = action.value;
+			state.judge = state.users.filter(u => u.type === "Judge")[0];
+			state.players = state.users.filter(u => u.type !== "Judge");
 			return {...state};
 		}
 		case "JOIN_LOBBY": {
@@ -61,6 +88,7 @@ const reducer = function(state={waiting: true, state: GameState.Login, selection
 			});
 			socket.emit("usedCards", {cards: props, game: state.currentGame, user: state.me.name});
 			state.selection = [];
+			state.submitted = true;
 			return {...state};
 		}
 		case "CARD_SELECTION_CHANGED": {
@@ -68,7 +96,7 @@ const reducer = function(state={waiting: true, state: GameState.Login, selection
 		}
 		case "CONFIRM_NAME": {
 			state.name = action.value;
-			state.state = "LobbyList";
+			state.state = GameState.LobbyList;
 			return {...state};
 		}
 		default: {

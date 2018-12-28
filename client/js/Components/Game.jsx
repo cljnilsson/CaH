@@ -14,13 +14,16 @@ import Users     from "./Partials/Users";
 import loadedCardsAction from "../actions/recievedCards"
 import confirmSelection from "../actions/confirmCardSelection"
 import updateCards from "../actions/updateCards";
+import updateTurn from "../actions/updateTurn";
 
 class Game extends Component {
     constructor(props) {
         super(props);
 		this.getCards();
 		this.onNewCards = this.onNewCards.bind(this);
+		this.onJudgeTurn = this.onJudgeTurn.bind(this);
 		socket.on("updateCards", this.onNewCards);
+		socket.on("judgeTurn", this.onJudgeTurn);
 	}
 
     async getCards() {
@@ -34,6 +37,12 @@ class Game extends Component {
 		console.log(obj);
 		if(this.props.store.me.name === obj.user){
 			this.props.updateCards(obj.all);
+		}
+	}
+
+	onJudgeTurn(game) {
+		if(this.props.store.currentGame === game) {
+			this.props.updateTurn("Judge");
 		}
 	}
 
@@ -97,6 +106,23 @@ class Game extends Component {
 		);
 	}
 
+	get content() {
+		let store = this.props.store;
+		if(store.me.type === "Player") {
+			if(store.submitted === false && store.turn === "Players") {
+				return this.game;
+			} else {
+				if(store.turn === "Judge") {
+					return "Waiting for judge";
+				} else {
+					return "Waiting for other players";
+				}
+			}
+		} else {
+			return "You are the judge!";
+		}
+	}
+
 	onClick() {
 		this.props.store.selection.forEach(card => {
 			card.color = "";
@@ -112,7 +138,7 @@ class Game extends Component {
                 <div className="text-center">
                     <div className="row">
                         <Users/>
-                        {this.props.store.me.type === "Player" ? this.game : "You are the judge!"}
+                        {this.content}
                     </div>
                 </div>
             );
@@ -128,6 +154,7 @@ function write(dispatch) {
 	return bindActionCreators({
 		cardsFinishedLoading: loadedCardsAction,
 		confirmSelection: confirmSelection,
+		updateTurn: updateTurn,
 		updateCards: updateCards
 	}, dispatch);
 }
