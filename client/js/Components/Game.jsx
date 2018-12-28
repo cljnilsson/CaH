@@ -98,6 +98,9 @@ class Game extends Component {
 	}
 
 	onClick() {
+		this.props.store.selection.forEach(card => {
+			card.color = "";
+		});
 		this.props.confirmSelection();
 	}
 

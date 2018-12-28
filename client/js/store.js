@@ -15,7 +15,7 @@ const GameState = {
 	NOTE TO SELF, SPREAD OPERATOR FORCE UPDATE, RETURNING state DOES NOT!
 */
 
-const reducer = function(state={waiting: true, state: GameState.Login, users: []}, action) {
+const reducer = function(state={waiting: true, state: GameState.Login, selection: [], users: []}, action) {
 	switch(action.type) {
 		case "START_GAME_CLICK": {
 			socket.emit("startGame", {destination: state.currentGame});
@@ -33,7 +33,6 @@ const reducer = function(state={waiting: true, state: GameState.Login, users: []
 		}
 		case "UPDATE_CARDS": {
 			state.users = action.value;
-			console.log(action.value.filter((value) => value.name === state.me.name)[0]);
 			let c = action.value.filter((value) => value.name === state.me.name)[0].cards
 			state.cards.whiteCards = c;
 			return {...state};
@@ -61,10 +60,11 @@ const reducer = function(state={waiting: true, state: GameState.Login, users: []
 				props.push(element.props.text);
 			});
 			socket.emit("usedCards", {cards: props, game: state.currentGame, user: state.me.name});
-			return state;
+			state.selection = [];
+			return {...state};
 		}
 		case "CARD_SELECTION_CHANGED": {
-			return {...state, selection : action.value};
+			return {...state};
 		}
 		case "CONFIRM_NAME": {
 			state.name = action.value;

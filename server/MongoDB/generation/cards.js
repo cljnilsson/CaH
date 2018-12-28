@@ -42,9 +42,15 @@ new WhiteCard("Insecure people");
 new WhiteCard("The mongols");
 new WhiteCard("Secret Agent Smith");
 new WhiteCard("No lives matter");
-new WhiteCard("Santa isn't real");
 new WhiteCard("Anime is life");
 new WhiteCard("Three posters of myself");
+new WhiteCard("Santa isn't real");
+new WhiteCard("Goku is building a spirit bomb");
+new WhiteCard("The tiny Indian nextdoor");
+new WhiteCard("Three gay men and their dog");
+new WhiteCard("My new book");
+new WhiteCard("Dank memes");
+new WhiteCard("Keep it in the family");
 
 // ---------------------------------------------------
 

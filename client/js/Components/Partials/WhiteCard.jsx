@@ -6,26 +6,19 @@ import {bindActionCreators} from "redux"; // Write
 import updateSelection from "../../actions/updateCardSelection"
 
 class WhiteCard extends Component {
-    static greyCards = [];
-
     static greySettings     = "bg-secondary text-white";
     static default          = ""; 
 
     constructor(props) {
         super(props);
-        this.state = {
-            settings: ""
-        }
     }
 
     updateCounter() {
-        let color = this.color;
-
-        if(color === WhiteCard.greySettings) {
-            WhiteCard.greyCards.push(this);
+        if(this.isGrey()) {
+            console.log("adding");
+            this.props.store.selection.push(this);
         } else {
-            let index = WhiteCard.greyCards.indexOf(this);
-            WhiteCard.greyCards.splice(index, 1);
+             this.props.store.selection = this.props.store.selection.filter(c => c !== this);
         }
     }
 
@@ -38,7 +31,7 @@ class WhiteCard extends Component {
     }
 
     isWithinSelectionLimit() {
-        return WhiteCard.greyCards.length < 2;
+        return this.props.store.selection.length < 2;
     }
 
     isSelectable() {
@@ -46,20 +39,16 @@ class WhiteCard extends Component {
     }
 
     onClick() {
-        this.color = this.state.settings === WhiteCard.greySettings ? WhiteCard.default : WhiteCard.greySettings;
-        if(this.isSelectable() || this.isWhite()) {
-            this.setState({
-                settings: this.color
-            });
+        this.color = this.color === WhiteCard.greySettings ? WhiteCard.default : WhiteCard.greySettings;
+        if(this.isWithinSelectionLimit()) {
             this.updateCounter();
-            this.props.updateSelection(WhiteCard.greyCards);
+            this.props.updateSelection(this);
         }
-    
     }
     
     render() {
         return(
-            <div className={"card border-dark " + this.state.settings} onClick={this.onClick.bind(this)}>
+            <div className={"card border-dark " + this.color} onClick={this.onClick.bind(this)}>
                 <div className="card-body text-center">
                     <p className="card-text">{this.props.text}</p>
                 </div>
@@ -69,7 +58,7 @@ class WhiteCard extends Component {
 }
 
 function read(store) {
-	return{};
+	return{store: store.general};
 }
   
 function write(dispatch) {

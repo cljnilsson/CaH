@@ -39,7 +39,6 @@ function onJoinLobby(test) {
     }
 
     game.addPlayer(test.user);
-    console.log(game.players[0]);
 
     test.all = game.players;
 

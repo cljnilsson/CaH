@@ -28,7 +28,6 @@ class Lobby extends Component {
         let html = "";
 
         if(this.props.store.me !== undefined && this.props.store.me.type === "Judge") {
-            console.log(this.props.store.users.length);
             html = (
                 <div className="row mt-3">
                     <div className="col text-center">
