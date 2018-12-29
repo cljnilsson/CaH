@@ -17,7 +17,7 @@ const turn = {
 	Judge: "Judge"
 }
 
-let user = Math.random().toString(36).substring(7);
+let user = Math.random().toString(36).substring(9);
 
 const standard = {waiting: true, turn: turn.Players, submitted: false, state: GameState.Login, selection: [], users: []};
 const lobby    = {waiting: true, turn: turn.Players, submitted: false, name: user, state: GameState.LobbyList, selection: [], users: []};

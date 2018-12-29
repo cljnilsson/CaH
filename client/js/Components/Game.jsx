@@ -83,19 +83,11 @@ class Game extends Component {
 	}
 
 	get blackCardText() {
-		let lookFor = "___"; // Make sure it matches card format
-		let selection = this.props.store.selection;
-		let fill = this.props.store.cards.blackCards[0].text;
-		if(selection !== undefined) {
-			selection.forEach(function(card) {
-				let index  = fill.indexOf(lookFor);
-				let prefix = fill.substring(0, index);
-				let suffix = fill.substring(index + lookFor.length);
-
-				fill = prefix + card.props.text + suffix;
-			})
-		}
-		return fill;
+		let minimal = [];
+		this.props.store.selection.forEach(c => {
+			minimal.push(c.props.text);
+		});
+		return this.replaceFiller(minimal);
     }
     
     get game() {
@@ -112,11 +104,7 @@ class Game extends Component {
 	get choices() {
 		let all = [];
 		this.props.store.options.forEach(o => {
-			let str = "< ";
-			o.forEach(n => {
-				str += n + " ";
-			});
-			str += ">";
+			let str = <div className="col-5"><BlackCard text={this.replaceFiller(o)}/></div>
 			all.push(str);
 		});
 		return all;
@@ -136,11 +124,27 @@ class Game extends Component {
 			}
 		} else {
 			if(store.turn === "Judge") {
-				return this.choices;
+				return <div className="col"><div className="row text-center justify-content-center pt-3 pb-3">{this.choices}</div></div>
 			} else {
 				return "You are the judge!";
 			}
 		}
+	}
+
+	replaceFiller(fillWith) {
+		let lookFor = "____"; // Make sure it matches card format
+		let selection = fillWith;
+		let fill = this.props.store.cards.blackCards[0].text;
+		if(selection !== undefined) {
+			selection.forEach(function(card) {
+				let index  = fill.indexOf(lookFor);
+				let prefix = fill.substring(0, index);
+				let suffix = fill.substring(index + lookFor.length);
+
+				fill = prefix + card + suffix;
+			})
+		}
+		return fill;
 	}
 
 	onClick() {

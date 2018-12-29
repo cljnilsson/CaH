@@ -25,6 +25,9 @@ function onDisconnect() {
         let game = Game.getByName(user.lobby);
         game.removePlayer(user.user);
         users.delete(this);
+        if(game.players.length === 0) {
+            game.remove();
+        }
 
         io.emit("userLeft", {destination: user.lobby, user: user.user, all: game.players});
     }

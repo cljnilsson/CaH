@@ -63,7 +63,6 @@ class Game {
 
                     next.type = PlayerTypes.Judge;
                     this.judge = next;
-                    console.log(this.judge);
                 } else {
                     this.judge = undefined;
                 }
@@ -80,6 +79,11 @@ class Game {
 
     static getByName(name) {
         return games[name];
+    }
+
+    remove() {
+        delete games[this.name];
+        console.log("Lobby is empty, deleteing game reference!");
     }
 }
 
