@@ -57,11 +57,12 @@ function onChatMessage(test) {
 async function onUseCard(obj) {
     let game = Game.getByName(obj.game);
     let player = game.getPlayer(obj.user);
+    player.selection = obj.cards;
     obj.cards.forEach((card) => player.removeCard(card));
     await player.draw(obj.cards.length);
     game.turn.playerSubmit(player);
     if(game.turn.usersSubmitted === true) {
-        io.emit("judgeTurn", game.name);
+        io.emit("judgeTurn", {options: game.selections, game: game.name});
     }
 
     io.emit("updateCards", {user: obj.user, all: game.players});

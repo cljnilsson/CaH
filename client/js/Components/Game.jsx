@@ -35,13 +35,16 @@ class Game extends Component {
 
 	onNewCards(obj) {
 		console.log(obj);
-		if(this.props.store.me.name === obj.user){
+		if(this.props.store.me.name === obj.user) {
 			this.props.updateCards(obj.all);
 		}
 	}
 
-	onJudgeTurn(game) {
-		if(this.props.store.currentGame === game) {
+	onJudgeTurn(obj) {
+		if(this.props.store.currentGame === obj.game) {
+			if(this.props.store.me.type === "Judge") {
+				this.props.store.options = obj.options;
+			}
 			this.props.updateTurn("Judge");
 		}
 	}
@@ -106,6 +109,19 @@ class Game extends Component {
 		);
 	}
 
+	get choices() {
+		let all = [];
+		this.props.store.options.forEach(o => {
+			let str = "< ";
+			o.forEach(n => {
+				str += n + " ";
+			});
+			str += ">";
+			all.push(str);
+		});
+		return all;
+	}
+
 	get content() {
 		let store = this.props.store;
 		if(store.me.type === "Player") {
@@ -119,7 +135,11 @@ class Game extends Component {
 				}
 			}
 		} else {
-			return "You are the judge!";
+			if(store.turn === "Judge") {
+				return this.choices;
+			} else {
+				return "You are the judge!";
+			}
 		}
 	}
 

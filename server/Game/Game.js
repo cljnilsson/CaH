@@ -22,6 +22,18 @@ class Game {
         return Array.from(this._players.values());
     }
 
+    get selections() {
+        let all = [];
+
+        this.players.forEach(p => {
+            if(p.type !== "Judge") {
+                all.push(p.selection);
+            }
+        });
+
+        return all;
+    }
+
     async generateNewBlackCard() {
         this.blackCard = await Mongo.getXBlackCards(1);
     }
