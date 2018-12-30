@@ -47,6 +47,10 @@ const reducer = function(state=settings.lobby, action) {
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame});
 			return state;
 		}
+		case "JUDGE_CONFIRM": {
+			socket.emit("endTurn", state.judgeSelected);
+			return {...state};
+		}
 		case "UPDATE_TURN": {
 			if(action.value === "Judge") {
 				state.turn = turn.Judge;

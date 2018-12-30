@@ -12,6 +12,7 @@ function onConnection(client) {
     client.on("joinedLobby" , onJoinLobby.bind(client));
     client.on("chatMessage" , onChatMessage.bind(client));
     client.on("usedCards"   , onUseCard.bind(client));
+    client.on("endTurn"     , onEndTurn.bind(client));
 }
 
 function onGameStart(obj) {
@@ -65,8 +66,17 @@ async function onUseCard(obj) {
     await player.draw(obj.cards.length);
     game.turn.playerSubmit(player);
     if(game.turn.usersSubmitted === true) {
-        io.emit("judgeTurn", {options: game.selections, game: game.name});
+        console.log(game.selections);
+        let owners = [];
+        game.selections.forEach(s => {
+            owners.push(s.owner);
+        });
+        io.emit("judgeTurn", {owners: owners, options: game.selections, game: game.name});
     }
 
     io.emit("updateCards", {user: obj.user, all: game.players});
+}
+
+function onEndTurn(winner) {
+    console.log(`${winner} won the round!`);
 }

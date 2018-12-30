@@ -27,7 +27,9 @@ class Game {
 
         this.players.forEach(p => {
             if(p.type !== "Judge") {
-                all.push(p.selection);
+                let selection = p.selection;
+                selection["owner"] = p.name;
+                all.push(selection);
             }
         });
 

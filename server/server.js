@@ -83,7 +83,7 @@ class Server {
     async startup() {
         server.listen(this.port);
         console.log(`started on port ${this.port}`);
-        opn(`http://localhost:${this.port}`);
+        //opn(`http://localhost:${this.port}`);
         await this.setupPublicPreview();
         console.log("Public url: " + this.url);
     }

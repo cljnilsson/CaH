@@ -15,8 +15,11 @@ import loadedCardsAction from "../actions/recievedCards"
 import confirmSelection from "../actions/confirmCardSelection"
 import updateCards from "../actions/updateCards";
 import updateTurn from "../actions/updateTurn";
+import endTurn from "../actions/judgeConfirm";
 
 class Game extends Component {
+	static confirmButton = "btn btn-lg btn-outline-light";
+
     constructor(props) {
         super(props);
 		this.getCards();
@@ -34,7 +37,6 @@ class Game extends Component {
 	}
 
 	onNewCards(obj) {
-		console.log(obj);
 		if(this.props.store.me.name === obj.user) {
 			this.props.updateCards(obj.all);
 		}
@@ -44,6 +46,7 @@ class Game extends Component {
 		if(this.props.store.currentGame === obj.game) {
 			if(this.props.store.me.type === "Judge") {
 				this.props.store.options = obj.options;
+				this.props.store.optionOwners = obj.owners;
 			}
 			this.props.updateTurn("Judge");
 		}
@@ -53,7 +56,7 @@ class Game extends Component {
 		return(
 		<div className="row">
 			<div className="col text-center mb-3">
-				<button className="btn btn-lg btn-outline-light mt-5" onClick={this.onClick.bind(this)}>Confirm</button>
+				<button className={Game.confirmButton + " mt-5"} onClick={this.onClick.bind(this)}>Confirm</button>
 			</div>
 		</div>);
 	}
@@ -76,7 +79,7 @@ class Game extends Component {
 		return(
 			<div className="row text-center justify-content-center pt-3 pb-3">
 				<div className="col-5">
-					<BlackCard text={this.blackCardText}/>
+					<BlackCard selectable={false} text={this.blackCardText}/>
 				</div>
 			</div> 
 		);
@@ -103,8 +106,8 @@ class Game extends Component {
 
 	get choices() {
 		let all = [];
-		this.props.store.options.forEach(o => {
-			let str = <div className="col-5"><BlackCard text={this.replaceFiller(o)}/></div>
+		this.props.store.options.forEach((o, i) => {
+			let str = <div className="col-5"><BlackCard owner={this.props.store.optionOwners[i]} selectable={true} text={this.replaceFiller(o)}/></div>
 			all.push(str);
 		});
 		return all;
@@ -124,7 +127,16 @@ class Game extends Component {
 			}
 		} else {
 			if(store.turn === "Judge") {
-				return <div className="col"><div className="row text-center justify-content-center pt-3 pb-3">{this.choices}</div></div>
+				return(
+					<div className="col">
+						<div className="row text-center justify-content-center pt-3 pb-3">
+							{this.choices}
+						</div>
+						<div className="row text-center">
+							<button className={Game.confirmButton} onClick={this.onJudgeConfirm.bind(this)}>Confirm</button>
+						</div>
+					</div>
+				);
 			} else {
 				return "You are the judge!";
 			}
@@ -145,6 +157,10 @@ class Game extends Component {
 			})
 		}
 		return fill;
+	}
+
+	onJudgeConfirm() {
+		this.props.endTurn();
 	}
 
 	onClick() {
@@ -179,6 +195,7 @@ function write(dispatch) {
 		cardsFinishedLoading: loadedCardsAction,
 		confirmSelection: confirmSelection,
 		updateTurn: updateTurn,
+		endTurn: endTurn,
 		updateCards: updateCards
 	}, dispatch);
 }

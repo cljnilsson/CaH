@@ -4,12 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "node server/Routes/routes.js",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run build\"",
+    "server": "nodemon server/Routes/routes.js",
+    "start": "concurrently --kill-others-on-fail \"npm run build\" \"npm run server\"",
     "build": "node_modules/.bin/webpack --config webpack.config.js --mode production"
   },
   "author": "",
   "license": "ISC",
+  "nodemonConfig": {
+    "ignore": ["client/", "public/"],
+    "delay": "1000"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
@@ -28,6 +32,7 @@
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^2.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.9",
     "style-loader": "^0.23.1",
     "webpack": "^4.27.1",
     "webpack-cli": "^3.1.2",

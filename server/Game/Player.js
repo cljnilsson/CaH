@@ -33,7 +33,6 @@ class Player {
         let current = this.hand;
         let updated = current.filter((value) => value.text != text);
         console.log("REMOVING: " + text);
-        console.log(this.hand);
         this._hand.set(0, updated);
         this.cards = this.hand;
     }
