@@ -15,6 +15,7 @@ import loadedCardsAction from "../actions/recievedCards"
 import confirmSelection from "../actions/confirmCardSelection"
 import updateCards from "../actions/updateCards";
 import updateTurn from "../actions/updateTurn";
+import newTurn from "../actions/newTurn";
 import endTurn from "../actions/judgeConfirm";
 
 class Game extends Component {
@@ -25,8 +26,10 @@ class Game extends Component {
 		this.getCards();
 		this.onNewCards = this.onNewCards.bind(this);
 		this.onJudgeTurn = this.onJudgeTurn.bind(this);
+		this.onNewTurn = this.onNewTurn.bind(this);
 		socket.on("updateCards", this.onNewCards);
 		socket.on("judgeTurn", this.onJudgeTurn);
+		socket.on("newTurn", this.onNewTurn);
 	}
 
     async getCards() {
@@ -49,6 +52,12 @@ class Game extends Component {
 				this.props.store.optionOwners = obj.owners;
 			}
 			this.props.updateTurn("Judge");
+		}
+	}
+
+	onNewTurn(obj) {
+		if(obj.game === this.props.store.currentGame) {
+			this.props.newTurn(obj.all);
 		}
 	}
 
@@ -196,6 +205,7 @@ function write(dispatch) {
 		confirmSelection: confirmSelection,
 		updateTurn: updateTurn,
 		endTurn: endTurn,
+		newTurn: newTurn,
 		updateCards: updateCards
 	}, dispatch);
 }

@@ -89,4 +89,5 @@ function onEndTurn(obj) {
         update player roles
     */
     game.endTurn();
+    io.emit("newTurn", {game: obj.game, all: game.players});
 }

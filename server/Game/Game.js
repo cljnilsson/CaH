@@ -40,9 +40,9 @@ class Game {
         return all;
     }
 
-    getNextJudge(p) {
+    get nextJudge() {
         let arr = this.players;
-        let index = arr.indexOf(p) + 1;
+        let index = arr.indexOf(this.judge) + 1;
         let next;
         if(index < this.players.length) {
             next = arr[index];
@@ -52,7 +52,7 @@ class Game {
         return next;
     }
 
-    setNextJudge(value) {
+    set nextJudge(value) {
         value.type = PlayerTypes.Judge;
         this.judge = value;
     }
@@ -64,7 +64,7 @@ class Game {
     endTurn() {
         this.turn = new Turn(this);
         this.judge.type = "Player";
-        this.setNextJudge(this.getNextJudge(this.judge));
+        this.nextJudge = this.nextJudge;
         console.log(this.judge);
         console.log("---")
         console.log(this.players);
@@ -88,7 +88,7 @@ class Game {
         switch(p.type) {
             case PlayerTypes.Judge:
                 if(this._players.size > 1) {
-                    this.setNextJudge(this.getNextJudge(p));
+                    this.nextJudge = this.nextJudge;
                 } else {
                     this.judge = undefined;
                 }

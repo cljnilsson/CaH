@@ -51,6 +51,16 @@ const reducer = function(state=settings.lobby, action) {
 			socket.emit("endTurn", {game: state.currentGame, selection: state.judgeSelected});
 			return {...state};
 		}
+		case "NEW_TURN": {
+			state.users = action.value;
+			state.judge = state.users.filter(u => u.type === "Judge")[0];
+			state.players = state.users.filter(u => u.type !== "Judge");
+			state.me = state.users.filter(u => u.name === state.me.name)[0];
+			state.submitted = false;
+			state.turn = turn.Players;
+			state.selection = [];
+			return {...state};
+		}
 		case "UPDATE_TURN": {
 			if(action.value === "Judge") {
 				state.turn = turn.Judge;
