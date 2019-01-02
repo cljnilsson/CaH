@@ -20,7 +20,6 @@ class Turn {
 
     hasAllPlayersSubmitted() {
         let check = true;
-
         this.players.forEach(p => {
             if(this.hasPlayerSubmitted(p) === false) {
                 check = false;

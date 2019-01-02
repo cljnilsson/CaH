@@ -48,7 +48,7 @@ const reducer = function(state=settings.lobby, action) {
 			return state;
 		}
 		case "JUDGE_CONFIRM": {
-			socket.emit("endTurn", state.judgeSelected);
+			socket.emit("endTurn", {game: state.currentGame, selection: state.judgeSelected});
 			return {...state};
 		}
 		case "UPDATE_TURN": {

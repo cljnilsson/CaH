@@ -77,6 +77,16 @@ async function onUseCard(obj) {
     io.emit("updateCards", {user: obj.user, all: game.players});
 }
 
-function onEndTurn(winner) {
-    console.log(`${winner} won the round!`);
+function onEndTurn(obj) {
+    console.log(`@${obj.game} ${obj.selection} won the round!`);
+
+    let game = Game.getByName(obj.game);
+    // IMPLEMENT THIS FUNCTION
+    /*
+        add points
+        destroy current turn
+        make new turn
+        update player roles
+    */
+    game.endTurn();
 }

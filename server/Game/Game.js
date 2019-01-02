@@ -22,6 +22,10 @@ class Game {
         return Array.from(this._players.values());
     }
 
+    set players(value) {
+        this._players = new Map(value);
+    }
+
     get selections() {
         let all = [];
 
@@ -36,8 +40,34 @@ class Game {
         return all;
     }
 
+    getNextJudge(p) {
+        let arr = this.players;
+        let index = arr.indexOf(p) + 1;
+        let next;
+        if(index < this.players.length) {
+            next = arr[index];
+        } else {
+            next = arr[0];
+        }
+        return next;
+    }
+
+    setNextJudge(value) {
+        value.type = PlayerTypes.Judge;
+        this.judge = value;
+    }
+
     async generateNewBlackCard() {
         this.blackCard = await Mongo.getXBlackCards(1);
+    }
+
+    endTurn() {
+        this.turn = new Turn(this);
+        this.judge.type = "Player";
+        this.setNextJudge(this.getNextJudge(this.judge));
+        console.log(this.judge);
+        console.log("---")
+        console.log(this.players);
     }
 
     addPlayer(name) {
@@ -58,13 +88,7 @@ class Game {
         switch(p.type) {
             case PlayerTypes.Judge:
                 if(this._players.size > 1) {
-                    let arr = this.players;
-                    let index = arr.indexOf(p);
-
-                    let next = arr[index + 1];
-
-                    next.type = PlayerTypes.Judge;
-                    this.judge = next;
+                    this.setNextJudge(this.getNextJudge(p));
                 } else {
                     this.judge = undefined;
                 }
