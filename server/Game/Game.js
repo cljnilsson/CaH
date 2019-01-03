@@ -65,9 +65,6 @@ class Game {
         this.turn = new Turn(this);
         this.judge.type = "Player";
         this.nextJudge = this.nextJudge;
-        console.log(this.judge);
-        console.log("---")
-        console.log(this.players);
     }
 
     addPlayer(name) {

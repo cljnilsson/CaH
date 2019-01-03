@@ -81,13 +81,15 @@ function onEndTurn(obj) {
     console.log(`@${obj.game} ${obj.selection} won the round!`);
 
     let game = Game.getByName(obj.game);
-    // IMPLEMENT THIS FUNCTION
-    /*
-        add points
-        destroy current turn
-        make new turn
-        update player roles
-    */
+    let p = game.getPlayer(obj.selection);
+    p.points += 1;
+    if(p.points >  1) {
+        console.log("GAME OVER!");
+        // SEND GAME OVER TO CLIENTS
+        // Don't destroy game instance to maintain chat and endscreen.
+    }
+
     game.endTurn();
+
     io.emit("newTurn", {game: obj.game, all: game.players});
 }

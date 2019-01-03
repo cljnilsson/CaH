@@ -4,6 +4,7 @@ class Player {
     constructor(name, type) {
         this.name = name;
         this.type = type;
+        this.points = 0;
         this._hand = new Map();
         this.cards = []; // Specially made for React Client since socket.io cannot transports Map and hand getters does not get included
 
