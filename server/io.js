@@ -85,8 +85,7 @@ function onEndTurn(obj) {
     p.points += 1;
     if(p.points >  1) {
         console.log("GAME OVER!");
-        // SEND GAME OVER TO CLIENTS
-        // Don't destroy game instance to maintain chat and endscreen.
+        io.emit("gameOver", {game: game.name, winner: obj.selection});
     }
 
     game.endTurn();

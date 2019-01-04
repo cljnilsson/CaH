@@ -18,6 +18,7 @@ import updateCards from "../actions/updateCards";
 import updateTurn from "../actions/updateTurn";
 import newTurn from "../actions/newTurn";
 import endTurn from "../actions/judgeConfirm";
+import gameOver from "../actions/gameOver";
 
 class Game extends Component {
 	static confirmButton = "btn btn-lg btn-outline-light";
@@ -28,9 +29,11 @@ class Game extends Component {
 		this.onNewCards = this.onNewCards.bind(this);
 		this.onJudgeTurn = this.onJudgeTurn.bind(this);
 		this.onNewTurn = this.onNewTurn.bind(this);
+		this.onGameOver = this.onGameOver.bind(this);
 		socket.on("updateCards", this.onNewCards);
 		socket.on("judgeTurn", this.onJudgeTurn);
 		socket.on("newTurn", this.onNewTurn);
+		socket.on("gameOver", this.onGameOver);
 	}
 
     async getCards() {
@@ -59,6 +62,12 @@ class Game extends Component {
 	onNewTurn(obj) {
 		if(obj.game === this.props.store.currentGame) {
 			this.props.newTurn(obj.all);
+		}
+	}
+
+	onGameOver(obj) {
+		if(obj.game === this.props.store.currentGame) {
+			this.props.gameOver(obj.winner);
 		}
 	}
 
@@ -183,7 +192,9 @@ class Game extends Component {
     render() {
         if(this.props.store.waiting !== false) {
             return "Loading..";
-        } else {
+        } else if(this.props.store.state === "GameOver") {
+			return `${this.props.store.winner} won the game!`;
+		} else {
             return(
                 <div className="text-center">
                     <div className="row border-bottom pb-3">
@@ -208,6 +219,7 @@ function write(dispatch) {
 		updateTurn: updateTurn,
 		endTurn: endTurn,
 		newTurn: newTurn,
+		gameOver: gameOver,
 		updateCards: updateCards
 	}, dispatch);
 }

@@ -9,7 +9,8 @@ const GameState = {
 	Lobby: "Lobby",
 	Login: "Login",
 	LobbyList: "LobbyList",
-	Game: "Game"
+	Game: "Game",
+	GameOver: "GameOver"
 };
 
 const turn = {
@@ -49,6 +50,11 @@ const reducer = function(state=settings.lobby, action) {
 		}
 		case "JUDGE_CONFIRM": {
 			socket.emit("endTurn", {game: state.currentGame, selection: state.judgeSelected});
+			return {...state};
+		}
+		case "GAME_OVER": {
+			state.state = GameState.GameOver;
+			state.winner = action.value;
 			return {...state};
 		}
 		case "NEW_TURN": {

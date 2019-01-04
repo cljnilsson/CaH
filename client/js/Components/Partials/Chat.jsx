@@ -78,10 +78,11 @@ class Chat extends Component {
 
         this.state.messages.forEach(function(obj, i, arr) {
             let text;
+            let ref = arr.length -1 === i ? this.lastMessage : "";
             if(obj.user) {
-                text = <p ref={arr.length -1 === i ? this.lastMessage : ""} className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
+                text = <p ref={ref} className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
             } else {
-                text = <p className="mb-0" ref={arr.length -1 === i ? this.lastMessage : ""}>{obj.text}</p>;
+                text = <p className="mb-0" ref={ref}>{obj.text}</p>;
             }
             all.push(text)
         }.bind(this));
