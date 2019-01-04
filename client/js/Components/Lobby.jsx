@@ -50,7 +50,7 @@ class Lobby extends Component {
                 <div className="text-center border-bottom">
                     <h3>{this.props.store.currentGame}</h3>
                 </div>
-                <Chat/>
+                <Chat bundleUsers={true} />
                 {this.buttonIfHost()}
             </div>
         );

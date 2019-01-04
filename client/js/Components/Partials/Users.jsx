@@ -8,7 +8,25 @@ class Users extends Component {
 		for(let i = 0; i < this.props.store.users.length; i++) {
 			let u = this.props.store.users[i];
 			let prefix = u.type === "Judge" ? "(" + u.type + ") " : "";
-			users.push(<p>{prefix}{u.name}</p>)
+			users.push(
+			<div className="row">
+				<div className="col">
+					<div className="row">
+						<div className="col text-center">
+							{u.name}
+						</div>
+					</div>
+					<div className="row">
+						<div className="col">
+							{prefix}
+						</div>
+						<div className="col text-right">
+							{u.points}
+						</div>
+					</div>
+				</div>
+			</div>
+			);
 		}
         return(
             <div className="col-2 text-center border-right">

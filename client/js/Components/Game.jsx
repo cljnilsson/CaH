@@ -9,6 +9,7 @@ import socket from "../Libs/io";
 import BlackCard from "./Partials/BlackCard";
 import WhiteCard from "./Partials/WhiteCard";
 import Users     from "./Partials/Users";
+import Chat      from "./Partials/Chat";
 
 // Actions
 import loadedCardsAction from "../actions/recievedCards"
@@ -185,10 +186,11 @@ class Game extends Component {
         } else {
             return(
                 <div className="text-center">
-                    <div className="row">
+                    <div className="row border-bottom pb-3">
                         <Users/>
-                        {this.content}
+						{this.content}
                     </div>
+					<Chat minified={true}/>
                 </div>
             );
         }

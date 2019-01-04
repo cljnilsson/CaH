@@ -37,7 +37,12 @@ nav {
 
 .chat {
     height: 500px;
-    overflow-y: auto;
+    overflow-y: scroll;
+}
+
+.miniChat {
+    height: 150px;
+    overflow-y: scroll;
 }
 
 

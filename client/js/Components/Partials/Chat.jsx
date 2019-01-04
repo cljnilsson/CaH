@@ -14,6 +14,7 @@ class Chat extends Component {
     constructor() {
         super();
         this.nameRef = React.createRef();
+        this.lastMessage = React.createRef();
         this.state = {};
         this.state.messages = [];
 
@@ -75,25 +76,39 @@ class Chat extends Component {
     chatMessages() {
         let all = [];
 
-        this.state.messages.forEach(function(obj) {
+        this.state.messages.forEach(function(obj, i, arr) {
             let text;
             if(obj.user) {
-                text = <p className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
+                text = <p ref={arr.length -1 === i ? this.lastMessage : ""} className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
             } else {
-                text = <p className="mb-0">{obj.text}</p>;
+                text = <p className="mb-0" ref={arr.length -1 === i ? this.lastMessage : ""}>{obj.text}</p>;
             }
             all.push(text)
-        });
+        }.bind(this));
 
         return all;
     }
 
+    scrollToBottom = () => {
+        if(this.lastMessage.current != null) {
+            this.lastMessage.current.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+      
+      componentDidMount() {
+        this.scrollToBottom();
+      }
+      
+      componentDidUpdate() {
+        this.scrollToBottom();
+      }
+
     render() {
         return (
             <div className="row">
-                <Users/>
+                {this.props.bundleUsers === true ? <Users/> : ""}
                 <div className="col">
-                    <div className="chat">
+                    <div className={(this.props.minified === true ? "miniChat" : "chat") + " text-left"}>
                         {this.chatMessages()}
                     </div>
                     <div className="row">
