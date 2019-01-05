@@ -48,9 +48,9 @@ app.get("/lobby", async function(req, res) {
 app.post("/lobby", async function(req, res) {
     check = req.body.name && req.body.host && req.body.max;
     console.log(req.body);
-    if(check) {
+    /*if(check) {
         console.log("doing it");
         new Lobby(req.body.name, req.body.host, req.body.max);
-    }
+    }*/
     res.sendStatus(check === true ? 200 : 400);
 });

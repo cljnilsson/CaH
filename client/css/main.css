@@ -37,14 +37,17 @@ nav {
 
 .chat {
     height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .miniChat {
     height: 150px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
+.modal-backdrop {
+    z-index: -1;
+}
 
 #bg { 
     position: fixed;

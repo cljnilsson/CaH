@@ -5,7 +5,7 @@ import {bindActionCreators} from "redux"; // Write
 import {Get} from "../Libs/Request";
 
 import LobbyEntry from "./Partials/LobbyEntry"
-
+import Modal from "./Partials/Modal";
 import joinLobby from "../actions/joiningLobby"
 
 class LobbyList extends Component {
@@ -40,6 +40,11 @@ class LobbyList extends Component {
             <div>
                 <h3 className="border-bottom text-center pb-1 mb-1">Lobbies</h3>
                 {this.state.lobbies === [] ? <p>Loading</p> : this.state.lobbies}
+                <div className="row">
+                    <div className="col text-right">
+                        <button className="btn btn-outline-light" data-toggle="modal" data-target="#makeLobby">Make Lobby</button>
+                    </div>
+                </div>
             </div>
         );
     }

@@ -11,7 +11,10 @@
   "author": "",
   "license": "ISC",
   "nodemonConfig": {
-    "ignore": ["client/", "public/"],
+    "ignore": [
+      "client/",
+      "public/"
+    ],
     "delay": "1000"
   },
   "devDependencies": {
@@ -53,6 +56,7 @@
     "ngrok": "^3.0.1",
     "opn": "^5.4.0",
     "react": "^16.6.3",
+    "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

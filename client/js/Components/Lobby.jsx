@@ -47,11 +47,18 @@ class Lobby extends Component {
     render() {
         return (
             <div>
-                <div className="text-center border-bottom">
-                    <h3>{this.props.store.currentGame}</h3>
+                <div className="row border-bottom">
+                    <div className="col text-center">
+                        <h3>{this.props.store.currentGame}</h3>
+                    </div>
                 </div>
-                <Chat bundleUsers={true} />
-                {this.buttonIfHost()}
+                <div className="row pl-1 pt-2">
+                    <Users/>
+                    <div className="col">
+                        <Chat/>
+                        {this.buttonIfHost()}
+                    </div>
+                </div>
             </div>
         );
     }

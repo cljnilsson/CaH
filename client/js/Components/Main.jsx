@@ -8,6 +8,9 @@ import LobbyList from "./LobbyList";
 import Lobby     from "./Lobby";
 import Game      from "./Game";
 
+import Modal     from "./Partials/Modal";
+import LobbyModal from "./Partials/LobbyModal";
+
 class App extends Component {
 	constructor(props) {
 		super(props);
@@ -38,6 +41,7 @@ class App extends Component {
 						{this.content}
 					</div>
 				</div>
+				<Modal id="makeLobby" title="Create Lobby" body={LobbyModal}/>
 			</div>
 		);
 	}
