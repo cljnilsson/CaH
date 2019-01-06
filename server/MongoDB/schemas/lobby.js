@@ -5,6 +5,7 @@ const cardSchema = new Schema({
     current: String,
     max: String,
     host: String,
+    permanent: Boolean,
     name: String
 });
 

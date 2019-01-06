@@ -3,6 +3,7 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 import {Get} from "../Libs/Request";
+import socket from "../Libs/io";
 
 import LobbyEntry from "./Partials/LobbyEntry"
 import Modal from "./Partials/Modal";
@@ -13,13 +14,19 @@ class LobbyList extends Component {
         super();
         this.getLobbies();
         this.state = {lobbies: []};
-    }
-    
-    async getLobbies() {
-        let lobbies = await new Get("/lobby").send();
-        lobbies = await lobbies.json();
-        lobbies = lobbies.lobbies;
+        
+        this.onNewLobby = this.onNewLobby.bind(this);
 
+        socket.on("newLobby", this.onNewLobby);
+    }
+
+    onNewLobby(lobbies) {
+        this.props.store.lobbies = lobbies.all;
+        this.lobbiesToHTML(lobbies.all);
+
+    }
+
+    lobbiesToHTML(lobbies) {
         let elementLobbies = [];
         for(let i = 0; i < lobbies.length; i++) {
             let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
@@ -33,6 +40,15 @@ class LobbyList extends Component {
         this.setState(function() {
             return {lobbies: elementLobbies};
         })
+    }
+    
+    async getLobbies() {
+        let lobbies = await new Get("/lobby").send();
+        lobbies = await lobbies.json();
+        this.props.store.lobbies = lobbies;
+        lobbies = lobbies.lobbies;
+
+        this.lobbiesToHTML(lobbies);
     }
 
     render() {
@@ -51,7 +67,7 @@ class LobbyList extends Component {
 }
 
 function read(store) {
-	return{};
+	return{store: store.general};
 }
   
 function write(dispatch) {

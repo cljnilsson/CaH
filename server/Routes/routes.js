@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Mongo    = require("../MongoDB/mongo")
 const app = require("../server.js").a;
 const Game = require("../Game/Game");
+const schemas = require("../MongoDB/schemas/schemas");
 const io  = require("../io"); //required
 
 
@@ -27,14 +28,23 @@ app.get("/:game/:player/cards", async function(req, res) {
 // ---------------------
 
 class Lobby {
-    constructor(name, host, max) {
+    constructor(name, host, max, permanent = false) {
+        this.name = name;
+        this.host = host;
+        this.max = max;
+        this.permanent = permanent;
+        this.make();
+    }
+    async make() {
         let Schema = mongoose.model("Lobbies", schemas.get("lobby"));
-        new Schema({
-            max: max,
-            host: host,
-            name: name,
+        await new Schema({
+            max: this.max,
+            host: this.host,
+            name: this.name,
+            permanent: this.permanent,
             current: 1
         }).save();
+        io.emit("newLobby",{all: await Mongo.getLobbies()})
     }
 }
 

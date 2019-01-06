@@ -50,7 +50,7 @@ new WhiteCard("The tiny Indian nextdoor");
 new WhiteCard("Three gay men and their dog");
 new WhiteCard("My new book");
 new WhiteCard("Dank memes");
-new WhiteCard("Keep it in the family");
+new WhiteCard("Keeping it in the family");
 
 // ---------------------------------------------------
 

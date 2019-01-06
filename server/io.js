@@ -92,3 +92,5 @@ function onEndTurn(obj) {
 
     io.emit("newTurn", {game: obj.game, all: game.players});
 }
+
+module.exports = io;

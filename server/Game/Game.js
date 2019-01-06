@@ -105,6 +105,7 @@ class Game {
     }
 
     remove() {
+        Mongo.deleteLobby(this.name);
         delete games[this.name];
         console.log("Lobby is empty, deleteing game reference!");
     }

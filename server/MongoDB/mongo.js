@@ -33,6 +33,15 @@ class Mongo {
     static async getLobbies() {
         return await mongoose.model("lobbies", schemas.get("lobby")).find({});
     }
+
+    static async deleteLobby(name) {
+        let lobbies = mongoose.model("lobbies", schemas.get("lobby"));
+        let found = await lobbies.find({name: name});
+        found = found[0]; // Does not work to put [0] at above line for some reason
+        if(found.permanent !== true) {
+            lobbies.deleteMany({name: name}, err => true);
+        }
+    }
 }
 
 module.exports = Mongo;
