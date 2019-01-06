@@ -17,8 +17,22 @@ export class Get extends Request{
     }
 }
 
-export class Post {
+export class Post extends Request{
+    get data() {
+        return this._data;
+    }
+    set data(value) {
+        this._data = value;
+    }
 
+    send() {
+        console.log(this.data);
+        fetch(url + this.uri, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(this.data)
+        });
+    }
 }
 
 export default Request;

@@ -86,8 +86,8 @@ const reducer = function(state=settings.lobby, action) {
 			state.me = action.value.filter(function(value) {
 				return value.name == state.name;
 			})[0];
-			state.users = action.value;
-			state.judge = state.users.filter(u => u.type === "Judge")[0];
+			state.users   = action.value;
+			state.judge   = state.users.filter(u => u.type === "Judge")[0];
 			state.players = state.users.filter(u => u.type !== "Judge");
 			return {...state};
 		}

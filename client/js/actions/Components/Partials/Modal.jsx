@@ -2,8 +2,16 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import LobbyModal from "./LobbyModal";
+
 class Modal extends Component {
     render() {
+        let Body;
+        switch(this.props.body) {
+            case "Lobby": {
+                Body = LobbyModal;
+            }
+        }
         return (
             <div class="modal fade" id="makeLobby" tabindex="-1" role="dialog" aria-labelledby="makeLobby" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -15,7 +23,7 @@ class Modal extends Component {
                     </button>
                 </div>
                 <div class="modal-body">
-                    {this.props.body}
+                    <Body/>
                 </div>
                 </div>
             </div>
