@@ -7,13 +7,13 @@ import socket from "../Libs/io";
 
 import LobbyEntry from "./Partials/LobbyEntry"
 import Modal from "./Partials/Modal";
-import joinLobby from "../actions/joiningLobby"
+import joinLobby from "../actions/joiningLobby";
+import updateLobby from "../actions/updateLobby";
 
 class LobbyList extends Component {
     constructor() {
         super();
         this.getLobbies();
-        this.state = {lobbies: []};
         
         this.onNewLobby = this.onNewLobby.bind(this);
 
@@ -21,12 +21,12 @@ class LobbyList extends Component {
     }
 
     onNewLobby(lobbies) {
-        this.props.store.lobbies = lobbies.all;
-        this.lobbiesToHTML(lobbies.all);
-
+        this.props.updateLobby(lobbies.all);
     }
 
-    lobbiesToHTML(lobbies) {
+    get lobbiesToHTML() {
+        let lobbies = this.props.store.lobbies;
+        console.log(lobbies);
         let elementLobbies = [];
         for(let i = 0; i < lobbies.length; i++) {
             let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
@@ -37,25 +37,22 @@ class LobbyList extends Component {
             );
         }
 
-        this.setState(function() {
-            return {lobbies: elementLobbies};
-        })
+        return elementLobbies;
     }
     
     async getLobbies() {
         let lobbies = await new Get("/lobby").send();
         lobbies = await lobbies.json();
-        this.props.store.lobbies = lobbies;
         lobbies = lobbies.lobbies;
-
-        this.lobbiesToHTML(lobbies);
+        console.log(lobbies);
+        this.props.updateLobby(lobbies);
     }
 
     render() {
         return(
             <div>
-                <h3 className="border-bottom text-center pb-1 mb-1">Lobbies</h3>
-                {this.state.lobbies === [] ? <p>Loading</p> : this.state.lobbies}
+                <h3 className="border-bottom text-center pb- mb-1">Lobbies</h3>
+                {this.props.store.lobbies === [] ? <p>Loading</p> : <div className="pt-1">{this.lobbiesToHTML}</div>}
                 <div className="row">
                     <div className="col text-right">
                         <button className="btn btn-outline-light" data-toggle="modal" data-target="#makeLobby">Make Lobby</button>
@@ -72,7 +69,8 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-        joinLobby: joinLobby
+        joinLobby: joinLobby,
+        updateLobby: updateLobby
 	}, dispatch);
 }
 

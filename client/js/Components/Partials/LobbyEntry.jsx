@@ -12,7 +12,7 @@ class LobbyEntry extends Component {
 
     render() {
         return (
-            <div className="container justify-content-center">
+            <div className="justify-content-center">
                 <div className="row animated fadeIn">
                     <div className="col align-self-center text-right font-weight-bold">
                         <span>{this.props.title}</span>

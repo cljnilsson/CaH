@@ -20,8 +20,8 @@ const turn = {
 
 let user = Math.random().toString(36).substring(9);
 
-const standard = {waiting: true, turn: turn.Players, submitted: false, state: GameState.Login, selection: [], users: []};
-const lobby    = {waiting: true, turn: turn.Players, submitted: false, name: user, state: GameState.LobbyList, selection: [], users: []};
+const standard = {waiting: true, lobbies: [], turn: turn.Players, submitted: false, state: GameState.Login, selection: [], users: []};
+const lobby    = {waiting: true, lobbies: [], turn: turn.Players, submitted: false, name: user, state: GameState.LobbyList, selection: [], users: []};
 
 const settings = {
 	standard: standard,
@@ -95,6 +95,10 @@ const reducer = function(state=settings.lobby, action) {
 			state.state = GameState.Lobby;
 			state.currentGame = action.value;
 			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
+			return {...state};
+		}
+		case "UPDATE_LOBBY": {
+			state.lobbies = action.value;
 			return {...state};
 		}
 		case "CARDS_LOADED": {

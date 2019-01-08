@@ -14,9 +14,19 @@ function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
 
+class Model {
+    static get lobbies() {
+        return mongoose.model("lobbies", schemas.get("lobby"));
+    }
+
+    static get cards() {
+        return mongoose.model("cards", schemas.get("cards"));
+    }
+}
+
 class Mongo {
     static async getXCards(num, filter) {
-        let cards = mongoose.model("cards", schemas.get("cards"));
+        let cards = Model.cards;
         let max = cards.countDocuments(filter);
         let rng = getRandomArbitrary(0, await max - num);
         return cards.find(filter, "text type").skip(rng).limit(num);
@@ -35,7 +45,7 @@ class Mongo {
     }
 
     static async deleteLobby(name) {
-        let lobbies = mongoose.model("lobbies", schemas.get("lobby"));
+        let lobbies = Model.lobbies;
         let found = await lobbies.find({name: name});
         found = found[0]; // Does not work to put [0] at above line for some reason
         if(found.permanent !== true) {
