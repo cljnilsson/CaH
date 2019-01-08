@@ -30,10 +30,11 @@ class LobbyList extends Component {
         let elementLobbies = [];
         for(let i = 0; i < lobbies.length; i++) {
             let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
+            let full = lobbies[i].current >= lobbies[i].max;
             let name  = lobbies[i].name;
 
             elementLobbies.push(
-                <LobbyEntry name={name} title={title}/>
+                <LobbyEntry name={name} title={title} full={full}/>
             );
         }
 

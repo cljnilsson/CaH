@@ -10,6 +10,14 @@ class LobbyEntry extends Component {
         this.props.joinLobby(this.props.name);
     }
 
+    get button() {
+        if(this.props.full === true) {
+            return "";
+        } else {
+            return <button className="btn-sm btn-outline-light" onClick={this.onClick.bind(this)}>Join Game</button>;
+        }
+    }
+
     render() {
         return (
             <div className="justify-content-center">
@@ -18,7 +26,7 @@ class LobbyEntry extends Component {
                         <span>{this.props.title}</span>
                     </div>
                     <div className="col align-self-center text-left pl-0">
-                        <button className="btn-sm btn-outline-light" onClick={this.onClick.bind(this)}>Join Game</button>
+                        {this.button}
                     </div>
                 </div>
             </div>

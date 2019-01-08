@@ -52,6 +52,34 @@ class Mongo {
             lobbies.deleteMany({name: name}, err => true);
         }
     }
+
+    static async modifyCurrentCount(name, num) {
+        let model = Model.lobbies;
+        let data = await model.findOne({name: name});
+        data.current = parseInt(data.current) + num;
+        await data.save();
+        return data;
+    }
+
+    static async addCurrentCount(name) {
+        return await this.modifyCurrentCount(name, 1);
+    }
+
+    static async removeCurrentCount(name) {
+        return await this.modifyCurrentCount(name, -1);
+    }
+
+    static async resetRooms() {
+        let model = Model.lobbies;
+        let data = await model.find({});
+        data.forEach(lobby => {
+            lobby.current = "0";
+            lobby.save();
+        });
+
+    }
 }
+
+Mongo.resetRooms();
 
 module.exports = Mongo;

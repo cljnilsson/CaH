@@ -33,18 +33,18 @@ class Lobby {
         this.host = host;
         this.max = max;
         this.permanent = permanent;
-        this.make();
     }
     async make() {
         let Schema = mongoose.model("Lobbies", schemas.get("lobby"));
-        await new Schema({
+        let s = await new Schema({
             max: this.max,
             host: this.host,
             name: this.name,
             permanent: this.permanent,
-            current: 1
+            current: 0
         }).save();
-        io.emit("newLobby",{all: await Mongo.getLobbies()})
+        io.emit("newLobby",{all: await Mongo.getLobbies()});
+        return s;
     }
 }
 
@@ -61,7 +61,7 @@ app.post("/lobby", async function(req, res) {
     console.log(req.body);
     if(check) {
         console.log("doing it");
-        new Lobby(req.body.name, req.body.host, req.body.max);
+        await new Lobby(req.body.name, req.body.host, req.body.max).make();
     }
     res.sendStatus(check ? 200 : 400);
 });
