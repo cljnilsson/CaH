@@ -14,7 +14,10 @@ class LobbyList extends Component {
     constructor() {
         super();
         this.getLobbies();
+        this.state = {filter: ""};
         
+        this.input = React.createRef();
+
         this.onNewLobby = this.onNewLobby.bind(this);
 
         socket.on("newLobby", this.onNewLobby);
@@ -26,16 +29,17 @@ class LobbyList extends Component {
 
     get lobbiesToHTML() {
         let lobbies = this.props.store.lobbies;
-        console.log(lobbies);
         let elementLobbies = [];
         for(let i = 0; i < lobbies.length; i++) {
-            let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
-            let full = lobbies[i].current >= lobbies[i].max;
             let name  = lobbies[i].name;
-
-            elementLobbies.push(
-                <LobbyEntry name={name} title={title} full={full}/>
-            );
+            if(name.toLowerCase().includes(this.state.filter) === true) {
+                let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
+                let full = lobbies[i].current >= lobbies[i].max;
+    
+                elementLobbies.push(
+                    <LobbyEntry name={name} title={title} full={full}/>
+                );
+            }
         }
 
         return elementLobbies;
@@ -45,14 +49,27 @@ class LobbyList extends Component {
         let lobbies = await new Get("/lobby").send();
         lobbies = await lobbies.json();
         lobbies = lobbies.lobbies;
-        console.log(lobbies);
         this.props.updateLobby(lobbies);
+    }
+
+    onType() {
+        console.log(this.input.current.value);
+        let txt = this.input.current.value.toLowerCase();
+
+        this.setState({...this.state, filter: txt});
     }
 
     render() {
         return(
             <div>
-                <h3 className="border-bottom text-center pb- mb-1">Lobbies</h3>
+                <div className="row border-bottom">
+                    <div className="col">
+                        <h3 className="pb- mb-1">Lobbies</h3>
+                    </div>
+                    <div className="col-xs pr-3">
+                        <input className="form-control form-control-sm" ref={this.input} onInput={this.onType.bind(this)} type="text" placeholder="Search"/>
+                    </div>
+                </div>
                 {this.props.store.lobbies === [] ? <p>Loading</p> : <div className="pt-1">{this.lobbiesToHTML}</div>}
                 <div className="row">
                     <div className="col text-right">
