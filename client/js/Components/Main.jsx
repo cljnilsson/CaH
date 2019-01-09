@@ -41,6 +41,8 @@ class App extends Component {
 					</div>
 				</div>
 				<Modal id="makeLobby" title="Create Lobby" body="Lobby"/>
+				<Modal id="register" title="Register" body="Register"/>
+				<Modal id="login" title="Login" body="Login"/>
 			</div>
 		);
 	}

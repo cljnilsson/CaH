@@ -3,17 +3,28 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 import LobbyModal from "./LobbyModal";
+import RegisterModal from './RegisterModal';
+import LoginModal from './LoginModal';
 
 class Modal extends Component {
-    render() {
-        let Body;
+    get body() {
         switch(this.props.body) {
             case "Lobby": {
-                Body = LobbyModal;
+                return LobbyModal;
+            }
+            case "Register": {
+                return RegisterModal;
+            }
+            case "Login": {
+                return LoginModal;
             }
         }
+    }
+
+    render() {
+        let Body = this.body;
         return (
-            <div class="modal fade" id="makeLobby" tabindex="-1" role="dialog" aria-labelledby="makeLobby" aria-hidden="true">
+            <div class="modal fade" id={this.props.id} tabindex="-1" role="dialog" aria-labelledby="makeLobby" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">

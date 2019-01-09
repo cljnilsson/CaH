@@ -16,6 +16,10 @@ class Login extends Component {
         this.props.confirmName(name);
     }
 
+    onRegister() {
+
+    }
+
     onEnter(e) {
         if(e.key === "Enter") {
             this.onSubmit();
@@ -37,6 +41,13 @@ class Login extends Component {
                     <div className="col-md-auto pl-0">
                         <button className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>
                     </div>
+                </div>
+                <div className="row text-right">
+                    <div className="col">
+                        <button className="btn-sm btn-outline-light mr-3" data-toggle="modal" data-target="#login">Login</button>
+                        <button className="btn-sm btn-outline-light" data-toggle="modal" data-target="#register">Register</button>
+                    </div>
+
                 </div>
             </div>
         );

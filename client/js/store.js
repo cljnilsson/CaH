@@ -32,7 +32,7 @@ const settings = {
 	NOTE TO SELF, SPREAD OPERATOR FORCE UPDATE, RETURNING state DOES NOT!
 */
 
-const reducer = function(state=settings.lobby, action) {
+const reducer = function(state=settings.standard, action) {
 	switch(action.type) {
 		case "START_GAME_CLICK": {
 			socket.emit("startGame", {destination: state.currentGame});
