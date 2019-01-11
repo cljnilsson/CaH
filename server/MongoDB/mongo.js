@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const path = require("path");
-const schemas = require("./schemas/schemas");
-const bcrypt = require('bcrypt');
+const
+    mongoose = require('mongoose'),
+    path = require("path"),
+    schemas = require("./schemas/schemas"),
+    bcrypt = require('bcrypt');
 
 require('dotenv').config({path: path.join(__dirname, '../../.env')});
 
@@ -91,6 +92,12 @@ class Mongo {
 
         new model({username: username, password: password, salt: salt}).save();
         console.log("new account!");
+    }
+
+    static async getUserInfo(username) {
+        let model = Model.accounts;
+        let data = await model.findOne({username: username});
+        return data;
     }
 }
 

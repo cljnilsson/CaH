@@ -9,25 +9,34 @@ import joinLobby from "../../actions/joiningLobby";
 class LoginModal extends Component{
     constructor() {
         super();
-        this.nameRef = React.createRef();
-        this.sizeRef = React.createRef();
+        this.usernameRef = React.createRef();
+        this.passwordRef = React.createRef();
     }
 
     async onConfirm(e) {
         e.preventDefault();
-        let p = new Post("/lobby");
+        let p = new Post("/login");
         p.data = {
-            host: this.props.store.name,
-            name: this.nameRef.current.value,
-            max: Array.from(this.sizeRef.current.children).filter(child => child.selected === true)[0].text
+            username: this.usernameRef.current.value,
+            password: this.passwordRef.current.value,
         };
         let data= await p.send();
         console.log(data);
-        this.props.joinLobby(this.nameRef.current.value);
     }
 
     render() {
-        return (""
+        return (
+            <form>
+                <div class="form-group">
+                    <i class="fas fa-user"></i><label>Username</label>
+                    <input type="text" ref={this.usernameRef} min="4" max="16" class="form-control" placeholder="My Username"/>
+                </div>
+                <div class="form-group">
+                    <i class="fas fa-unlock"></i><label>password</label>
+                    <input type="password" ref={this.passwordRef} min="4" max="16" class="form-control" placeholder="My Password"/>
+                </div>
+                <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+            </form>
         );
     }
 }
