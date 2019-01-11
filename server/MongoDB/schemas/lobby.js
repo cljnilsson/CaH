@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const cardSchema = new Schema({
+const lobbySchema = new Schema({
     current: String,
     max: String,
     host: String,
@@ -11,5 +11,5 @@ const cardSchema = new Schema({
 
 module.exports = {
     name: "lobby",
-    schema: cardSchema
+    schema: lobbySchema
 };

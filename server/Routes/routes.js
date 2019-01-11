@@ -65,3 +65,13 @@ app.post("/lobby", async function(req, res) {
     }
     res.sendStatus(check ? 200 : 400);
 });
+
+app.post("/register", async function(req, res) {
+    let check = req.body.username && req.body.password;
+    console.log(req.body);
+    if(check) {
+        console.log("doing it 2");
+        await Mongo.makeAccount(req.body.username, req.body.password);
+    }
+    res.sendStatus(check ? 200 : 400);
+});

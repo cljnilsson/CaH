@@ -20,14 +20,13 @@ class LobbyEntry extends Component {
 
     render() {
         return (
-            <div className="justify-content-center">
-                <div className="row animated fadeIn">
-                    <div className="col align-self-center text-right font-weight-bold">
-                        <span>{this.props.title}</span>
-                    </div>
-                    <div className="col align-self-center text-left pl-0">
-                        {this.button}
-                    </div>
+            <div className="row animated fadeIn">
+                <div className="col align-self-center text-right font-weight-bold">
+                    <span>{this.props.title}</span>
+                    <small className="form-text text-muted mt-0">{this.props.sizeState}</small>
+                </div>
+                <div className="col align-self-center text-left pl-0">
+                    {this.button}
                 </div>
             </div>
         );

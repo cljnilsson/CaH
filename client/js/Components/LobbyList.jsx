@@ -34,10 +34,18 @@ class LobbyList extends Component {
             let name  = lobbies[i].name;
             if(name.toLowerCase().includes(this.state.filter) === true) {
                 let title = `${lobbies[i].name} ${lobbies[i].current}/${lobbies[i].max}`;
-                let full = lobbies[i].current >= lobbies[i].max;
+                let state = "";
+
+                if(lobbies[i].current >= lobbies[i].max) {
+                    state = "Full";
+                } else if(lobbies[i].current === "0") {
+                    state = "Empty";
+                } else {
+                    state = "In Progress";
+                }
     
                 elementLobbies.push(
-                    <LobbyEntry name={name} title={title} full={full}/>
+                    <LobbyEntry name={name} title={title} sizeState={state}/>
                 );
             }
         }

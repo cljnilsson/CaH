@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const path = require("path");
-const schemas = require("./schemas/schemas")
+const schemas = require("./schemas/schemas");
+const bcrypt = require('bcrypt');
 
 require('dotenv').config({path: path.join(__dirname, '../../.env')});
 
@@ -21,6 +22,10 @@ class Model {
 
     static get cards() {
         return mongoose.model("cards", schemas.get("cards"));
+    }
+
+    static get accounts() {
+        return mongoose.model("accounts", schemas.get("account"));
     }
 }
 
@@ -77,6 +82,15 @@ class Mongo {
             lobby.save();
         });
 
+    }
+
+    static async makeAccount(username, password) {
+        let salt = bcrypt.genSaltSync(5);
+        password = await bcrypt.hash(password, salt);
+        let model = Model.accounts;
+
+        new model({username: username, password: password, salt: salt}).save();
+        console.log("new account!");
     }
 }
 

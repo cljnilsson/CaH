@@ -10,36 +10,30 @@ class RegisterModal extends Component{
     constructor() {
         super();
         this.nameRef = React.createRef();
-        this.sizeRef = React.createRef();
+        this.passRef = React.createRef();
     }
 
     async onConfirm(e) {
         e.preventDefault();
-        let p = new Post("/lobby");
+        let p = new Post("/register");
         p.data = {
-            host: this.props.store.name,
-            name: this.nameRef.current.value,
-            max: Array.from(this.sizeRef.current.children).filter(child => child.selected === true)[0].text
+            username: this.nameRef.current.value,
+            password: this.passRef.current.value
         };
         let data= await p.send();
         console.log(data);
-        this.props.joinLobby(this.nameRef.current.value);
     }
 
     render() {
         return (
             <form>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" id="exampleInputEmail1"  placeholder="My cool game name"/>
+                    <i class="fas fa-user"></i><label>Username</label>
+                    <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" placeholder="My Username"/>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Max Size</label>
-                    <select ref={this.sizeRef} class="form-control" id="exampleFormControlSelect1">
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                    </select>
+                    <i class="fas fa-unlock"></i><label>password</label>
+                    <input type="password" ref={this.passRef} min="4" max="16" class="form-control" placeholder="My Password"/>
                 </div>
                 <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
             </form>

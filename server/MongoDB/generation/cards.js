@@ -36,6 +36,12 @@ class Lobby {
 schema.deleteMany({});
 
 // Generate Cards
+
+let cards = [
+
+];
+
+cards.forEach(c => new WhiteCard(c));
 new WhiteCard("Justin Bieber");
 new WhiteCard("A bald man");
 new WhiteCard("Insecure people");
