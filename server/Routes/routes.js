@@ -78,14 +78,24 @@ app.post("/register", async function(req, res) {
 
 app.post("/login", async function(req, res) {
     console.log(req.body);
+    let correct = true; 
     let dbInfo = await Mongo.getUserInfo(req.body.username);
-    let encrypted = await bcrypt.hash(req.body.password, dbInfo.salt);
+    let error = "";
+    if(dbInfo != null) {
+        let encrypted = await bcrypt.hash(req.body.password, dbInfo.salt);
 
-    if(req.body.username === dbInfo.username && encrypted === dbInfo.password) {
-        console.log("CORRECT");
+        correct = req.body.username === dbInfo.username && encrypted === dbInfo.password;
+    
+        if(correct === true) {
+            console.log("CORRECT");
+        } else {
+            error = "Wrong Password";
+        }
     } else {
-        console.log("NOPE!");
+        correct = false;
+        console.log("NOPE! 2");
+        error = "Wrong username";
     }
-    console.log(dbInfo);
-    res.sendStatus(200);
+
+    res.status(correct ? 200 : 300).send(JSON.stringify(error));
 });

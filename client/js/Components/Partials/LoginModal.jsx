@@ -11,6 +11,15 @@ class LoginModal extends Component{
         super();
         this.usernameRef = React.createRef();
         this.passwordRef = React.createRef();
+        this.state = {error: ""};
+    }
+
+    get error() {
+        if(this.state.error != "") {
+            return <div className="text-center"><small>{this.state.error}</small></div>;
+        } else {
+            return "";
+        }
     }
 
     async onConfirm(e) {
@@ -21,12 +30,21 @@ class LoginModal extends Component{
             password: this.passwordRef.current.value,
         };
         let data= await p.send();
+        let error = await data.json();
         console.log(data);
+        console.log(error);
+        if(data.status === 200) {
+            $('#login').modal('hide');
+            // Update store
+        } else {
+            this.setState({...this.state, error: error});
+        }
     }
 
     render() {
         return (
             <form>
+                {this.error}
                 <div class="form-group">
                     <i class="fas fa-user"></i><label>Username</label>
                     <input type="text" ref={this.usernameRef} min="4" max="16" class="form-control" placeholder="My Username"/>
@@ -35,7 +53,7 @@ class LoginModal extends Component{
                     <i class="fas fa-unlock"></i><label>password</label>
                     <input type="password" ref={this.passwordRef} min="4" max="16" class="form-control" placeholder="My Password"/>
                 </div>
-                <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary">Submit</button>
             </form>
         );
     }
