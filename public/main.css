@@ -33,7 +33,7 @@ nav {
     transform: translate(-50%,-50%);
     width: 60%;
     background-color: rgba(0,0,0,.42);
-  }
+}
 
 .chat {
     height: 500px;
@@ -49,6 +49,20 @@ nav {
     z-index: -1;
 }
 
+.avatarSmall, .avatar {
+    border-radius: 8px;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+}
+
+.avatarSmall {
+    width: 16px;
+    height: 16px;
+}
+
 #bg { 
     position: fixed;
     top: 50%;
@@ -59,5 +73,5 @@ nav {
     height: auto;
     z-index: -100;
     transform: translate(-50%, -50%);
-  }
+}
 /*# sourceMappingURL=main.css.map*/

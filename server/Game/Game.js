@@ -67,14 +67,14 @@ class Game {
         this.nextJudge = this.nextJudge;
     }
 
-    addPlayer(name) {
+    async addPlayer(name) {
         let p;
 
         if(this.judge == undefined) {
-            p = new Player(name, PlayerTypes.Judge);
+            p = await Player.create(name, PlayerTypes.Judge);
             this.judge = p;
         } else {
-            p = new Player(name, PlayerTypes.Player);
+            p = await Player.create(name, PlayerTypes.Player);
         }
 
         this._players.set(name, p);

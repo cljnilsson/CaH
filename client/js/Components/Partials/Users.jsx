@@ -3,6 +3,16 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 class Users extends Component {
+	getAvatar(data) {
+		console.log(data);
+		if(data.avatar) {
+			return <img class="avatarSmall" src={"/" + data.avatar}/>
+		} else {
+			return "";
+		}
+
+	}
+
     render() {
         let users = [];
 		for(let i = 0; i < this.props.store.users.length; i++) {
@@ -13,7 +23,7 @@ class Users extends Component {
 				<div className="col">
 					<div className="row">
 						<div className="col text-center">
-							{u.name}
+						{this.getAvatar(u)}{u.name}
 						</div>
 					</div>
 					<div className="row">

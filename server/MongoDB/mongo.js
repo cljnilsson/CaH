@@ -90,8 +90,9 @@ class Mongo {
         password = await bcrypt.hash(password, salt);
         let model = Model.accounts;
 
-        new model({username: username, password: password, salt: salt}).save();
-        console.log("new account!");
+        let acc = new model({username: username, password: password, salt: salt, avatar: "defaultImg.png"});
+        await acc.save();
+        return {avatar: acc.avatar};
     }
 
     static async getUserInfo(username) {

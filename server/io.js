@@ -46,7 +46,7 @@ async function onJoinLobby(test) {
         game = new Game(test.lobby);
     }
 
-    game.addPlayer(test.user);
+    await game.addPlayer(test.user);
 
     test.all = game.players;
     io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users

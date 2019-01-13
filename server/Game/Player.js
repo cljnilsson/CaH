@@ -6,9 +6,23 @@ class Player {
         this.type = type;
         this.points = 0;
         this._hand = new Map();
-        this.cards = []; // Specially made for React Client since socket.io cannot transports Map and hand getters does not get included
+        this.cards = []; // Specially made for React Client since socket.io cannot transport Map and hand getters does not get included
+    }
 
-        this.generateHand();
+    static async create(name, type) {
+        let p = new Player(name, type);
+
+        await p.getUserInfo();
+        await p.generateHand();
+
+        return p;
+    }
+
+    async getUserInfo() {
+        let user = await Mongo.getUserInfo(this.name);
+        if(user) {
+            this.avatar = user.avatar;
+        }
     }
 
     async generateHand() {

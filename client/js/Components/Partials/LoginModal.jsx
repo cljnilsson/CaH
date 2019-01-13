@@ -4,7 +4,7 @@ import {bindActionCreators} from "redux"; // Write
 
 import {Post} from "../../Libs/Request";
 
-import joinLobby from "../../actions/joiningLobby";
+import confirmName from "../../actions/confirmName";
 
 class LoginModal extends Component{
     constructor() {
@@ -30,14 +30,15 @@ class LoginModal extends Component{
             password: this.passwordRef.current.value,
         };
         let data= await p.send();
-        let error = await data.json();
-        console.log(data);
-        console.log(error);
-        if(data.status === 200) {
+        let status = data.status;
+        data = await data.json();
+
+        if(status === 200) {
             $('#login').modal('hide');
-            // Update store
+            this.props.store.avatar = data.avatar;
+            this.props.confirmName(this.usernameRef.current.value);
         } else {
-            this.setState({...this.state, error: error});
+            this.setState({...this.state, error: data.error});
         }
     }
 
@@ -65,7 +66,7 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-        joinLobby: joinLobby
+        confirmName: confirmName
 	}, dispatch);
 }
 

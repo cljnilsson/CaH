@@ -97,5 +97,5 @@ app.post("/login", async function(req, res) {
         error = "Wrong username";
     }
 
-    res.status(correct ? 200 : 300).send(JSON.stringify(error));
+    res.status(correct ? 200 : 300).send(JSON.stringify({error: error, avatar: dbInfo.avatar}));
 });

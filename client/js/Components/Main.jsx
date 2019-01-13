@@ -18,23 +18,49 @@ class App extends Component {
 	get content() {
 		let store = this.props.store;
 		let state = store.state;
-		if (state === "Login") {
-			return (<Login/>);
-		} else if(state === "LobbyList") {
-			return (<LobbyList/>);
-		} else if (state === "Lobby") {
-			return (<Lobby/>);
+		switch(state) {
+			case "Login": {
+				return (<Login/>);
+			}
+			case "LobbyList": {
+				return (<LobbyList/>);
+			}
+			case "Lobby": {
+				return (<Lobby/>);
+			}
+			default: {
+				return (<Game/>);
+			}
+		}
+	}
+
+	get avatar() {
+		if(this.props.store.avatar) {
+			return <img class="avatar" src={"/" + this.props.store.avatar}/>;
 		} else {
-			return (<Game/>);
+			return "";
+		}
+	}
+
+	get loginState() {
+		if(this.props.store.name != undefined) {
+			return <div className="col align-self-center text-right"><small>{this.props.store.name}</small>{this.avatar}</div>
+		} else {
+			return "";
 		}
 	}
 
 	render() {
 		return(
 			<div>
-				<nav className="text-center text-light shadow">
-					<h2>Cards Against Humanity</h2>
-				</nav>
+				<div className="text-light shadow container-fluid">
+					<div className="row justify-content-center">
+						<div className="col">
+							<h3>Cards Against Humanity</h3>
+						</div>
+						{this.loginState}
+					</div>
+				</div>
 				<div className="jumbotron text-light">
 					<div className="App container align-items-center">
 						{this.content}
