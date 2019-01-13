@@ -1,8 +1,8 @@
 # CaH
 
-Fanmade Cards Against Humanity game for the purpose of improving my knowledge of React.
+Fanmade Cards Against Humanity game with the purpose of improving my knowledge of React.
 
-### Overall Tech
+### Key Frameworks/Libs
 * Node.js 8+
 * React
 * Socket.io
@@ -17,10 +17,14 @@ Fanmade Cards Against Humanity game for the purpose of improving my knowledge of
 
 ### Server
 * Express
-* Socket.io
 * dotenv
+* Mongoose
 
 ### Client
 * React
 * Redux
+* Bootstrap 4
+* Jquery
+
+### Client + Server
 * Socket.io

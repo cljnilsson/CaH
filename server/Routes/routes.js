@@ -59,8 +59,6 @@ app.get("/lobby", async function(req, res) {
 
 app.post("/lobby", async function(req, res) {
     let check = req.body.name && req.body.host && req.body.max;
-    console.log(check);
-    console.log(req.body);
     if(check) {
         await new Lobby(req.body.name, req.body.host, req.body.max).make();
     }
@@ -69,7 +67,6 @@ app.post("/lobby", async function(req, res) {
 
 app.post("/register", async function(req, res) {
     let check = req.body.username && req.body.password;
-    console.log(req.body);
     if(check) {
         await Mongo.makeAccount(req.body.username, req.body.password);
     }
@@ -77,7 +74,6 @@ app.post("/register", async function(req, res) {
 });
 
 app.post("/login", async function(req, res) {
-    console.log(req.body);
     let correct = true; 
     let dbInfo = await Mongo.getUserInfo(req.body.username);
     let error = "";
@@ -86,14 +82,11 @@ app.post("/login", async function(req, res) {
 
         correct = req.body.username === dbInfo.username && encrypted === dbInfo.password;
     
-        if(correct === true) {
-            console.log("CORRECT");
-        } else {
+        if(correct === false) {
             error = "Wrong Password";
         }
     } else {
         correct = false;
-        console.log("NOPE! 2");
         error = "Wrong username";
     }
 

@@ -59,6 +59,10 @@ nav {
     height: 16px;
 }
 
+.member {
+    color: paleturquoise;
+}
+
 #bg { 
     position: fixed;
     top: 50%;

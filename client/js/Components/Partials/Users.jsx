@@ -3,6 +3,14 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 class Users extends Component {
+	getUser(data) {
+		if(data.avatar) {
+			return <span className="member">{data.name}</span>;
+		} else {
+			return <span>{data.name}</span>;
+		}
+	}
+
 	getAvatar(data) {
 		console.log(data);
 		if(data.avatar) {
@@ -24,7 +32,7 @@ class Users extends Component {
 					<div className="row align-items-center">
 						<div className="col text-center">
 						{this.getAvatar(u)}
-						<span>{u.name}</span>
+						{this.getUser(u)}
 						</div>
 					</div>
 					<div className="row">

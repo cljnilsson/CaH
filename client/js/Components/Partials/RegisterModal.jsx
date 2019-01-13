@@ -11,22 +11,35 @@ class RegisterModal extends Component{
         super();
         this.nameRef = React.createRef();
         this.passRef = React.createRef();
+        $(document).ready(function() {
+            $('#register').on('shown.bs.modal', function () {
+                $(this).find("input:text")[0].focus();
+            })
+        });
     }
 
     async onConfirm(e) {
-        e.preventDefault();
+        if(e) {
+            e.preventDefault();
+        }
+
         let p = new Post("/register");
         p.data = {
             username: this.nameRef.current.value,
             password: this.passRef.current.value
         };
-        let data= await p.send();
-        console.log(data);
+        await p.send();
+    }
+
+    onEnter() {
+        if(e.key === "Enter") {
+            this.onConfirm();
+        }
     }
 
     render() {
         return (
-            <form>
+            <form onKeyPress={this.onEnter.bind(this)}>
                 <div class="form-group">
                     <i class="fas fa-user"></i><label>Username</label>
                     <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" placeholder="My Username"/>

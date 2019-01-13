@@ -14,7 +14,6 @@ class LoginModal extends Component{
         this.state = {error: ""};
         $(document).ready(function() {
             $('#login').on('shown.bs.modal', function () {
-                console.log($(this).find("input:text"));
                 $(this).find("input:text")[0].focus();
             })
         });
@@ -62,7 +61,7 @@ class LoginModal extends Component{
                 {this.error}
                 <div class="form-group">
                     <i class="fas fa-user"></i><label>Username</label>
-                    <input type="text" ref={this.usernameRef} class="form-control" placeholder="My Username" autofocus />
+                    <input type="text" ref={this.usernameRef} class="form-control" placeholder="My Username"/>
                 </div>
                 <div class="form-group">
                     <i class="fas fa-unlock"></i><label>password</label>
