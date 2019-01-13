@@ -12,6 +12,12 @@ class LoginModal extends Component{
         this.usernameRef = React.createRef();
         this.passwordRef = React.createRef();
         this.state = {error: ""};
+        $(document).ready(function() {
+            $('#login').on('shown.bs.modal', function () {
+                console.log($(this).find("input:text"));
+                $(this).find("input:text")[0].focus();
+            })
+        });
     }
 
     get error() {
@@ -23,7 +29,9 @@ class LoginModal extends Component{
     }
 
     async onConfirm(e) {
-        e.preventDefault();
+        if(e) {
+            e.preventDefault();
+        }
         let p = new Post("/login");
         p.data = {
             username: this.usernameRef.current.value,
@@ -41,18 +49,24 @@ class LoginModal extends Component{
             this.setState({...this.state, error: data.error});
         }
     }
+    
+    onEnter(e) {
+        if(e.key === "Enter") {
+            this.onConfirm();
+        }
+    }
 
     render() {
         return (
-            <form>
+            <form onKeyPress={this.onEnter.bind(this)}>
                 {this.error}
                 <div class="form-group">
                     <i class="fas fa-user"></i><label>Username</label>
-                    <input type="text" ref={this.usernameRef} min="4" max="16" class="form-control" placeholder="My Username"/>
+                    <input type="text" ref={this.usernameRef} class="form-control" placeholder="My Username" autofocus />
                 </div>
                 <div class="form-group">
                     <i class="fas fa-unlock"></i><label>password</label>
-                    <input type="password" ref={this.passwordRef} min="4" max="16" class="form-control" placeholder="My Password"/>
+                    <input type="password" ref={this.passwordRef} class="form-control" placeholder="My Password"/>
                 </div>
                 <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary">Submit</button>
             </form>

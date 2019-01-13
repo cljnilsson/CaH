@@ -45,10 +45,6 @@ nav {
     overflow-y: auto;
 }
 
-.modal-backdrop {
-    z-index: -1;
-}
-
 .avatarSmall, .avatar {
     border-radius: 8px;
 }

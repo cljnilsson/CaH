@@ -21,9 +21,10 @@ class Users extends Component {
 			users.push(
 			<div className="row border-bottom">
 				<div className="col">
-					<div className="row">
+					<div className="row align-items-center">
 						<div className="col text-center">
-						{this.getAvatar(u)}{u.name}
+						{this.getAvatar(u)}
+						<span>{u.name}</span>
 						</div>
 					</div>
 					<div className="row">
