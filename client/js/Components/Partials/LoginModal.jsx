@@ -44,6 +44,7 @@ class LoginModal extends Component{
             $('#login').modal('hide');
             this.props.store.avatar = data.avatar;
             this.props.confirmName(this.usernameRef.current.value);
+            document.cookie = `username=${this.usernameRef.current.value}`;
         } else {
             this.setState({...this.state, error: data.error});
         }

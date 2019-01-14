@@ -90,7 +90,7 @@ class Mongo {
         password = await bcrypt.hash(password, salt);
         let model = Model.accounts;
 
-        let acc = new model({username: username, password: password, salt: salt, avatar: "defaultImg.png"});
+        let acc = new model({username: username, password: password, salt: salt, avatar: "defaultImg.png", color: "paleturquoise"});
         await acc.save();
         return {avatar: acc.avatar};
     }

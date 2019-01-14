@@ -22,6 +22,7 @@ class Player {
         let user = await Mongo.getUserInfo(this.name);
         if(user) {
             this.avatar = user.avatar;
+            this.color = user.color;
         }
     }
 

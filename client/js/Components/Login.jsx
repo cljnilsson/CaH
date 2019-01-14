@@ -1,23 +1,55 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
+import {Post} from "../Libs/Request";
+import confirmName from "../actions/confirmName";
 
-import confirmName from "../actions/confirmName"
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
 
 class Login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.nameRef = React.createRef();
+        let cookie = getCookie("username");
+        if(cookie != "") {
+            this.cookieLogin(cookie);
+        }
+    }
+
+    async cookieLogin(cookie) {
+        let p = new Post("/cookieLogin");
+        p.data = {
+            username: cookie
+        };
+        let data= await p.send();
+        let status = data.status;
+        data = await data.json();
+        data = data.data;
+        if(status === 200) {
+            this.props.store.color = data.color;
+            this.props.store.avatar = data.avatar;
+            this.props.confirmName(cookie);
+        }
     }
 
     onSubmit() {
         let name = this.nameRef.current.value;
         console.log(name);
         this.props.confirmName(name);
-    }
-
-    onRegister() {
-
     }
 
     onEnter(e) {
@@ -55,7 +87,7 @@ class Login extends Component {
 }
 
 function read(store) {
-	return{};
+	return{store: store.general};
 }
   
 function write(dispatch) {

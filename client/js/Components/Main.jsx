@@ -44,7 +44,7 @@ class App extends Component {
 
 	get loginState() {
 		if(this.props.store.name != undefined) {
-			return <div className="col align-self-center text-right"><small>{this.props.store.name}</small>{this.avatar}</div>
+			return <div className={"col align-self-center text-right " + this.props.store.color}><small>{this.props.store.name}</small>{this.avatar}</div>
 		} else {
 			return "";
 		}

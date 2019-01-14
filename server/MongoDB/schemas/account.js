@@ -5,7 +5,8 @@ const accountSchema = new Schema({
     username: String,
     password: String,
     salt: String,
-    avatar: String
+    avatar: String,
+    color: String
 });
 
 module.exports = {

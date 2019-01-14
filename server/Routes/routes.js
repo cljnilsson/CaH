@@ -77,6 +77,7 @@ app.post("/login", async function(req, res) {
     let correct = true; 
     let dbInfo = await Mongo.getUserInfo(req.body.username);
     let error = "";
+    let data  = {};
     if(dbInfo != null) {
         let encrypted = await bcrypt.hash(req.body.password, dbInfo.salt);
 
@@ -84,11 +85,26 @@ app.post("/login", async function(req, res) {
     
         if(correct === false) {
             error = "Wrong Password";
+        } else {
+            data = {error: error, avatar: dbInfo.avatar};
         }
     } else {
         correct = false;
         error = "Wrong username";
     }
 
-    res.status(correct ? 200 : 300).send(JSON.stringify({error: error, avatar: dbInfo.avatar}));
+    res.status(correct ? 200 : 300).send(JSON.stringify(data));
+});
+
+app.post("/cookielogin", async function(req, res) {
+    let correct = true; 
+    let dbInfo = await Mongo.getUserInfo(req.body.username);
+    let data = {};
+    if(dbInfo != null) {
+        data = {avatar: dbInfo.avatar, color: dbInfo.color};
+    } else {
+        correct = false;
+    }
+
+    res.status(correct ? 200 : 300).send(JSON.stringify({data}));
 });

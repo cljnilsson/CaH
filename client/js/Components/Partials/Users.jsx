@@ -5,7 +5,7 @@ import {bindActionCreators} from "redux"; // Write
 class Users extends Component {
 	getUser(data) {
 		if(data.avatar) {
-			return <span className="member">{data.name}</span>;
+			return <span className={data.color}>{data.name}</span>;
 		} else {
 			return <span>{data.name}</span>;
 		}
