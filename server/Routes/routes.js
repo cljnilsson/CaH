@@ -5,6 +5,7 @@ const
     Game = require("../Game/Game"),
     schemas = require("../MongoDB/schemas/schemas"),
     bcrypt = require("bcrypt"),
+    Guest = require("../guests"),
     io  = require("../io"); //required
 
 
@@ -107,4 +108,26 @@ app.post("/cookielogin", async function(req, res) {
     }
 
     res.status(correct ? 200 : 300).send(JSON.stringify({data}));
+});
+
+async function doesUserExist(user) {
+    let info = await Mongo.getUserInfo(user);
+    return info != null;
+}
+
+function doesGuestExist(user) {
+    return Guest.all.get(user) === true;
+}
+
+app.post("/checkName", async function(req, res) {
+    let userExist = await doesUserExist(req.body.username);
+    let guestExist = doesGuestExist(req.body.username);
+    let exist = userExist || guestExist;
+
+    console.log(Guest.all);
+    console.log(exist);
+    if(exist === false) {
+        new Guest(req.body.username).attachSocket(req.body.socket); // Also saves by socket.io id for 'primary key' which can be used for connecting socket to username in onDisconnect event
+    }
+    res.sendStatus(exist === false ? 200 : 300);
 });

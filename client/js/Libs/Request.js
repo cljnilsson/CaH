@@ -26,7 +26,6 @@ export class Post extends Request{
     }
 
     async send() {
-        console.log(this.data);
         let data = await fetch(url + this.uri, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},

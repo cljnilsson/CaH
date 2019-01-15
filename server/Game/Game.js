@@ -71,10 +71,10 @@ class Game {
         let p;
 
         if(this.judge == undefined) {
-            p = await Player.create(name, PlayerTypes.Judge);
+            p = await Player.create(name, PlayerTypes.Judge, this.name);
             this.judge = p;
         } else {
-            p = await Player.create(name, PlayerTypes.Player);
+            p = await Player.create(name, PlayerTypes.Player, this.name);
         }
 
         this._players.set(name, p);

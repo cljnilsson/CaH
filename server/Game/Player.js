@@ -1,9 +1,10 @@
 const Mongo = require("../MongoDB/mongo");
 
 class Player {
-    constructor(name, type) {
+    constructor(name, type, game) {
         this.name = name;
         this.type = type;
+        this.game = game;
         this.points = 0;
         this._hand = new Map();
         this.cards = []; // Specially made for React Client since socket.io cannot transport Map and hand getters does not get included

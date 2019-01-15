@@ -1,6 +1,7 @@
 const
     io = require("./server").io,
     Mongo = require("./MongoDB/mongo.js"),
+    Guest = require("./guests"),
     Game = require("./Game/Game");
 
 let users = new Map();
@@ -22,17 +23,26 @@ function onGameStart(obj) {
 }
 
 async function onDisconnect() {
-    let user = users.get(this);
+    let user = users.get(this.id);
     if(user != undefined) {
-        await Mongo.removeCurrentCount(user.lobby);
-        let game = Game.getByName(user.lobby);
-        game.removePlayer(user.user);
-        users.delete(this);
+        let p = Game.getPlayer(user);
+        let game = Game.getByName(p.game);
+        await Mongo.removeCurrentCount(game);
+        game.removePlayer(user);
+        users.delete(user);
+
         if(game.players.length === 0) {
             game.remove();
         }
+
         io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
-        io.emit("userLeft", {destination: user.lobby, user: user.user, all: game.players});
+        io.emit("userLeft", {destination: game.name, user: user, all: game.players});
+    }
+
+    if(Guest.all.has(this.id)) {
+        user = Guest.all.get(this.id);
+        Guest.all.delete(user);
+        Guest.all.delete(this.id);
     }
 }
 
@@ -52,10 +62,7 @@ async function onJoinLobby(test) {
     io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
     io.emit("userJoin", test);
 
-    users.set(this, {
-        user: test.user,
-        lobby: test.lobby
-    });
+    users.set(this.id, test.user);
 }
 
 function onChatMessage(test) {

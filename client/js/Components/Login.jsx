@@ -3,6 +3,7 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 import {Post} from "../Libs/Request";
 import confirmName from "../actions/confirmName";
+import io from "../Libs/io";
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -46,10 +47,21 @@ class Login extends Component {
         }
     }
 
-    onSubmit() {
+    async onSubmit() {
         let name = this.nameRef.current.value;
-        console.log(name);
-        this.props.confirmName(name);
+        
+        let p = new Post("/checkName");
+        p.data = {
+            username: name,
+            socket: io.id
+        };
+        let data= await p.send();
+        let status = data.status;
+        console.log(status)
+        if(status === 200) {
+            console.log(name);
+            this.props.confirmName(name);
+        }
     }
 
     onEnter(e) {
