@@ -3,7 +3,7 @@ const
     Turn = require("./Turn"),
     Player = require("./Player");
 
-let games = []
+let games = [];
 const PlayerTypes = {
     Judge: "Judge",
     Player: "Player"
@@ -12,10 +12,10 @@ const PlayerTypes = {
 class Game {
     constructor(name) {
         games[name] = this
-        this.generateNewBlackCard();
         this.name = name;
         this._players = new Map();
         this.turn = new Turn(this);
+        this.generateNewBlackCard();
     }
 
     get players() {

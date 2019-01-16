@@ -12,7 +12,6 @@ class Users extends Component {
 	}
 
 	getAvatar(data) {
-		console.log(data);
 		if(data.avatar) {
 			return <img class="avatarSmall" src={"/" + data.avatar}/>
 		} else {

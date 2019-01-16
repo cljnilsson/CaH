@@ -2,6 +2,7 @@ const
     io = require("./server").io,
     Mongo = require("./MongoDB/mongo.js"),
     Guest = require("./guests"),
+    Player = require("./Game/Player"),
     Game = require("./Game/Game");
 
 let users = new Map();
@@ -25,9 +26,9 @@ function onGameStart(obj) {
 async function onDisconnect() {
     let user = users.get(this.id);
     if(user != undefined) {
-        let p = Game.getPlayer(user);
+        let p = Player.getByPlayerName(user);
         let game = Game.getByName(p.game);
-        await Mongo.removeCurrentCount(game);
+        await Mongo.removeCurrentCount(game.name);
         game.removePlayer(user);
         users.delete(user);
 
@@ -102,7 +103,7 @@ function onEndTurn(obj) {
 
     game.endTurn();
 
-    io.emit("newTurn", {game: obj.game, all: game.players});
+    io.emit("newTurn", {game: obj.game, all: game.players, winner: obj.selection});
 }
 
 module.exports = io;

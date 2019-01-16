@@ -7,6 +7,7 @@ import Users from "./Users";
 import sendMessage from "../../actions/sendMessage";
 import joinLobby from "../../actions/joiningLobby";
 import updateUsers from "../../actions/updateUsers";
+import newMessage from "../../actions/newMessage";
 
 import socket from "../../Libs/io";
 
@@ -27,16 +28,23 @@ class Chat extends Component {
         socket.on("userJoin", this.onJoin);
     }
 
+    get messages() {
+        let store = this.props.store;
+        return store.messages[store.currentGame];
+    }
+
+    set messages(messages) {
+        this.props.newMessage(messages);
+    }
+
     onJoin(x) {
         if(x.lobby == this.props.store.currentGame) {
-            let messages = this.state.messages
+            let messages = this.messages;
             messages.push({text: `${x.user} has joined!`});
 
             this.props.updateUsers(x.all);
 
-            this.setState({
-                messages: messages
-            });
+            this.messages = messages;
         }
     }
 
@@ -44,21 +52,17 @@ class Chat extends Component {
         if(obj.destination == this.props.store.currentGame) {
             this.props.updateUsers(obj.all);
 
-            let messages = this.state.messages;
+            let messages = this.messages;
             messages.push({text: `${obj.user} has left!`});
-            this.setState({
-                messages: messages
-            });
+            this.messages = messages;
         }
     }
 
     onMessage(x) {
         if(x.destination == this.props.store.currentGame) {
-            let messages = this.state.messages
+            let messages = this.messages
             messages.push({user: x.name, text: x.text});
-            this.setState({
-                messages: messages
-            });
+            this.messages = messages;
         }
     }
 
@@ -76,7 +80,7 @@ class Chat extends Component {
     chatMessages() {
         let all = [];
 
-        this.state.messages.forEach(function(obj, i, arr) {
+        this.messages.forEach(function(obj, i, arr) {
             let text;
             let ref = arr.length -1 === i ? this.lastMessage : "";
             if(obj.user) {
@@ -134,7 +138,8 @@ function write(dispatch) {
 	return bindActionCreators({
         sendMessage: sendMessage,
         joinLobby: joinLobby,
-        updateUsers: updateUsers
+        updateUsers: updateUsers,
+        newMessage: newMessage
 	}, dispatch);
 }
 

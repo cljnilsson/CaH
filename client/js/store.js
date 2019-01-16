@@ -57,13 +57,18 @@ const reducer = function(state=settings.standard, action) {
 			state.winner = action.value;
 			return {...state};
 		}
+		case "NEW_MESSAGE": {
+			state.messages[state.currentGame] = action.value;
+			return {...state};
+		}
 		case "NEW_TURN": {
-			state.users     = action.value;
+			state.users     = action.value.users;
 			state.judge     = state.users.filter(u => u.type === "Judge")[0];
 			state.players   = state.users.filter(u => u.type !== "Judge");
 			state.me        = state.users.filter(u => u.name === state.me.name)[0];
 			state.submitted = false;
 			state.turn      = turn.Players;
+			state.messages[state.currentGame].push({text: `${action.value.winner} won the round!`});
 			state.selection = [];
 			return {...state};
 		}
@@ -94,6 +99,8 @@ const reducer = function(state=settings.standard, action) {
 		case "JOIN_LOBBY": {
 			state.state = GameState.Lobby;
 			state.currentGame = action.value;
+			state.messages = [];
+			state.messages[state.currentGame] = [];
 			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state};
 		}

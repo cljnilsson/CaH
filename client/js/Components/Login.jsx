@@ -28,6 +28,10 @@ class Login extends Component {
         let cookie = getCookie("username");
         if(cookie != "") {
             this.cookieLogin(cookie);
+        } else {
+            $(document).ready(function() {
+                $(".App").find("input:text")[0].focus();
+            });
         }
     }
 

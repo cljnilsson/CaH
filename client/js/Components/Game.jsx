@@ -61,7 +61,7 @@ class Game extends Component {
 
 	onNewTurn(obj) {
 		if(obj.game === this.props.store.currentGame) {
-			this.props.newTurn(obj.all);
+			this.props.newTurn({users: obj.all, winner: obj.winner});
 		}
 	}
 
