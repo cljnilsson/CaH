@@ -87,7 +87,7 @@ app.post("/login", async function(req, res) {
         if(correct === false) {
             error = "Wrong Password";
         } else {
-            data = {error: error, avatar: dbInfo.avatar};
+            data = {error: error, avatar: dbInfo.avatar, color: dbInfo.color};
         }
     } else {
         correct = false;

@@ -10,6 +10,7 @@ import updateUsers from "../../actions/updateUsers";
 import newMessage from "../../actions/newMessage";
 
 import socket from "../../Libs/io";
+import classNames from "classnames";
 
 class Chat extends Component {
     constructor() {
@@ -26,6 +27,12 @@ class Chat extends Component {
         socket.on("userLeft", this.onLeave);
         socket.on("messageFromServer", this.onMessage);
         socket.on("userJoin", this.onJoin);
+    }
+
+    componentWillUnmount() {
+        socket.removeListener("userLeft", this.onLeave);
+        socket.removeListener("messageFromServer", this.onMessage);
+        socket.removeListener("userJoin", this.onjoin);
     }
 
     get messages() {
@@ -84,7 +91,8 @@ class Chat extends Component {
             let text;
             let ref = arr.length -1 === i ? this.lastMessage : "";
             if(obj.user) {
-                text = <p ref={ref} className="mb-0"><b>{obj.user}</b>: {obj.text}</p>;
+                let user = this.props.store.users.filter(u => u.name === obj.user)[0]
+                text = <p ref={ref} className="mb-0"><b className={user.color ? user.color : ""}>{obj.user}</b>: {obj.text}</p>;
             } else {
                 text = <p className="mb-0" ref={ref}>{obj.text}</p>;
             }

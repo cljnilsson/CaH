@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import classNames from "classnames";
+
 // Actions
 import updateSelection from "../../actions/updateCardSelection"
 
@@ -39,16 +41,23 @@ class WhiteCard extends Component {
     }
 
     onClick() {
-        this.color = this.color === WhiteCard.greySettings ? WhiteCard.default : WhiteCard.greySettings;
-        if(this.isWithinSelectionLimit()) {
-            this.updateCounter();
-            this.props.updateSelection(this);
+        if(this.props.disabled != true) {
+            this.color = this.color === WhiteCard.greySettings ? WhiteCard.default : WhiteCard.greySettings;
+            if(this.isWithinSelectionLimit()) {
+                this.updateCounter();
+                this.props.updateSelection(this);
+            }
         }
     }
     
     render() {
+        let classes = classNames({
+            "card": true,
+            "border-dark": true,
+            "animated fadeIn": this.props.animate != false,
+        });
         return(
-            <div className={"card border-dark animated fadeIn " + this.color} onClick={this.onClick.bind(this)}>
+            <div className={classes + " " + this.color} onClick={this.onClick.bind(this)}>
                 <div className="card-body text-center">
                     <p className="card-text">{this.props.text}</p>
                 </div>

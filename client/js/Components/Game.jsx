@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import {Get} from "../Libs/Request";
+import {Get}  from "../Libs/Request";
 import socket from "../Libs/io";
 
 // Components
@@ -13,12 +13,12 @@ import Chat      from "./Partials/Chat";
 
 // Actions
 import loadedCardsAction from "../actions/recievedCards"
-import confirmSelection from "../actions/confirmCardSelection"
-import updateCards from "../actions/updateCards";
-import updateTurn from "../actions/updateTurn";
-import newTurn from "../actions/newTurn";
-import endTurn from "../actions/judgeConfirm";
-import gameOver from "../actions/gameOver";
+import confirmSelection  from "../actions/confirmCardSelection"
+import updateCards       from "../actions/updateCards";
+import updateTurn        from "../actions/updateTurn";
+import newTurn           from "../actions/newTurn";
+import endTurn           from "../actions/judgeConfirm";
+import gameOver          from "../actions/gameOver";
 
 class Game extends Component {
 	static confirmButton = "btn btn-lg btn-outline-light";
@@ -85,7 +85,13 @@ class Game extends Component {
 		let text = [];
 
 		whiteCards.forEach(element => {
-			text.push(<div className="col"><WhiteCard text={element.text}/></div>);
+			let card;
+			if(this.props.store.turn === "Judge") {
+				card = <div className="col"><WhiteCard animate={false} disabled={true} text={element.text}/></div>
+			} else {
+				card = <div className="col"><WhiteCard text={element.text}/></div>;
+			}
+			text.push(card);
 		});
 		return(
 			<div className="row">
@@ -139,7 +145,11 @@ class Game extends Component {
 				return this.game;
 			} else {
 				if(store.turn === "Judge") {
-					return "Waiting for judge";
+					return (
+					<div>
+						<p className="text-center">Waiting for Judge</p>
+						{this.whiteCards}
+					</div>);
 				} else {
 					return "Waiting for other players";
 				}

@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import {Get} from "../Libs/Request";
+import {Get}  from "../Libs/Request";
 import socket from "../Libs/io";
 
-import LobbyEntry from "./Partials/LobbyEntry"
-import Modal from "./Partials/Modal";
-import joinLobby from "../actions/joiningLobby";
+import LobbyEntry  from "./Partials/LobbyEntry"
+import joinLobby   from "../actions/joiningLobby";
 import updateLobby from "../actions/updateLobby";
 
 class LobbyList extends Component {

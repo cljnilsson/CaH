@@ -3,9 +3,9 @@ import { connect } from "react-redux"; // Read
 import { bindActionCreators } from "redux"; // Write
 
 import startGameClick from "../actions/startGameClick";
-import startGame from "../actions/startGame";
+import startGame      from "../actions/startGame";
 
-import Chat from "./Partials/Chat";
+import Chat  from "./Partials/Chat";
 import Users from "./Partials/Users";
 
 import socket from "../Libs/io";
