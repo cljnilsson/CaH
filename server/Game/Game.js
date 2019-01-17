@@ -1,6 +1,7 @@
 const
     Mongo = require("../MongoDB/mongo"),
     Turn = require("./Turn"),
+    Deck = require("./Deck"),
     Player = require("./Player");
 
 let games = [];
@@ -15,7 +16,15 @@ class Game {
         this.name = name;
         this._players = new Map();
         this.turn = new Turn(this);
-        this.generateNewBlackCard();
+    }
+
+    static async create(name) {
+        let game = new Game(name);
+
+        game.deck = await Deck.create();
+        await game.generateNewBlackCard();
+
+        return game;
     }
 
     get players() {
@@ -71,10 +80,10 @@ class Game {
         let p;
 
         if(this.judge == undefined) {
-            p = await Player.create(name, PlayerTypes.Judge, this.name);
+            p = await Player.create(name, PlayerTypes.Judge, this.name, this.deck);
             this.judge = p;
         } else {
-            p = await Player.create(name, PlayerTypes.Player, this.name);
+            p = await Player.create(name, PlayerTypes.Player, this.name, this.deck);
         }
 
         this._players.set(name, p);

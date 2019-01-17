@@ -54,7 +54,7 @@ async function onJoinLobby(test) {
 
     let game = Game.getByName(test.lobby);
     if(game === undefined) {
-        game = new Game(test.lobby);
+        game = await Game.create(test.lobby);
     }
 
     await game.addPlayer(test.user);

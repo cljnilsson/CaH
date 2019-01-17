@@ -31,6 +31,12 @@ class Model {
 }
 
 class Mongo {
+    static async getAllWhiteCards() {
+        let cards = Model.cards;
+        let all = await cards.find({type: "White"});
+        return all;
+    }
+
     static async getXCards(num, filter) {
         let cards = Model.cards;
         let max = cards.countDocuments(filter);

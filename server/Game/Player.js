@@ -3,18 +3,19 @@ const Mongo = require("../MongoDB/mongo");
 let players = new Map();
 
 class Player {
-    constructor(name, type, game) {
+    constructor(name, type, game, deck) {
         this.name = name;
         this.type = type;
         this.game = game;
+        this.deck = deck;
         this.points = 0;
         this._hand = new Map();
         this.cards = []; // Specially made for React Client since socket.io cannot transport Map and hand getters does not get included
         players.set(name, this);
     }
 
-    static async create(name, type, game) {
-        let p = new Player(name, type, game);
+    static async create(name, type, game, deck) {
+        let p = new Player(name, type, game, deck);
 
         await p.getUserInfo();
         await p.generateHand();
@@ -31,7 +32,9 @@ class Player {
     }
 
     async generateHand() {
-        this._hand.set(0, await Mongo.getXWhiteCards(4));
+        let cards = await await this.deck.drawX(4);
+        this._hand.set(0, cards);
+        console.log(this.hand);
         this.cards = this.hand;
     }
 
@@ -41,7 +44,7 @@ class Player {
     }
 
     async draw(num=1) {
-        let drawn = await Mongo.getXWhiteCards(num);
+        let drawn = this.deck.drawX(num);
         this._hand.set(0, this.hand.concat(drawn));
         this.cards = this.hand;
     }
