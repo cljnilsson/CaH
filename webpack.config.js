@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 const fileSettings =
 {
@@ -45,6 +46,16 @@ const fileSettings =
 };
 
 const plugins = [
+	new SWPrecacheWebpackPlugin(
+		{
+		  cacheId: 'cah',
+		  dontCacheBustUrlsMatching: /\.\w{8}\./,
+		  filename: 'service-worker.js',
+		  minify: true,
+		  navigateFallback: path.join(__dirname, "/public") + 'index.html',
+		  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+		}
+	),
 	new HtmlWebPackPlugin({
 		hash: true,
 		filename: "index.html",  //target html
