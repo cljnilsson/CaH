@@ -12,13 +12,10 @@ import Users     from "./Partials/Users";
 import Chat      from "./Partials/Chat";
 
 // Actions
-import loadedCardsAction from "../actions/recievedCards"
-import confirmSelection  from "../actions/confirmCardSelection"
-import updateCards       from "../actions/updateCards";
-import updateTurn        from "../actions/updateTurn";
-import newTurn           from "../actions/newTurn";
-import endTurn           from "../actions/judgeConfirm";
-import gameOver          from "../actions/gameOver";
+import loadedCardsAction                  from "../actions/recievedCards"
+import {updateCards, confirmCards}        from "../actions/cards";
+import {updateTurn, newTurn, endTurn}     from "../actions/turn";
+import gameOver                           from "../actions/gameOver";
 
 class Game extends Component {
 	static confirmButton = "btn btn-lg btn-outline-light";
@@ -225,7 +222,7 @@ function read(store) {
 function write(dispatch) {
 	return bindActionCreators({
 		cardsFinishedLoading: loadedCardsAction,
-		confirmSelection: confirmSelection,
+		confirmSelection: confirmCards,
 		updateTurn: updateTurn,
 		endTurn: endTurn,
 		newTurn: newTurn,

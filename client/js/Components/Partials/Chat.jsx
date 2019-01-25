@@ -4,10 +4,9 @@ import {bindActionCreators} from "redux"; // Write
 
 import Users from "./Users";
 
-import sendMessage from "../../actions/sendMessage";
 import joinLobby from "../../actions/joiningLobby";
 import updateUsers from "../../actions/updateUsers";
-import newMessage from "../../actions/newMessage";
+import {newMessage, sendMessage} from "../../actions/message";
 
 import socket from "../../Libs/io";
 import classNames from "classnames";

@@ -4,6 +4,8 @@ import {bindActionCreators} from "redux"; // Write
 
 import {Post} from "../../Libs/Request";
 
+import faker from "faker";
+
 import joinLobby from "../../actions/joiningLobby";
 
 class RegisterModal extends Component{
@@ -42,7 +44,7 @@ class RegisterModal extends Component{
             <form onKeyPress={this.onEnter.bind(this)}>
                 <div class="form-group">
                     <i class="fas fa-user"></i><label>Username</label>
-                    <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" placeholder="My Username"/>
+                    <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" placeholder="My Username" value={faker.internet.userName()}/>
                 </div>
                 <div class="form-group">
                     <i class="fas fa-unlock"></i><label>password</label>

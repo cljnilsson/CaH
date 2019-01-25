@@ -48,7 +48,7 @@ const reducer = function(state=settings.standard, action) {
 			socket.emit("chatMessage", {text: action.value, name: state.name, destination: state.currentGame});
 			return state;
 		}
-		case "JUDGE_CONFIRM": {
+		case "END_TURN": {
 			socket.emit("endTurn", {game: state.currentGame, selection: state.judgeSelected});
 			return {...state};
 		}

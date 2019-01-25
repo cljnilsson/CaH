@@ -52,6 +52,7 @@
     "express": "^4.15.0",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.1",
+    "faker": "^4.1.0",
     "helmet": "^3.13.0",
     "ip": "^1.1.5",
     "mongoose": "^5.2.10",

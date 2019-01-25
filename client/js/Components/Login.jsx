@@ -4,6 +4,7 @@ import {bindActionCreators} from "redux"; // Write
 import {Post} from "../Libs/Request";
 import confirmName from "../actions/confirmName";
 import io from "../Libs/io";
+import faker from "faker";
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -61,9 +62,8 @@ class Login extends Component {
         };
         let data= await p.send();
         let status = data.status;
-        console.log(status)
+
         if(status === 200) {
-            console.log(name);
             this.props.confirmName(name);
         }
     }
@@ -84,7 +84,7 @@ class Login extends Component {
                 </div>
                 <div className="row justify-content-center">
                     <div className="col-5 align-self-center">
-                        <input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef}/>
+                        <input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef} value={faker.internet.userName()}/>
                     </div>
                     <div className="col-md-auto pl-0">
                         <button className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>

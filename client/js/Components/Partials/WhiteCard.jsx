@@ -5,7 +5,7 @@ import {bindActionCreators} from "redux"; // Write
 import classNames from "classnames";
 
 // Actions
-import updateSelection from "../../actions/updateCardSelection"
+import {updateCardSelection} from "../../actions/cards"
 
 class WhiteCard extends Component {
     static greySettings     = "bg-secondary text-white";
@@ -72,7 +72,7 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-		updateSelection: updateSelection
+		updateSelection: updateCardSelection
 	}, dispatch);
 }
 
