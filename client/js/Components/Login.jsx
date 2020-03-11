@@ -37,14 +37,17 @@ class Login extends Component {
     }
 
     async cookieLogin(cookie) {
-        let p = new Post("/cookieLogin");
+		let p = new Post("/cookieLogin");
+		
         p.data = {
             username: cookie
-        };
-        let data= await p.send();
-        let status = data.status;
-        data = await data.json();
-        data = data.data;
+		};
+		
+        let data 	= await p.send();
+        let status 	= data.status;
+        data 		= await data.json();
+		data 		= data.data;
+
         if(status === 200) {
             this.props.store.color = data.color;
             this.props.store.avatar = data.avatar;
@@ -53,6 +56,7 @@ class Login extends Component {
     }
 
     async onSubmit() {
+		console.log("PLX11")
         let name = this.nameRef.current.value;
         
         let p = new Post("/checkName");
@@ -62,7 +66,6 @@ class Login extends Component {
         };
         let data= await p.send();
         let status = data.status;
-
         if(status === 200) {
             this.props.confirmName(name);
         }
@@ -83,19 +86,20 @@ class Login extends Component {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    <div className="col-5 align-self-center">
-                        <input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef} value={faker.internet.userName()}/>
-                    </div>
-                    <div className="col-md-auto pl-0">
-                        <button className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>
-                    </div>
+					<div className="col-sm-7">
+						<div class="input-group">
+							<input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef} value={faker.internet.userName()}/>
+							<div class="input-group-append">
+								<button type="button" className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>
+							</div>
+						</div>
+					</div>
                 </div>
                 <div className="row text-right">
-                    <div className="col">
-                        <button className="btn-sm btn-outline-light mr-3" data-toggle="modal" data-target="#login">Login</button>
-                        <button className="btn-sm btn-outline-light" data-toggle="modal" data-target="#register">Register</button>
+                    <div className="col pt-5">
+                        <button className="btn btn-sm btn-outline-light mr-3" data-toggle="modal" data-target="#login">Login</button>
+                        <button className="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#register">Register</button>
                     </div>
-
                 </div>
             </div>
         );

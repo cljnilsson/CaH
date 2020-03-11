@@ -130,6 +130,10 @@ const reducer = function(state=settings.standard, action) {
 			state.state = GameState.LobbyList;
 			return {...state};
 		}
+		case "TO_INDEX": {
+			state.state = GameState.Login
+			return {...state};
+		}
 		default: {
 			return state;
 		}

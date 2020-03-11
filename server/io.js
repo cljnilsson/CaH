@@ -27,7 +27,8 @@ async function onDisconnect() {
     let user = users.get(this.id);
     if(user != undefined) {
         let p = Player.getByPlayerName(user);
-        let game = Game.getByName(p.game);
+		let game = Game.getByName(p.game);
+		
         await Mongo.removeCurrentCount(game.name);
         game.removePlayer(user);
         users.delete(user);

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import {Post} from "../../Libs/Request";
+import {Post} from "../../../Libs/Request";
 
-import joinLobby from "../../actions/joiningLobby";
+import joinLobby from "../../../actions/joiningLobby";
 
 class LobbyModal extends Component{
     constructor() {

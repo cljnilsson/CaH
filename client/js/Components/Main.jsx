@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import toIndex from "../actions/toIndex";
+
 // Components
 import Login     from "./Login";
 import LobbyList from "./LobbyList";
@@ -44,10 +46,24 @@ class App extends Component {
 
 	get loginState() {
 		if(this.props.store.name != undefined) {
-			return <div className={"col align-self-center text-right " + this.props.store.color}><small>{this.props.store.name}</small>{this.avatar}</div>
+			console.log(this.props.store);
+			return(
+				<div className={"col align-self-center text-right " + this.props.store.color}>
+					<div class="dropleft">
+						<span id="userCorner" class="dropdown-toggle align-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.store.name}</span>{this.avatar}
+						<div class="dropdown-menu">
+							<button class="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Action</button>
+						</div>
+					</div>
+				</div>)
 		} else {
 			return "";
 		}
+	}
+
+	goToStart() {
+		console.log("TETEÖLSTKLÖEKTLÖEÖL")
+		this.props.toIndex();
 	}
 
 	render() {
@@ -56,7 +72,7 @@ class App extends Component {
 				<div className="text-light shadow container-fluid">
 					<div className="row justify-content-center">
 						<div className="col">
-							<h3>Cards Against Humanity</h3>
+							<h3 id="navbarBrand" onClick={this.goToStart.bind(this)}>Cards Against Humanity</h3>
 						</div>
 						{this.loginState}
 					</div>
@@ -69,6 +85,7 @@ class App extends Component {
 				<Modal id="makeLobby" title="Create Lobby" body="Lobby"/>
 				<Modal id="register" title="Register" body="Register"/>
 				<Modal id="login" title="Login" body="Login"/>
+				<Modal id="changeColor" title="Change Color" body="ChangeColor"/>
 			</div>
 		);
 	}
@@ -80,6 +97,7 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
+		toIndex: toIndex
 	}, dispatch);
 }
 

@@ -4,8 +4,8 @@ import App from './js/Components/Main';
 import {Provider} from "react-redux";
 import store from "./js/store"
 import "./css/main.css";
-import "./public/raven.jpg";
-import "./public/raven.webm";
+import "./public/test.png";
+import "./public/bg.png";
 import "./public/defaultImg.png";
 
 let HTML = 

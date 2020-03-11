@@ -17,9 +17,19 @@ nav {
     background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)) !important;
 }
 
+body {
+	background-image: url("/bg.png");
+	background-size: cover;
+}
+
 .shadow {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;
 
+}
+
+.footer-images img{
+	vertical-align:bottom;
+	border:0;
 }
 
 .jumbotron {
@@ -67,14 +77,10 @@ nav {
     color: paleturquoise;
 }
 
-#bg { 
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -100;
-    transform: translate(-50%, -50%);
+#userCorner {
+	user-select: none;
+}
+
+#navbarBrand {
+	cursor: pointer;
 }

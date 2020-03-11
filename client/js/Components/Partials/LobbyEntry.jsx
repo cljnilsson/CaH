@@ -14,7 +14,7 @@ class LobbyEntry extends Component {
         if(this.props.full === true) {
             return "";
         } else {
-            return <button className="btn-sm btn-outline-light" onClick={this.onClick.bind(this)}>Join Game</button>;
+            return <button className="btn btn-sm btn-outline-light" onClick={this.onClick.bind(this)}>Join Game</button>;
         }
     }
 

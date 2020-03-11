@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import LobbyModal from "./LobbyModal";
-import RegisterModal from './RegisterModal';
-import LoginModal from './LoginModal';
+import LobbyModal from "./Modals/LobbyModal";
+import RegisterModal from './Modals/RegisterModal';
+import LoginModal from './Modals/LoginModal';
+import ChangeColorModal from "./Modals/ChangeColorModal"
 
 class Modal extends Component {
     get body() {
@@ -17,6 +18,9 @@ class Modal extends Component {
             }
             case "Login": {
                 return LoginModal;
+			}
+			case "ChangeColor": {
+                return ChangeColorModal;
             }
         }
     }
