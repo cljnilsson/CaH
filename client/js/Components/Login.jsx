@@ -95,8 +95,11 @@ class Login extends Component {
 						</div>
 					</div>
                 </div>
-                <div className="row text-right">
-                    <div className="col pt-5">
+                <div className="row pt-5">
+					<div className="col">
+						<button className="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#rules">Game Rules</button>
+					</div>
+                    <div className="col text-right">
                         <button className="btn btn-sm btn-outline-light mr-3" data-toggle="modal" data-target="#login">Login</button>
                         <button className="btn btn-sm btn-outline-light" data-toggle="modal" data-target="#register">Register</button>
                     </div>

@@ -52,7 +52,8 @@ class App extends Component {
 					<div class="dropleft">
 						<span id="userCorner" class="dropdown-toggle align-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.store.name}</span>{this.avatar}
 						<div class="dropdown-menu">
-							<button class="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Action</button>
+							<button class="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Select User Color</button>
+							<button class="dropdown-item" type="button">Logout</button>
 						</div>
 					</div>
 				</div>)
@@ -86,6 +87,7 @@ class App extends Component {
 				<Modal id="register" title="Register" body="Register"/>
 				<Modal id="login" title="Login" body="Login"/>
 				<Modal id="changeColor" title="Change Color" body="ChangeColor"/>
+				<Modal id="rules" title="Rules" body="Rules"/>
 			</div>
 		);
 	}

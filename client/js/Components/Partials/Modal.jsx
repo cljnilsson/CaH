@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import LobbyModal from "./Modals/LobbyModal";
-import RegisterModal from './Modals/RegisterModal';
-import LoginModal from './Modals/LoginModal';
-import ChangeColorModal from "./Modals/ChangeColorModal"
+import LobbyModal 		from "./Modals/LobbyModal";
+import RegisterModal 	from "./Modals/RegisterModal";
+import LoginModal 		from "./Modals/LoginModal";
+import ChangeColorModal from "./Modals/ChangeColorModal";
+import RulesModal		from "./Modals/RulesModal";
 
 class Modal extends Component {
     get body() {
@@ -21,6 +22,9 @@ class Modal extends Component {
 			}
 			case "ChangeColor": {
                 return ChangeColorModal;
+			}
+			case "Rules": {
+                return RulesModal;
             }
         }
     }

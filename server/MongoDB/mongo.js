@@ -54,7 +54,18 @@ class Mongo {
     }
 
     static async getLobbies() {
-        return await mongoose.model("lobbies", schemas.get("lobby")).find({});
+		let lobbies = await mongoose.model("lobbies", schemas.get("lobby")).find({});
+		let final = [];
+
+		// Cleanup all empty lobbies that are not supposed to be there for testing purposes
+		for(let l of lobbies) {
+			if(l.current >= 0 || l.permanent === true) {
+				final.push(l)
+				Mongo.deleteLobby(l.name)
+			}
+		}
+
+        return final
     }
 
     static async deleteLobby(name) {
