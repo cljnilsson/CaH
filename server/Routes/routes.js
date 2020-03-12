@@ -97,6 +97,14 @@ app.post("/login", async function(req, res) {
     res.status(correct ? 200 : 300).send(JSON.stringify(data));
 });
 
+app.post("/:user/changeColor", async function(req, res) {
+	// Should check if body exists
+	console.log(`${req.params.user} is trying to change his color to ${req.body.color}`);
+    //await Mongo.getUserInfo(req.body.username);
+	io.emit("changeColor",{user: req.params.user, color: req.body.color});
+    res.sendStatus(200);
+});
+
 app.post("/cookielogin", async function(req, res) {
     let correct = true; 
     let dbInfo = await Mongo.getUserInfo(req.body.username);

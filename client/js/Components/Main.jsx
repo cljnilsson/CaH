@@ -46,7 +46,6 @@ class App extends Component {
 
 	get loginState() {
 		if(this.props.store.name != undefined) {
-			console.log(this.props.store);
 			return(
 				<div className={"col align-self-center text-right " + this.props.store.color}>
 					<div class="dropleft">
@@ -63,7 +62,6 @@ class App extends Component {
 	}
 
 	goToStart() {
-		console.log("TETEÖLSTKLÖEKTLÖEÖL")
 		this.props.toIndex();
 	}
 

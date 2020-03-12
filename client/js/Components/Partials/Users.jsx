@@ -2,7 +2,25 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
+import socket from "../../Libs/io";
+
 class Users extends Component {
+    constructor() {
+        super();
+		this.onColorChange 	= this.onColorChange.bind(this);
+		socket.on("changeColor", this.onColorChange);
+	}
+	
+	componentWillUnmount() {
+		socket.removeListener("changeColor", this.onColorChange);
+	}
+	
+	onColorChange(obj) {
+		let user = this.props.store.users.filter(u => u.name === obj.user)[0]
+		user.color = obj.color;
+		this.setState({...this.state});
+	}
+
 	getUser(data) {
 		if(data.avatar) {
 			return <span className={data.color}>{data.name}</span>;

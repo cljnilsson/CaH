@@ -87,6 +87,10 @@ footer {
     color: paleturquoise;
 }
 
+.red {
+	color: red;
+}
+
 #userCorner {
 	user-select: none;
 }

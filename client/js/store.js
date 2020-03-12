@@ -134,6 +134,10 @@ const reducer = function(state=settings.standard, action) {
 			state.state = GameState.Login
 			return {...state};
 		}
+		case "CHANGE_COLOR": {
+			state.color = action.value;
+			return {...state};
+		}
 		default: {
 			return state;
 		}

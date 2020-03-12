@@ -1,37 +1,37 @@
-import React, { Component } from 'react';
-import {connect} from "react-redux"; // Read
-import {bindActionCreators} from "redux"; // Write
+import React, { Component } 		from 'react';
+import {connect} 					from "react-redux"; // Read
+import {bindActionCreators} 		from "redux"; // Write
 
-import Users from "./Users";
+import Users 						from "./Users";
 
-import joinLobby from "../../actions/joiningLobby";
-import updateUsers from "../../actions/updateUsers";
-import {newMessage, sendMessage} from "../../actions/message";
+import joinLobby 					from "../../actions/joiningLobby";
+import updateUsers 					from "../../actions/updateUsers";
+import {newMessage, sendMessage} 	from "../../actions/message";
 
-import socket from "../../Libs/io";
-import classNames from "classnames";
+import socket 						from "../../Libs/io";
+import classNames 					from "classnames";
 
 class Chat extends Component {
     constructor() {
         super();
-        this.nameRef = React.createRef();
-        this.lastMessage = React.createRef();
-        this.state = {};
+        this.nameRef 		= React.createRef();
+        this.lastMessage 	= React.createRef();
+        this.state 			= {};
         this.state.messages = [];
 
-        this.onLeave = this.onLeave.bind(this);
-        this.onJoin = this.onJoin.bind(this);
-        this.onMessage = this.onMessage.bind(this);
+        this.onLeave 		= this.onLeave.bind(this);
+        this.onJoin 		= this.onJoin.bind(this);
+		this.onMessage 		= this.onMessage.bind(this);
 
-        socket.on("userLeft", this.onLeave);
-        socket.on("messageFromServer", this.onMessage);
-        socket.on("userJoin", this.onJoin);
+        socket.on("userLeft"			, this.onLeave);
+        socket.on("messageFromServer"	, this.onMessage);
+		socket.on("userJoin"			, this.onJoin);
     }
 
     componentWillUnmount() {
-        socket.removeListener("userLeft", this.onLeave);
-        socket.removeListener("messageFromServer", this.onMessage);
-        socket.removeListener("userJoin", this.onjoin);
+        socket.removeListener("userLeft"			, this.onLeave);
+        socket.removeListener("messageFromServer"	, this.onMessage);
+		socket.removeListener("userJoin"			, this.onJoin);
     }
 
     get messages() {
@@ -52,7 +52,7 @@ class Chat extends Component {
 
             this.messages = messages;
         }
-    }
+	}
 
     onLeave(obj) {
         if(obj.destination == this.props.store.currentGame) {
@@ -107,13 +107,13 @@ class Chat extends Component {
         }
       }
       
-      componentDidMount() {
-        this.scrollToBottom();
-      }
+    componentDidMount() {
+		this.scrollToBottom();
+    }
       
-      componentDidUpdate() {
-        this.scrollToBottom();
-      }
+    componentDidUpdate() {
+		this.scrollToBottom();
+    }
 
     render() {
         return (
@@ -146,7 +146,8 @@ function write(dispatch) {
         sendMessage: sendMessage,
         joinLobby: joinLobby,
         updateUsers: updateUsers,
-        newMessage: newMessage
+		newMessage: newMessage,
+		refresh: refresh
 	}, dispatch);
 }
 
