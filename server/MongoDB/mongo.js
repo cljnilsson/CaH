@@ -101,6 +101,14 @@ class Mongo {
             lobby.save();
         });
 
+	}
+	
+	static async changeColor(name, color) {
+        let model = Model.accounts;
+        let data = await model.findOne({username: name});
+        data.color = color;
+        await data.save();
+        return data;
     }
 
     static async makeAccount(username, password) {

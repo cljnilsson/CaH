@@ -100,7 +100,7 @@ app.post("/login", async function(req, res) {
 app.post("/:user/changeColor", async function(req, res) {
 	// Should check if body exists
 	console.log(`${req.params.user} is trying to change his color to ${req.body.color}`);
-    //await Mongo.getUserInfo(req.body.username);
+    await Mongo.changeColor(req.params.user, req.body.color);
 	io.emit("changeColor",{user: req.params.user, color: req.body.color});
     res.sendStatus(200);
 });

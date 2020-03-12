@@ -55,6 +55,14 @@ footer {
     background-color: rgba(0,0,0,.42);
 }
 
+.dropdown-menu {
+	background-color: #343a40;
+}
+
+.dropdown-item {
+	color: white;
+}
+
 .chat {
     height: 500px;
     overflow-y: auto;
@@ -89,6 +97,18 @@ footer {
 
 .red {
 	color: red;
+}
+
+.white {
+	color: white;
+}
+
+.green {
+	color: lawngreen;
+}
+
+.orange {
+	color: orange;
 }
 
 #userCorner {

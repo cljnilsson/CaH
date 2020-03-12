@@ -1,22 +1,21 @@
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const
+	path 				= require("path"),
+	HtmlWebPackPlugin 	= require("html-webpack-plugin"),
+	threadLoader 		= require("thread-loader");
+
+
 
 const fileSettings =
 {
 	rules: [
 		{
 			test: /\.(js|jsx)$/,
-			exclude: /node_modules/,
+			exclude: /node_modules|server|public/,
 			use: {
-				loader: "babel-loader",
+				loader: "babel-loader?optional=runtime&cacheDirectory=true",
 				options: {
-					presets: ["@babel/preset-react"]
-					,
 					plugins: [
 						["@babel/plugin-proposal-class-properties", { loose: false }],
-						"@babel/plugin-proposal-private-methods",
 						"@babel/plugin-transform-runtime"
 					]
 				}
@@ -24,12 +23,7 @@ const fileSettings =
 		},
 		{
 			test: /\.css$/,
-			use: ExtractTextPlugin.extract(
-				{
-					fallback: "style-loader",
-					use: ["css-loader"]
-				}
-			)
+			use: ['style-loader', 'css-loader'],
 		},
 		{
 			test: /\.(png|jpg|gif|webm)$/,
@@ -46,22 +40,11 @@ const fileSettings =
 };
 
 const plugins = [
-	new SWPrecacheWebpackPlugin(
-		{
-		  cacheId: 'cah',
-		  dontCacheBustUrlsMatching: /\.\w{8}\./,
-		  filename: 'service-worker.js',
-		  minify: true,
-		  navigateFallback: path.join(__dirname, "/public") + 'index.html',
-		  staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-		}
-	),
 	new HtmlWebPackPlugin({
 		hash: true,
 		filename: "index.html",  //target html
 		template: "./client/html/index.html" //source html
-	}),
-	new ExtractTextPlugin({ filename: "./main.css" })
+	})
 ];
 
 module.exports = {
@@ -78,5 +61,10 @@ module.exports = {
 	watch: true,
 	stats: "minimal",
 	module: fileSettings,
+	optimization: {
+		removeAvailableModules: false,
+		removeEmptyChunks: false,
+		splitChunks: false,
+	},
 	plugins
 };

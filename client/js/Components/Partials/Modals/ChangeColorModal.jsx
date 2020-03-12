@@ -47,6 +47,15 @@ class ChangeColorModal extends Component{
 		$(this.colorRef.current).attr("class", `btn btn-outline-dark dropdown-toggle ${selText}`);
 	}
 
+	get colors() {
+		let arr = ["paleturquoise", "red", "white", "green"];
+		let html = [];
+		for(let c of arr) {
+			html.push(<small class={`dropdown-item ${c}`}>{c}</small>);
+		}
+		return html;
+	}
+
     render() {
         return (
             <div>
@@ -60,8 +69,7 @@ class ChangeColorModal extends Component{
 							paleturquoise
 						</button>
 						<div class="dropdown-menu" onClick={this.onClick.bind(this)}>
-							<small class="dropdown-item paleturquoise">paleturquoise</small>
-							<small class="dropdown-item red">red</small>
+							{this.colors}
 						</div>
 					</div>
 				</div>
