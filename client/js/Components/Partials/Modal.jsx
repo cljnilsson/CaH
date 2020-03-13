@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import LobbyModal 		from "./Modals/LobbyModal";
-import RegisterModal 	from "./Modals/RegisterModal";
-import LoginModal 		from "./Modals/LoginModal";
-import ChangeColorModal from "./Modals/ChangeColorModal";
-import RulesModal		from "./Modals/RulesModal";
+import LobbyModal 			from "./Modals/LobbyModal";
+import RegisterModal 		from "./Modals/RegisterModal";
+import LoginModal 			from "./Modals/LoginModal";
+import ChangeColorModal 	from "./Modals/ChangeColorModal";
+import RulesModal			from "./Modals/RulesModal";
+import ChangePasswordModal 	from "./Modals/ChangePasswordModal";
 
 class Modal extends Component {
     get body() {
@@ -25,6 +26,9 @@ class Modal extends Component {
 			}
 			case "Rules": {
                 return RulesModal;
+			}
+			case "ChangePassword": {
+                return ChangePasswordModal;
             }
         }
     }
@@ -32,21 +36,21 @@ class Modal extends Component {
     render() {
         let Body = this.body;
         return (
-            <div class="modal fade" id={this.props.id} tabindex="-1" role="dialog" aria-labelledby="makeLobby" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title text-center" id="exampleModalLabel">{this.props.title}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <Body/>
-                </div>
-                </div>
-            </div>
-        </div>
+            <div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby="makeLobby" aria-hidden="true">
+				<div className="modal-dialog" role="document">
+					<div className="modal-content">
+						<div className="modal-header">
+							<h5 className="modal-title text-center" id="exampleModalLabel">{this.props.title}</h5>
+							<button type="button" className="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div className="modal-body">
+							<Body/>
+						</div>
+					</div>
+				</div>
+			</div>
         );
     }
 }

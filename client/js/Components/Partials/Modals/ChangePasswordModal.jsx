@@ -8,29 +8,28 @@ import faker from "faker";
 
 import joinLobby from "../../../actions/joiningLobby";
 
-class RegisterModal extends Component{
+class ChangePasswordModal extends Component{
     constructor() {
         super();
-        this.nameRef = React.createRef();
-        this.passRef = React.createRef();
-        $(document).ready(function() {
+        this.passConfirmRef = React.createRef();
+        this.passRef 		= React.createRef();
+        /*$(document).ready(function() {
             $('#register').on('shown.bs.modal', function () {
                 $(this).find("input:text")[0].focus();
             })
-        });
+        });*/
     }
 
     async onConfirm(e) {
         if(e) {
             e.preventDefault();
         }
-
-        let p = new Post("/register");
+		console.log(this.passRef.current.value)
+        //let p = new Post("/changePassword");
         p.data = {
-            username: this.nameRef.current.value,
             password: this.passRef.current.value
         };
-        await p.send();
+        //await p.send();
     }
 
     onEnter() {
@@ -43,12 +42,8 @@ class RegisterModal extends Component{
         return (
             <form onKeyPress={this.onEnter.bind(this)}>
                 <div className="form-group">
-                    <i className="fas fa-user"></i><label>Username</label>
-                    <input type="text" ref={this.nameRef} min="4" max="16" className="form-control" placeholder="My Username" defaultValue={faker.internet.userName()}/>
-                </div>
-                <div className="form-group">
-                    <i className="fas fa-unlock"></i><label>password</label>
                     <input type="password" ref={this.passRef} min="4" max="16" className="form-control" placeholder="My Password"/>
+					<input type="password" ref={this.passConfirmRef} min="4" max="16" className="form-control pt-1" placeholder="Repeat Password"/>
                 </div>
                 <button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary" data-dismiss="modal">Submit</button>
             </form>
@@ -62,8 +57,7 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-        joinLobby: joinLobby
 	}, dispatch);
 }
 
-export default connect(read, write)(RegisterModal);
+export default connect(read, write)(ChangePasswordModal);

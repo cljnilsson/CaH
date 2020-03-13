@@ -829,6 +829,7 @@ var LobbyList = /*#__PURE__*/function (_Component) {
           }
 
           elementLobbies.push(react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_Partials_LobbyEntry__WEBPACK_IMPORTED_MODULE_14__["default"], {
+            key: i,
             name: name,
             title: title,
             sizeState: state
@@ -1058,7 +1059,7 @@ var Login = /*#__PURE__*/function (_Component) {
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         className: "col-sm-7"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "input-group"
+        className: "input-group"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
         type: "text",
         className: "form-control",
@@ -1066,9 +1067,9 @@ var Login = /*#__PURE__*/function (_Component) {
         placeholder: "Username",
         maxLength: "12",
         ref: this.nameRef,
-        value: faker__WEBPACK_IMPORTED_MODULE_13___default.a.internet.userName()
+        defaultValue: faker__WEBPACK_IMPORTED_MODULE_13___default.a.internet.userName()
       }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "input-group-append"
+        className: "input-group-append"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         type: "button",
         className: "btn btn-outline-light",
@@ -1211,6 +1212,10 @@ var App = /*#__PURE__*/function (_Component) {
         id: "rules",
         title: "Rules",
         body: "Rules"
+      }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_13__["default"], {
+        id: "changePassword",
+        title: "Change Password",
+        body: "ChangePassword"
       }));
     }
   }, {
@@ -1246,7 +1251,7 @@ var App = /*#__PURE__*/function (_Component) {
     get: function get() {
       if (this.props.store.avatar) {
         return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("img", {
-          "class": "avatar",
+          className: "avatar",
           src: "/" + this.props.store.avatar
         });
       } else {
@@ -1260,22 +1265,27 @@ var App = /*#__PURE__*/function (_Component) {
         return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
           className: "col align-self-center text-right " + this.props.store.color
         }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-          "class": "dropleft"
+          className: "dropleft"
         }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
           id: "userCorner",
-          "class": "dropdown-toggle align-middle",
+          className: "dropdown-toggle align-middle",
           "data-toggle": "dropdown",
           "aria-haspopup": "true",
           "aria-expanded": "false"
         }, this.props.store.name), this.avatar, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-          "class": "dropdown-menu"
+          className: "dropdown-menu"
         }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", {
-          "class": "dropdown-item",
+          className: "dropdown-item",
           type: "button",
           "data-toggle": "modal",
           "data-target": "#changeColor"
         }, "Select User Color"), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", {
-          "class": "dropdown-item",
+          className: "dropdown-item",
+          type: "button",
+          "data-toggle": "modal",
+          "data-target": "#changePassword"
+        }, "Change Password"), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", {
+          className: "dropdown-item",
           type: "button"
         }, "Logout"))));
       } else {
@@ -1745,6 +1755,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modals_LoginModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Modals/LoginModal */ "./client/js/Components/Partials/Modals/LoginModal.jsx");
 /* harmony import */ var _Modals_ChangeColorModal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Modals/ChangeColorModal */ "./client/js/Components/Partials/Modals/ChangeColorModal.jsx");
 /* harmony import */ var _Modals_RulesModal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Modals/RulesModal */ "./client/js/Components/Partials/Modals/RulesModal.jsx");
+/* harmony import */ var _Modals_ChangePasswordModal__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Modals/ChangePasswordModal */ "./client/js/Components/Partials/Modals/ChangePasswordModal.jsx");
 
 
 
@@ -1754,6 +1765,7 @@ __webpack_require__.r(__webpack_exports__);
  // Read
 
  // Write
+
 
 
 
@@ -1775,31 +1787,31 @@ var Modal = /*#__PURE__*/function (_Component) {
     value: function render() {
       var Body = this.body;
       return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        "class": "modal fade",
+        className: "modal fade",
         id: this.props.id,
-        tabindex: "-1",
+        tabIndex: "-1",
         role: "dialog",
         "aria-labelledby": "makeLobby",
         "aria-hidden": "true"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        "class": "modal-dialog",
+        className: "modal-dialog",
         role: "document"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        "class": "modal-content"
+        className: "modal-content"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        "class": "modal-header"
+        className: "modal-header"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("h5", {
-        "class": "modal-title text-center",
+        className: "modal-title text-center",
         id: "exampleModalLabel"
       }, this.props.title), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", {
         type: "button",
-        "class": "close",
+        className: "close",
         "data-dismiss": "modal",
         "aria-label": "Close"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
         "aria-hidden": "true"
       }, "\xD7"))), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
-        "class": "modal-body"
+        className: "modal-body"
       }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(Body, null)))));
     }
   }, {
@@ -1829,6 +1841,11 @@ var Modal = /*#__PURE__*/function (_Component) {
         case "Rules":
           {
             return _Modals_RulesModal__WEBPACK_IMPORTED_MODULE_12__["default"];
+          }
+
+        case "ChangePassword":
+          {
+            return _Modals_ChangePasswordModal__WEBPACK_IMPORTED_MODULE_13__["default"];
           }
       }
     }
@@ -1972,30 +1989,29 @@ var ChangeColorModal = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", {
-        "class": "sr-only",
-        "for": "inlineFormInputGroupUsername2"
+        className: "sr-only"
       }, "Username"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "input-group mb-2 mr-sm-2"
+        className: "input-group mb-2 mr-sm-2"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "input-group-prepend"
+        className: "input-group-prepend"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "input-group-text"
+        className: "input-group-text"
       }, "Color")), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "btn-group"
+        className: "btn-group"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         type: "button",
         ref: this.colorRef,
-        "class": "btn btn-outline-dark dropdown-toggle paleturquoise",
+        className: "btn btn-outline-dark dropdown-toggle paleturquoise",
         "data-toggle": "dropdown",
         "aria-haspopup": "true",
         "aria-expanded": "false"
       }, "paleturquoise"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "dropdown-menu",
+        className: "dropdown-menu",
         onClick: this.onClick.bind(this)
       }, this.colors))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         onClick: this.onConfirm.bind(this),
         type: "button",
-        "class": "btn btn-primary"
+        className: "btn btn-primary"
       }, "Submit"));
     }
   }, {
@@ -2003,12 +2019,15 @@ var ChangeColorModal = /*#__PURE__*/function (_Component) {
     get: function get() {
       var arr = ["paleturquoise", "red", "white", "green"];
       var html = [];
+      var i = 0;
 
       for (var _i = 0, _arr = arr; _i < _arr.length; _i++) {
         var c = _arr[_i];
         html.push(react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("small", {
-          "class": "dropdown-item ".concat(c)
+          className: "dropdown-item ".concat(c),
+          key: i
         }, c));
+        i++;
       }
 
       return html;
@@ -2031,6 +2050,159 @@ function write(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(read, write)(ChangeColorModal));
+
+/***/ }),
+
+/***/ "./client/js/Components/Partials/Modals/ChangePasswordModal.jsx":
+/*!**********************************************************************!*\
+  !*** ./client/js/Components/Partials/Modals/ChangePasswordModal.jsx ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ "./node_modules/@babel/runtime/helpers/asyncToGenerator.js");
+/* harmony import */ var _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../Libs/Request */ "./client/js/Libs/Request.js");
+/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(faker__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _actions_joiningLobby__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../actions/joiningLobby */ "./client/js/actions/joiningLobby.js");
+
+
+
+
+
+
+
+
+ // Read
+
+ // Write
+
+
+
+
+
+var ChangePasswordModal = /*#__PURE__*/function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_6___default()(ChangePasswordModal, _Component);
+
+  function ChangePasswordModal() {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_2___default()(this, ChangePasswordModal);
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_4___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_5___default()(ChangePasswordModal).call(this));
+    _this.passConfirmRef = react__WEBPACK_IMPORTED_MODULE_7___default.a.createRef();
+    _this.passRef = react__WEBPACK_IMPORTED_MODULE_7___default.a.createRef();
+    /*$(document).ready(function() {
+        $('#register').on('shown.bs.modal', function () {
+            $(this).find("input:text")[0].focus();
+        })
+    });*/
+
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_3___default()(ChangePasswordModal, [{
+    key: "onConfirm",
+    value: function () {
+      var _onConfirm = _babel_runtime_helpers_asyncToGenerator__WEBPACK_IMPORTED_MODULE_1___default()( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(e) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (e) {
+                  e.preventDefault();
+                }
+
+                console.log(this.passRef.current.value); //let p = new Post("/changePassword");
+
+                p.data = {
+                  password: this.passRef.current.value
+                }; //await p.send();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function onConfirm(_x) {
+        return _onConfirm.apply(this, arguments);
+      }
+
+      return onConfirm;
+    }()
+  }, {
+    key: "onEnter",
+    value: function onEnter() {
+      if (e.key === "Enter") {
+        this.onConfirm();
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("form", {
+        onKeyPress: this.onEnter.bind(this)
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
+        type: "password",
+        ref: this.passRef,
+        min: "4",
+        max: "16",
+        className: "form-control",
+        placeholder: "My Password"
+      }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
+        type: "password",
+        ref: this.passConfirmRef,
+        min: "4",
+        max: "16",
+        className: "form-control pt-1",
+        placeholder: "Repeat Password"
+      })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
+        onClick: this.onConfirm.bind(this),
+        type: "button",
+        className: "btn btn-primary",
+        "data-dismiss": "modal"
+      }, "Submit"));
+    }
+  }]);
+
+  return ChangePasswordModal;
+}(react__WEBPACK_IMPORTED_MODULE_7__["Component"]);
+
+function read(store) {
+  return {
+    store: store.general
+  };
+}
+
+function write(dispatch) {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({}, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_8__["connect"])(read, write)(ChangePasswordModal));
 
 /***/ }),
 
@@ -2136,29 +2308,23 @@ var LobbyModal = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", {
-        "for": "exampleInputEmail1"
-      }, "Name"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", null, "Name"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
         type: "text",
         ref: this.nameRef,
         min: "4",
         max: "16",
-        "class": "form-control",
-        id: "exampleInputEmail1",
+        className: "form-control",
         placeholder: "My cool game name"
       })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "form-group"
-      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", {
-        "for": "exampleFormControlSelect1"
-      }, "Max Size"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("select", {
+        className: "form-group"
+      }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", null, "Max Size"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("select", {
         ref: this.sizeRef,
-        "class": "form-control",
-        id: "exampleFormControlSelect1"
+        className: "form-control"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", null, "2"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", null, "3"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("option", null, "4"))), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         onClick: this.onConfirm.bind(this),
         type: "button",
-        "class": "btn btn-primary",
+        className: "btn btn-primary",
         "data-dismiss": "modal"
       }, "Submit"));
     }
@@ -2326,27 +2492,27 @@ var LoginModal = /*#__PURE__*/function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("form", {
         onKeyPress: this.onEnter.bind(this)
       }, this.error, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        "class": "form-group"
+        className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("i", {
-        "class": "fas fa-user"
+        className: "fas fa-user"
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("label", null, "Username"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("input", {
         type: "text",
         ref: this.usernameRef,
-        "class": "form-control",
+        className: "form-control",
         placeholder: "My Username"
       })), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        "class": "form-group"
+        className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("i", {
-        "class": "fas fa-unlock"
+        className: "fas fa-unlock"
       }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("label", null, "password"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("input", {
         type: "password",
         ref: this.passwordRef,
-        "class": "form-control",
+        className: "form-control",
         placeholder: "My Password"
       })), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("button", {
         onClick: this.onConfirm.bind(this),
         type: "button",
-        "class": "btn btn-primary"
+        className: "btn btn-primary"
       }, "Submit"));
     }
   }, {
@@ -2495,32 +2661,32 @@ var RegisterModal = /*#__PURE__*/function (_Component) {
       return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("form", {
         onKeyPress: this.onEnter.bind(this)
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "form-group"
+        className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("i", {
-        "class": "fas fa-user"
+        className: "fas fa-user"
       }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", null, "Username"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
         type: "text",
         ref: this.nameRef,
         min: "4",
         max: "16",
-        "class": "form-control",
+        className: "form-control",
         placeholder: "My Username",
-        value: faker__WEBPACK_IMPORTED_MODULE_11___default.a.internet.userName()
+        defaultValue: faker__WEBPACK_IMPORTED_MODULE_11___default.a.internet.userName()
       })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
-        "class": "form-group"
+        className: "form-group"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("i", {
-        "class": "fas fa-unlock"
+        className: "fas fa-unlock"
       }), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("label", null, "password"), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("input", {
         type: "password",
         ref: this.passRef,
         min: "4",
         max: "16",
-        "class": "form-control",
+        className: "form-control",
         placeholder: "My Password"
       })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         onClick: this.onConfirm.bind(this),
         type: "button",
-        "class": "btn btn-primary",
+        className: "btn btn-primary",
         "data-dismiss": "modal"
       }, "Submit"));
     }

@@ -38,7 +38,7 @@ class App extends Component {
 
 	get avatar() {
 		if(this.props.store.avatar) {
-			return <img class="avatar" src={"/" + this.props.store.avatar}/>;
+			return <img className="avatar" src={"/" + this.props.store.avatar}/>;
 		} else {
 			return "";
 		}
@@ -48,11 +48,12 @@ class App extends Component {
 		if(this.props.store.name != undefined) {
 			return(
 				<div className={"col align-self-center text-right " + this.props.store.color}>
-					<div class="dropleft">
-						<span id="userCorner" class="dropdown-toggle align-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.store.name}</span>{this.avatar}
-						<div class="dropdown-menu">
-							<button class="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Select User Color</button>
-							<button class="dropdown-item" type="button">Logout</button>
+					<div className="dropleft">
+						<span id="userCorner" className="dropdown-toggle align-middle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{this.props.store.name}</span>{this.avatar}
+						<div className="dropdown-menu">
+							<button className="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Select User Color</button>
+							<button className="dropdown-item" type="button" data-toggle="modal" data-target="#changePassword">Change Password</button>
+							<button className="dropdown-item" type="button">Logout</button>
 						</div>
 					</div>
 				</div>)
@@ -86,6 +87,7 @@ class App extends Component {
 				<Modal id="login" title="Login" body="Login"/>
 				<Modal id="changeColor" title="Change Color" body="ChangeColor"/>
 				<Modal id="rules" title="Rules" body="Rules"/>
+				<Modal id="changePassword" title="Change Password" body="ChangePassword"/>
 			</div>
 		);
 	}

@@ -1,9 +1,6 @@
 const
 	path 				= require("path"),
-	HtmlWebPackPlugin 	= require("html-webpack-plugin"),
-	threadLoader 		= require("thread-loader");
-
-
+	HtmlWebPackPlugin 	= require("html-webpack-plugin");
 
 const fileSettings =
 {

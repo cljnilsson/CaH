@@ -29,19 +29,19 @@ class LobbyModal extends Component{
     render() {
         return (
             <form>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Name</label>
-                    <input type="text" ref={this.nameRef} min="4" max="16" class="form-control" id="exampleInputEmail1"  placeholder="My cool game name"/>
+                <div className="form-group">
+                    <label>Name</label>
+                    <input type="text" ref={this.nameRef} min="4" max="16" className="form-control" placeholder="My cool game name"/>
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Max Size</label>
-                    <select ref={this.sizeRef} class="form-control" id="exampleFormControlSelect1">
+                <div className="form-group">
+                    <label>Max Size</label>
+                    <select ref={this.sizeRef} className="form-control">
                         <option>2</option>
                         <option>3</option>
                         <option>4</option>
                     </select>
                 </div>
-                <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                <button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary" data-dismiss="modal">Submit</button>
             </form>
         );
     }

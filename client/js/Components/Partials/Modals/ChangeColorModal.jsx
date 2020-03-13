@@ -50,8 +50,10 @@ class ChangeColorModal extends Component{
 	get colors() {
 		let arr = ["paleturquoise", "red", "white", "green"];
 		let html = [];
+		let i = 0;
 		for(let c of arr) {
-			html.push(<small class={`dropdown-item ${c}`}>{c}</small>);
+			html.push(<small className={`dropdown-item ${c}`} key={i}>{c}</small>);
+			i++;
 		}
 		return html;
 	}
@@ -59,21 +61,21 @@ class ChangeColorModal extends Component{
     render() {
         return (
             <div>
-				<label class="sr-only" for="inlineFormInputGroupUsername2">Username</label>
-				<div class="input-group mb-2 mr-sm-2">
-					<div class="input-group-prepend">
-						<div class="input-group-text">Color</div>
+				<label className="sr-only">Username</label>
+				<div className="input-group mb-2 mr-sm-2">
+					<div className="input-group-prepend">
+						<div className="input-group-text">Color</div>
 					</div>
-					<div class="btn-group">
-						<button type="button" ref={this.colorRef} class="btn btn-outline-dark dropdown-toggle paleturquoise" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<div className="btn-group">
+						<button type="button" ref={this.colorRef} className="btn btn-outline-dark dropdown-toggle paleturquoise" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							paleturquoise
 						</button>
-						<div class="dropdown-menu" onClick={this.onClick.bind(this)}>
+						<div className="dropdown-menu" onClick={this.onClick.bind(this)}>
 							{this.colors}
 						</div>
 					</div>
 				</div>
-				<button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary">Submit</button>
+				<button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary">Submit</button>
 			</div>
         );
     }

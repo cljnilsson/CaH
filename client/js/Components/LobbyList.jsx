@@ -44,7 +44,7 @@ class LobbyList extends Component {
                 }
     
                 elementLobbies.push(
-                    <LobbyEntry name={name} title={title} sizeState={state}/>
+                    <LobbyEntry key={i} name={name} title={title} sizeState={state}/>
                 );
             }
         }

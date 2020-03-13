@@ -61,15 +61,15 @@ class LoginModal extends Component{
         return (
             <form onKeyPress={this.onEnter.bind(this)}>
                 {this.error}
-                <div class="form-group">
-                    <i class="fas fa-user"></i><label>Username</label>
-                    <input type="text" ref={this.usernameRef} class="form-control" placeholder="My Username"/>
+                <div className="form-group">
+                    <i className="fas fa-user"></i><label>Username</label>
+                    <input type="text" ref={this.usernameRef} className="form-control" placeholder="My Username"/>
                 </div>
-                <div class="form-group">
-                    <i class="fas fa-unlock"></i><label>password</label>
-                    <input type="password" ref={this.passwordRef} class="form-control" placeholder="My Password"/>
+                <div className="form-group">
+                    <i className="fas fa-unlock"></i><label>password</label>
+                    <input type="password" ref={this.passwordRef} className="form-control" placeholder="My Password"/>
                 </div>
-                <button onClick={this.onConfirm.bind(this)} type="button" class="btn btn-primary">Submit</button>
+                <button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary">Submit</button>
             </form>
         );
     }

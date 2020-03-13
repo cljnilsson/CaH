@@ -87,9 +87,9 @@ class Login extends Component {
                 </div>
                 <div className="row justify-content-center">
 					<div className="col-sm-7">
-						<div class="input-group">
-							<input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef} value={faker.internet.userName()}/>
-							<div class="input-group-append">
+						<div className="input-group">
+							<input type="text" className="form-control" onKeyPress={this.onEnter.bind(this)} placeholder="Username" maxLength="12" ref={this.nameRef} defaultValue={faker.internet.userName()}/>
+							<div className="input-group-append">
 								<button type="button" className="btn btn-outline-light" onClick={this.onSubmit.bind(this)}>Submit</button>
 							</div>
 						</div>
