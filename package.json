@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon server/Routes/routes.js",
-    "start": "concurrently --kill-others-on-fail \"npm run build\" \"npm run server\"",
-    "build": "node_modules/.bin/webpack --config webpack.config.js --mode development"
+	"dev": "concurrently --kill-others-on-fail \"npm run b\" \"npm run server\"",
+	"start": "npm run server",
+    "b": "node_modules/.bin/webpack --config webpack.config.js --mode development"
   },
   "author": "",
   "license": "ISC",
