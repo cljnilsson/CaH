@@ -10,7 +10,6 @@ const
     nconf       = require('nconf'),
     compression = require("compression"),
     ngrok       = require('ngrok'),
-    opn         = require('opn');
     path        = require('path');
 
 require("./MongoDB/mongo")
