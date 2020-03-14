@@ -28,6 +28,7 @@ Alternatively, check the demo here: <ADD PUBLIC LINK HERE>
 * Express
 * dotenv
 * Mongoose
+* bcrypt
 
 ### Client
 * React

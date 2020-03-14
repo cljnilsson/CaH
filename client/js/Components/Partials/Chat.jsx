@@ -146,8 +146,7 @@ function write(dispatch) {
         sendMessage: sendMessage,
         joinLobby: joinLobby,
         updateUsers: updateUsers,
-		newMessage: newMessage,
-		refresh: refresh
+		newMessage: newMessage
 	}, dispatch);
 }
 

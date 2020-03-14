@@ -1,8 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './js/Components/Main';
-import {Provider} from "react-redux";
-import store from "./js/store"
+import React 		from 'react';
+import ReactDOM 	from 'react-dom';
+import App 			from './js/Components/Main';
+import {Provider} 	from "react-redux";
+import store 		from "./js/store"
 import "./css/main.css";
 import "./public/test.png";
 import "./public/bg.png";

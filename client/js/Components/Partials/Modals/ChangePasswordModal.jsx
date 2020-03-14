@@ -12,7 +12,9 @@ class ChangePasswordModal extends Component{
     constructor() {
         super();
         this.passConfirmRef = React.createRef();
-        this.passRef 		= React.createRef();
+		this.passRef 		= React.createRef();
+		this.state = {error: ""};
+
         /*$(document).ready(function() {
             $('#register').on('shown.bs.modal', function () {
                 $(this).find("input:text")[0].focus();
@@ -20,19 +22,30 @@ class ChangePasswordModal extends Component{
         });*/
     }
 
-    async onConfirm(e) {
+    onConfirm(e) {
         if(e) {
             e.preventDefault();
-        }
-		console.log(this.passRef.current.value)
-        //let p = new Post("/changePassword");
-        p.data = {
-            password: this.passRef.current.value
-        };
-        //await p.send();
+		}
+
+		if(this.passRef.current.value === this.passConfirmRef.current.value) {
+			$(function () {
+				$('#changePassword').modal('toggle');
+			});
+
+			let p = new Post(`/${this.props.store.name}/changePassword`);
+			p.data = {
+				password: this.passRef.current.value
+			};
+			
+			p.send();
+		} else {
+			this.passRef.current.value = "";
+			this.passConfirmRef.current.value = "";
+			this.setState({error: <div class="alert alert-danger" role="alert">Passwords must match</div>});
+		};
     }
 
-    onEnter() {
+    onEnter(e) {
         if(e.key === "Enter") {
             this.onConfirm();
         }
@@ -42,10 +55,11 @@ class ChangePasswordModal extends Component{
         return (
             <form onKeyPress={this.onEnter.bind(this)}>
                 <div className="form-group">
+					{this.state.error}
                     <input type="password" ref={this.passRef} min="4" max="16" className="form-control" placeholder="My Password"/>
-					<input type="password" ref={this.passConfirmRef} min="4" max="16" className="form-control pt-1" placeholder="Repeat Password"/>
+					<input type="password" ref={this.passConfirmRef} min="4" max="16" className="form-control mt-2" placeholder="Repeat Password"/>
                 </div>
-                <button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary" data-dismiss="modal">Submit</button>
+                <button onClick={this.onConfirm.bind(this)} type="button" className="btn btn-primary">Submit</button>
             </form>
         );
     }

@@ -109,7 +109,21 @@ class Mongo {
         data.color = color;
         await data.save();
         return data;
-    }
+	}
+	
+	static async changePassword(name, newPass) {
+		let salt = bcrypt.genSaltSync(5);
+		let model = Model.accounts;
+		let data = await model.findOne({username: name});
+
+		newPass = await bcrypt.hash(newPass, salt);
+
+		data.password = newPass;
+		data.salt = salt;
+		await data.save();
+		
+        return data;
+	}
 
     static async makeAccount(username, password) {
         let salt = bcrypt.genSaltSync(5);

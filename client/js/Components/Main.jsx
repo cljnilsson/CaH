@@ -3,6 +3,7 @@ import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
 import toIndex from "../actions/toIndex";
+import logout from "../actions/logout";
 
 // Components
 import Login     from "./Login";
@@ -11,6 +12,10 @@ import Lobby     from "./Lobby";
 import Game      from "./Game";
 
 import Modal     from "./Partials/Modal";
+
+function eraseCookie(name) {   
+    document.cookie = name+'=; Max-Age=-99999999;';  
+}
 
 class App extends Component {
 	constructor(props) {
@@ -53,13 +58,19 @@ class App extends Component {
 						<div className="dropdown-menu">
 							<button className="dropdown-item" type="button" data-toggle="modal" data-target="#changeColor">Select User Color</button>
 							<button className="dropdown-item" type="button" data-toggle="modal" data-target="#changePassword">Change Password</button>
-							<button className="dropdown-item" type="button">Logout</button>
+							<button className="dropdown-item" type="button" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
+							<button className="dropdown-item" type="button" onClick={this.logout.bind(this)}>Logout</button>
 						</div>
 					</div>
 				</div>)
 		} else {
 			return "";
 		}
+	}
+
+	logout() {
+		eraseCookie("username");
+		this.props.logout()
 	}
 
 	goToStart() {
@@ -99,7 +110,8 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-		toIndex: toIndex
+		toIndex: toIndex,
+		logout: logout
 	}, dispatch);
 }
 

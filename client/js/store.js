@@ -138,6 +138,14 @@ const reducer = function(state=settings.standard, action) {
 			state.color = action.value;
 			return {...state};
 		}
+		case "LOGOUT": {
+			delete state.name;
+			delete state.avatar;
+			delete state.color;
+
+			state.state = GameState.Login;
+			return {...state}
+		}
 		default: {
 			return state;
 		}

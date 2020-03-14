@@ -87,14 +87,14 @@ app.post("/login", async function(req, res) {
         if(correct === false) {
             error = "Wrong Password";
         } else {
-            data = {error: error, avatar: dbInfo.avatar, color: dbInfo.color};
+            data = {avatar: dbInfo.avatar, color: dbInfo.color};
         }
     } else {
         correct = false;
         error = "Wrong username";
     }
-
-    res.status(correct ? 200 : 300).send(JSON.stringify(data));
+	console.log(correct);
+    res.status(correct ? 200 : 300).send(JSON.stringify({...data, error: error}));
 });
 
 app.post("/:user/changeColor", async function(req, res) {
@@ -102,6 +102,13 @@ app.post("/:user/changeColor", async function(req, res) {
 	console.log(`${req.params.user} is trying to change his color to ${req.body.color}`);
     await Mongo.changeColor(req.params.user, req.body.color);
 	io.emit("changeColor",{user: req.params.user, color: req.body.color});
+    res.sendStatus(200);
+});
+
+app.post("/:user/changePassword", async function(req, res) {
+	// Should check if body exists
+	console.log(`${req.params.user} is trying to change his password to ${req.body.password}`);
+    await Mongo.changePassword(req.params.user, req.body.password);
     res.sendStatus(200);
 });
 

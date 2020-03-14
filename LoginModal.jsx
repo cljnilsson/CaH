@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import {Post} from "../../../Libs/Request";
+import {Post} from "./client/js/Libs/Request";
 
-import confirmName from "../../../actions/confirmName";
+import confirmName from "./client/js/actions/confirmName";
 
 class LoginModal extends Component{
     constructor() {
@@ -47,9 +47,7 @@ class LoginModal extends Component{
             this.props.confirmName(this.usernameRef.current.value);
             document.cookie = `username=${this.usernameRef.current.value}`;
         } else {
-			console.log(data);
-			this.state.error = data.error
-            this.setState({...this.state});
+            this.setState({...this.state, error: data.error});
         }
     }
     
