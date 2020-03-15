@@ -1228,6 +1228,10 @@ var App = /*#__PURE__*/function (_Component) {
         id: "changePassword",
         title: "Change Password",
         body: "ChangePassword"
+      }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+        id: "changeAvatar",
+        title: "Change Avatar",
+        body: "ChangeAvatar"
       }));
     }
   }, {
@@ -1770,10 +1774,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _Modals_LobbyModal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Modals/LobbyModal */ "./client/js/Components/Partials/Modals/LobbyModal.jsx");
 /* harmony import */ var _Modals_RegisterModal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Modals/RegisterModal */ "./client/js/Components/Partials/Modals/RegisterModal.jsx");
-/* harmony import */ var _Modals_LoginModal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Modals/LoginModal */ "./client/js/Components/Partials/Modals/LoginModal.jsx");
+/* harmony import */ var _Modals_LoginModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Modals/LoginModal */ "./client/js/Components/Partials/Modals/LoginModal.jsx");
 /* harmony import */ var _Modals_ChangeColorModal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Modals/ChangeColorModal */ "./client/js/Components/Partials/Modals/ChangeColorModal.jsx");
 /* harmony import */ var _Modals_RulesModal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Modals/RulesModal */ "./client/js/Components/Partials/Modals/RulesModal.jsx");
 /* harmony import */ var _Modals_ChangePasswordModal__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Modals/ChangePasswordModal */ "./client/js/Components/Partials/Modals/ChangePasswordModal.jsx");
+/* harmony import */ var _Modals_ChangeAvatarModal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Modals/ChangeAvatarModal */ "./client/js/Components/Partials/Modals/ChangeAvatarModal.jsx");
 
 
 
@@ -1783,6 +1788,7 @@ __webpack_require__.r(__webpack_exports__);
  // Read
 
  // Write
+
 
 
 
@@ -1848,7 +1854,7 @@ var Modal = /*#__PURE__*/function (_Component) {
 
         case "Login":
           {
-            return _Modals_LoginModal__WEBPACK_IMPORTED_MODULE_14__["default"];
+            return _Modals_LoginModal__WEBPACK_IMPORTED_MODULE_10__["default"];
           }
 
         case "ChangeColor":
@@ -1864,6 +1870,11 @@ var Modal = /*#__PURE__*/function (_Component) {
         case "ChangePassword":
           {
             return _Modals_ChangePasswordModal__WEBPACK_IMPORTED_MODULE_13__["default"];
+          }
+
+        case "ChangeAvatar":
+          {
+            return _Modals_ChangeAvatarModal__WEBPACK_IMPORTED_MODULE_14__["default"];
           }
       }
     }
@@ -1881,6 +1892,138 @@ function write(dispatch) {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["connect"])(read, write)(Modal));
+
+/***/ }),
+
+/***/ "./client/js/Components/Partials/Modals/ChangeAvatarModal.jsx":
+/*!********************************************************************!*\
+  !*** ./client/js/Components/Partials/Modals/ChangeAvatarModal.jsx ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ "./node_modules/@babel/runtime/helpers/classCallCheck.js");
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/createClass */ "./node_modules/@babel/runtime/helpers/createClass.js");
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/possibleConstructorReturn */ "./node_modules/@babel/runtime/helpers/possibleConstructorReturn.js");
+/* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/getPrototypeOf */ "./node_modules/@babel/runtime/helpers/getPrototypeOf.js");
+/* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/inherits */ "./node_modules/@babel/runtime/helpers/inherits.js");
+/* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../Libs/Request */ "./client/js/Libs/Request.js");
+/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! faker */ "./node_modules/faker/index.js");
+/* harmony import */ var faker__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(faker__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _actions_joiningLobby__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../actions/joiningLobby */ "./client/js/actions/joiningLobby.js");
+
+
+
+
+
+
+ // Read
+
+ // Write
+
+
+
+
+
+var ChangeAvatarModal = /*#__PURE__*/function (_Component) {
+  _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_4___default()(ChangeAvatarModal, _Component);
+
+  function ChangeAvatarModal() {
+    var _this;
+
+    _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, ChangeAvatarModal);
+
+    _this = _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default()(this, _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_3___default()(ChangeAvatarModal).call(this));
+    _this.passConfirmRef = react__WEBPACK_IMPORTED_MODULE_5___default.a.createRef();
+    _this.passRef = react__WEBPACK_IMPORTED_MODULE_5___default.a.createRef();
+    _this.state = {
+      error: ""
+    };
+    return _this;
+  }
+
+  _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ChangeAvatarModal, [{
+    key: "onConfirm",
+    value: function onConfirm(e) {
+      console.log(this.file);
+
+      if (e) {
+        e.preventDefault();
+      }
+
+      if (this.file != undefined) {
+        var d = new FormData();
+        d.append("file", this.file, this.file.name);
+        fetch("/".concat(this.props.store.name, "/changeAvatar"), {
+          method: 'POST',
+          body: d
+        });
+      }
+    }
+  }, {
+    key: "onEnter",
+    value: function onEnter(e) {
+      if (e.key === "Enter") {
+        this.onConfirm();
+      }
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(e) {
+      this.file = e.target.files[0];
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "input-group mb-3"
+      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "input-group-prepend"
+      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("span", {
+        className: "input-group-text"
+      }, "Upload")), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        className: "custom-file"
+      }, react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("input", {
+        type: "file",
+        className: "custom-file-input",
+        accept: "image/png, image/jpeg",
+        onChange: this.onChange.bind(this)
+      }), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("label", {
+        className: "custom-file-label"
+      }, "Choose file"))), react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("input", {
+        onClick: this.onConfirm.bind(this),
+        className: "btn btn-outline-dark",
+        name: "submit",
+        value: "Upload"
+      }));
+    }
+  }]);
+
+  return ChangeAvatarModal;
+}(react__WEBPACK_IMPORTED_MODULE_5__["Component"]);
+
+function read(store) {
+  return {
+    store: store.general
+  };
+}
+
+function write(dispatch) {
+  return Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])({}, dispatch);
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_6__["connect"])(read, write)(ChangeAvatarModal));
 
 /***/ }),
 
@@ -3146,7 +3289,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var url = "http://localhost:3001";
+var url = ""; //Using relative URL instead of RAW
 
 var Request = function Request(uri) {
   _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_6___default()(this, Request);

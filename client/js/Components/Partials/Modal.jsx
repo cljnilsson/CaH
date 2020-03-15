@@ -8,6 +8,7 @@ import LoginModal 			from "./Modals/LoginModal";
 import ChangeColorModal 	from "./Modals/ChangeColorModal";
 import RulesModal			from "./Modals/RulesModal";
 import ChangePasswordModal 	from "./Modals/ChangePasswordModal";
+import ChangeAvatarModal 	from "./Modals/ChangeAvatarModal";
 
 class Modal extends Component {
     get body() {
@@ -29,6 +30,9 @@ class Modal extends Component {
 			}
 			case "ChangePassword": {
                 return ChangePasswordModal;
+			}
+			case "ChangeAvatar": {
+                return ChangeAvatarModal;
             }
         }
     }

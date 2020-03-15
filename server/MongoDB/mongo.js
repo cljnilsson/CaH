@@ -103,6 +103,14 @@ class Mongo {
 
 	}
 	
+	static async setAvatarToNonDefault(name, ending) {
+		let model = Model.accounts;
+        let data = await model.findOne({username: name});
+        data.avatar = "avatars/" + name + "_avatar" + ending;
+        await data.save();
+        return data;
+	}
+
 	static async changeColor(name, color) {
         let model = Model.accounts;
         let data = await model.findOne({username: name});

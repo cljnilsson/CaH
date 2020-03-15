@@ -9,7 +9,7 @@ Fanmade Cards Against Humanity game with the purpose of improving my knowledge o
 * type "npm start" to run the project
 * Go to localhost:3001 in your web browser to check the site
 
-Alternatively, check the demo here: <ADD PUBLIC LINK HERE>
+Alternatively, check the demo here: https://fancah.herokuapp.com/
 
 ### Key Frameworks/Libs
 * Node.js 8+

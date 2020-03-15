@@ -3,9 +3,9 @@ const
     app         = express(),
     server      = require("http").createServer(app),
     io          = require("socket.io")(server);
-    bodyParser  =  require("body-parser"),
+    bodyParser  = require("body-parser"),
     exphbs      = require("express-handlebars"),
-    session     = require('express-session'),
+	session     = require('express-session'),
     helmet      = require('helmet'),
     nconf       = require('nconf'),
     compression = require("compression"),

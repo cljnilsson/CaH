@@ -5,9 +5,21 @@ const
     Game = require("../Game/Game"),
     schemas = require("../MongoDB/schemas/schemas"),
     bcrypt = require("bcrypt"),
-    Guest = require("../guests"),
+	Guest = require("../guests"),
+	fs = require("fs"),
     io  = require("../io"); //required
 
+var multer  = require('multer');
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+	  cb(null, './public/avatars')
+	},
+	filename: function (req, file, cb) {
+		let name = file.originalname;
+		cb(null, req.params.user + "_avatar" + name.substring(name.length - 4, name.length)); //lazy solution should look for the last . in string and use that for first index.
+	}
+  })
+var upload = multer({ storage: storage });
 
 app.get("/", (req, res) => {
     res.sendfile("./public/index.html")
@@ -109,6 +121,13 @@ app.post("/:user/changePassword", async function(req, res) {
 	// Should check if body exists
 	console.log(`${req.params.user} is trying to change his password to ${req.body.password}`);
     await Mongo.changePassword(req.params.user, req.body.password);
+    res.sendStatus(200);
+});
+
+app.post("/:user/changeAvatar", upload.single("file"),async function(req, res) {
+	console.log(req.file);
+	let name = req.file.originalname;
+	Mongo.setAvatarToNonDefault(req.params.user, name.substring(name.length - 4, name.length)); //assumes that the avatar has been created by Multer
     res.sendStatus(200);
 });
 

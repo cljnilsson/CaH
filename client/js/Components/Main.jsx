@@ -99,6 +99,7 @@ class App extends Component {
 				<Modal id="changeColor" title="Change Color" body="ChangeColor"/>
 				<Modal id="rules" title="Rules" body="Rules"/>
 				<Modal id="changePassword" title="Change Password" body="ChangePassword"/>
+				<Modal id="changeAvatar" title="Change Avatar" body="ChangeAvatar"/>
 			</div>
 		);
 	}

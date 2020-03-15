@@ -1,4 +1,4 @@
-const url = "http://localhost:3001"
+const url = ""; //Using relative URL instead of RAW
 
 
 class Request {
