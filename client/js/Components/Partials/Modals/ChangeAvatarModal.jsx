@@ -17,10 +17,6 @@ class ChangeAvatarModal extends Component {
     }
 
     onConfirm(e) {
-		console.log(this.file)
-        if(e) {
-            e.preventDefault();
-		}
 		if(this.file != undefined) {
 			let d = new FormData();
 			d.append("file", this.file, this.file.name);
@@ -53,7 +49,7 @@ class ChangeAvatarModal extends Component {
 						<label className="custom-file-label">Choose file</label>
 					</div>
 				</div>
-				<input onClick={this.onConfirm.bind(this)} className="btn btn-outline-dark" name="submit" value="Upload"/>
+				<input onClick={this.onConfirm.bind(this)} className="btn btn-outline-dark" name="submit" defaultValue="Upload"/>
 			</div>
         );
     }

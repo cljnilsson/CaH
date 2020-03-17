@@ -1,13 +1,15 @@
 const
-    mongoose = require('mongoose'),
-    Mongo    = require("../MongoDB/mongo"),
-    app = require("../server.js").a,
-    Game = require("../Game/Game"),
-    schemas = require("../MongoDB/schemas/schemas"),
-    bcrypt = require("bcrypt"),
-	Guest = require("../guests"),
-	fs = require("fs"),
-    io  = require("../io"); //required
+    mongoose 		= require('mongoose'),
+    Mongo    		= require("../MongoDB/mongo"),
+	app 			= require("../server.js").a,
+	Game 			= require("../Game/Game"),
+	LobbyHandler 	= require("../Game/LobbyHandler"),
+    schemas 		= require("../MongoDB/schemas/schemas"),
+    bcrypt 			= require("bcrypt"),
+	Guest 			= require("../guests"),
+    Player 			= require("../Game/Player"),
+	fs 				= require("fs"),
+    io  			= require("../io"); //required
 
 var multer  = require('multer');
 var storage = multer.diskStorage({
@@ -107,6 +109,14 @@ app.post("/login", async function(req, res) {
     }
 	console.log(correct);
     res.status(correct ? 200 : 300).send(JSON.stringify({...data, error: error}));
+});
+
+app.post("/:user/leaveGame", async function(req, res) {
+	// Should check if body exists
+	console.log(`${req.params.user} might have left a game!`);
+	// Copied code from io.js as I don't want to make a seperate file with one function
+	LobbyHandler.onDisconnect();
+    res.sendStatus(200);
 });
 
 app.post("/:user/changeColor", async function(req, res) {

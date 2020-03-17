@@ -12,6 +12,7 @@ import Lobby     from "./Lobby";
 import Game      from "./Game";
 
 import Modal     from "./Partials/Modal";
+import { Post } from '../Libs/Request';
 
 function eraseCookie(name) {   
     document.cookie = name+'=; Max-Age=-99999999;';  
@@ -74,6 +75,8 @@ class App extends Component {
 	}
 
 	goToStart() {
+		let p = new Post(`/${this.props.store.name}/leaveGame`);
+		p.send();
 		this.props.toIndex();
 	}
 

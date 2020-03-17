@@ -1145,6 +1145,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Lobby__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Lobby */ "./client/js/Components/Lobby.jsx");
 /* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Game */ "./client/js/Components/Game.jsx");
 /* harmony import */ var _Partials_Modal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Partials/Modal */ "./client/js/Components/Partials/Modal.jsx");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../Libs/Request */ "./client/js/Libs/Request.js");
 
 
 
@@ -1157,6 +1158,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Components
+
 
 
 
@@ -1186,6 +1188,8 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "goToStart",
     value: function goToStart() {
+      var p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_15__["Post"]("/".concat(this.props.store.name, "/leaveGame"));
+      p.send();
       this.props.toIndex();
     }
   }, {
@@ -1617,7 +1621,7 @@ var Chat = /*#__PURE__*/function (_Component) {
       })), react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         className: "col-md-auto pl-1 align-self-center"
       }, react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
-        className: "btn-sm btn-outline-light",
+        className: "btn btn-sm btn-outline-light",
         onClick: this.sendMessage.bind(this)
       }, "Send")))));
     }
@@ -1956,12 +1960,6 @@ var ChangeAvatarModal = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(ChangeAvatarModal, [{
     key: "onConfirm",
     value: function onConfirm(e) {
-      console.log(this.file);
-
-      if (e) {
-        e.preventDefault();
-      }
-
       if (this.file != undefined) {
         var d = new FormData();
         d.append("file", this.file, this.file.name);
@@ -2005,7 +2003,7 @@ var ChangeAvatarModal = /*#__PURE__*/function (_Component) {
         onClick: this.onConfirm.bind(this),
         className: "btn btn-outline-dark",
         name: "submit",
-        value: "Upload"
+        defaultValue: "Upload"
       }));
     }
   }]);
