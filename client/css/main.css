@@ -118,3 +118,7 @@ footer {
 #navbarBrand {
 	cursor: pointer;
 }
+
+#lobbySearch {
+	margin-bottom: 15px;
+}

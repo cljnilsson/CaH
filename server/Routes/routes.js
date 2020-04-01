@@ -81,9 +81,15 @@ app.post("/lobby", async function(req, res) {
 });
 
 app.post("/register", async function(req, res) {
-    let check = req.body.username && req.body.password;
+	// Check if passwords match as well in the future
+	let check = req.body.username && req.body.password;
+	let toSend = {};
     if(check) {
-        await Mongo.makeAccount(req.body.username, req.body.password);
+		if(await Mongo.userExist() === false) {
+			Mongo.makeAccount(req.body.username, req.body.password);
+		} else {
+			toSend.error = "Account name is taken";
+		}
     }
     res.sendStatus(check ? 200 : 400);
 });
@@ -107,7 +113,7 @@ app.post("/login", async function(req, res) {
         correct = false;
         error = "Wrong username";
     }
-	console.log(correct);
+	
     res.status(correct ? 200 : 300).send(JSON.stringify({...data, error: error}));
 });
 

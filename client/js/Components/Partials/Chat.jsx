@@ -1,7 +1,8 @@
-import React, { Component } 		from 'react';
+import React, { Component, useState}from 'react';
 import {connect} 					from "react-redux"; // Read
 import {bindActionCreators} 		from "redux"; // Write
 
+import Picker, { SKIN_TONE_MEDIUM_LIGHT }  from 'emoji-picker-react';
 import Users 						from "./Users";
 
 import joinLobby 					from "../../actions/joiningLobby";
@@ -11,11 +12,47 @@ import {newMessage, sendMessage} 	from "../../actions/message";
 import socket 						from "../../Libs/io";
 import classNames 					from "classnames";
 
+function typeInTextarea(el, newText) {
+	var start = el.prop("selectionStart")
+	var end = el.prop("selectionEnd")
+	var text = el.val()
+	var before = text.substring(0, start)
+	var after  = text.substring(end, text.length)
+	el.val(before + newText + after)
+	el[0].selectionStart = el[0].selectionEnd = start + newText.length
+	el.focus()
+  }
+
+const Test = () => {
+    const [chosenEmoji, setChosenEmoji] = useState(null);
+ 
+    const onEmojiClick = (event, emojiObject) => {
+		setChosenEmoji(emojiObject);
+
+		console.log(emojiObject)
+
+		let box = $("#textbox")[0];
+		console.log(box)
+		//console.log(typeInTextarea($(box), "xx"))
+
+		typeInTextarea($(box), emojiObject.emoji)
+    }
+ 
+    return (
+        <div>
+            <Picker onEmojiClick={onEmojiClick} skinTone={SKIN_TONE_MEDIUM_LIGHT}/>
+        </div>
+    );
+};
+
 class Chat extends Component {
+
     constructor() {
-        super();
+		super();
+		
         this.nameRef 		= React.createRef();
-        this.lastMessage 	= React.createRef();
+		this.lastMessage 	= React.createRef();
+
         this.state 			= {};
         this.state.messages = [];
 
@@ -77,6 +114,16 @@ class Chat extends Component {
         this.nameRef.current.value = ""
     }
 
+	onChange(e) {
+		let target 	= $(e.target);
+		let str 	= $(target).val();
+
+		if(str.includes(" :)")) {
+			$(target).val(str.replace(" :)", '\U+1F600'));
+		}
+		// 😀
+	}
+
     onEnter(e) {
         if(e.key === "Enter") {
             this.sendMessage();
@@ -117,7 +164,7 @@ class Chat extends Component {
 
     render() {
         return (
-            <div className="row">
+				<div className="row">
                 {this.props.bundleUsers === true ? <Users/> : ""}
                 <div className="col">
                     <div className={(this.props.minified === true ? "miniChat" : "chat") + " text-left"}>
@@ -125,8 +172,18 @@ class Chat extends Component {
                     </div>
                     <div className="row">
                         <div className="col pr-0">
-                            <input className="form-control w-100 " ref={this.nameRef} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+                            <input id="textbox" className="form-control w-100 " ref={this.nameRef} onChange={this.onChange} type="text" onKeyPress={this.onEnter.bind(this)}></input>
                         </div>
+						<div classname="col">
+							<div class="btn-group dropup">
+								<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Dropup
+								</button>
+								<div class="dropdown-menu">
+									<Test/>
+								</div>
+							</div>
+						</div>
                         <div className="col-md-auto pl-1 align-self-center">
                             <button className="btn btn-sm btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
                         </div>

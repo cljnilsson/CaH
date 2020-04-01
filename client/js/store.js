@@ -131,7 +131,10 @@ const reducer = function(state=settings.standard, action) {
 			return {...state};
 		}
 		case "TO_INDEX": {
-			state.state = GameState.Login;
+			if(state.state != GameState.Login) {
+				state.state = GameState.LobbyList;
+			}
+
 			return {...state};
 		}
 		case "CHANGE_COLOR": {

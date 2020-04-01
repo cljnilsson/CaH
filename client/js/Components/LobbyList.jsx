@@ -71,10 +71,10 @@ class LobbyList extends Component {
             <div>
                 <div className="row border-bottom">
                     <div className="col">
-                        <h3 className="pb- mb-1">Lobbies</h3>
+                        <h3 className="m-0">Lobbies</h3>
                     </div>
-                    <div className="col-xs pr-3">
-                        <input className="form-control form-control-sm" ref={this.input} onInput={this.onType.bind(this)} type="text" placeholder="Search"/>
+                    <div className="col-3">
+                        <input id="lobbySearch" className="form-control form-control-sm" ref={this.input} onInput={this.onType.bind(this)} type="text" placeholder="Search"/>
                     </div>
                 </div>
                 {this.props.store.lobbies === [] ? <p>Loading</p> : <div className="pt-1">{this.lobbiesToHTML}</div>}
