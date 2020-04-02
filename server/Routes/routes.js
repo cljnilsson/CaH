@@ -28,10 +28,10 @@ app.get("/", (req, res) => {
 })
 
 app.get("/:game/:player/cards", async function(req, res) {
-    let name = req.params.game;
-    let game = Game.getByName(name);
-    let pname = req.params.player;
-    let player = game.getPlayer(pname);
+    let name 	= req.params.game;
+    let game 	= Game.getByName(name);
+    let pname 	= req.params.player;
+    let player 	= game.getPlayer(pname);
     
     let whiteCards = player.hand;
     let blackCards = game.blackCard;
@@ -46,11 +46,12 @@ app.get("/:game/:player/cards", async function(req, res) {
 
 class Lobby {
     constructor(name, host, max, permanent = false) {
-        this.name = name;
-        this.host = host;
-        this.max = max;
-        this.permanent = permanent;
-    }
+        this.name 		= name;
+        this.host 		= host;
+        this.max  		= max;
+        this.permanent 	= permanent;
+	}
+	
     async make() {
         let Schema = mongoose.model("Lobbies", schemas.get("lobby"));
         let s = await new Schema({
@@ -141,9 +142,13 @@ app.post("/:user/changePassword", async function(req, res) {
 });
 
 app.post("/:user/changeAvatar", upload.single("file"),async function(req, res) {
-	console.log(req.file);
 	let name = req.file.originalname;
+
+	console.log(`${req.params.user} is trying to change his avatar to ${name}`);
+
 	Mongo.setAvatarToNonDefault(req.params.user, name.substring(name.length - 4, name.length)); //assumes that the avatar has been created by Multer
+	io.emit("changeAvatar", {user: req.params.user, avatar: req.params.user + "_avatar" + name.substring(name.length - 4, name.length)});
+
     res.sendStatus(200);
 });
 
@@ -174,10 +179,11 @@ app.post("/checkName", async function(req, res) {
     let guestExist = doesGuestExist(req.body.username);
     let exist = userExist || guestExist;
 
-    console.log(Guest.all);
-    console.log(exist);
     if(exist === false) {
         new Guest(req.body.username).attachSocket(req.body.socket); // Also saves by socket.io id for 'primary key' which can be used for connecting socket to username in onDisconnect event
-    }
+    } else {
+		// Generate new in the future?
+	}
+	
     res.sendStatus(exist === false ? 200 : 300);
 });

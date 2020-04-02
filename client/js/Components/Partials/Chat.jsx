@@ -171,21 +171,19 @@ class Chat extends Component {
                         {this.chatMessages()}
                     </div>
                     <div className="row">
-                        <div className="col pr-0">
-                            <input id="textbox" className="form-control w-100 " ref={this.nameRef} onChange={this.onChange} type="text" onKeyPress={this.onEnter.bind(this)}></input>
-                        </div>
-						<div classname="col">
-							<div class="btn-group dropup">
-								<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Dropup
-								</button>
-								<div class="dropdown-menu">
-									<Test/>
+                        <div className="col input-group">
+                            <input id="textbox" className="form-control" ref={this.nameRef} onChange={this.onChange} type="text" onKeyPress={this.onEnter.bind(this)}></input>
+							<div className="input-group-append">
+								<div class="dropup">
+									<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Dropup
+									</button>
+									<div class="dropdown-menu">
+										<Test/>
+									</div>
 								</div>
+								<button className="btn btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
 							</div>
-						</div>
-                        <div className="col-md-auto pl-1 align-self-center">
-                            <button className="btn btn-sm btn-outline-light" onClick={this.sendMessage.bind(this)}>Send</button>
                         </div>
                     </div>
                 </div>

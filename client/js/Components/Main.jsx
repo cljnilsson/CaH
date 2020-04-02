@@ -2,17 +2,20 @@ import React, { Component } from 'react';
 import {connect} from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import toIndex from "../actions/toIndex";
-import logout from "../actions/logout";
+import toIndex 		from "../actions/toIndex";
+import logout 		from "../actions/logout";
+import changeAvatar from "../actions/changeAvatar";
+
+import io 			from "../Libs/io";
 
 // Components
-import Login     from "./Login";
-import LobbyList from "./LobbyList";
-import Lobby     from "./Lobby";
-import Game      from "./Game";
+import Login     	from "./Login";
+import LobbyList 	from "./LobbyList";
+import Lobby     	from "./Lobby";
+import Game      	from "./Game";
 
-import Modal     from "./Partials/Modal";
-import { Post } from '../Libs/Request';
+import Modal     	from "./Partials/Modal";
+import { Post }  	from '../Libs/Request';
 
 function eraseCookie(name) {   
     document.cookie = name+'=; Max-Age=-99999999;';  
@@ -21,6 +24,11 @@ function eraseCookie(name) {
 class App extends Component {
 	constructor(props) {
 		super(props);
+
+		io.on("changeAvatar", (obj) => {
+			console.log(obj);
+			this.props.changeAvatar(obj)
+		});
 	}
 
 	get content() {
@@ -115,7 +123,8 @@ function read(store) {
 function write(dispatch) {
 	return bindActionCreators({
 		toIndex: toIndex,
-		logout: logout
+		logout: logout,
+		changeAvatar: changeAvatar
 	}, dispatch);
 }
 

@@ -42,6 +42,10 @@ footer {
 	border:0;
 }
 
+.input-group-append button {
+	border-radius: 0;
+}
+
 .jumbotron {
     position: absolute;
     padding-top: 1rem;

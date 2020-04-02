@@ -141,6 +141,14 @@ const reducer = function(state=settings.standard, action) {
 			state.color = action.value;
 			return {...state};
 		}
+		case "CHANGE_AVATAR": {
+			let updated = `avatars/${action.value.avatar}`;
+			state.avatar = updated;
+			console.log(action.value);
+			console.log(state.users.filter(u => u.name === action.value.user)[0])
+			state.users.filter(u => u.name === action.value.user)[0].avatar = updated;
+			return {...state};
+		}
 		case "LOGOUT": {
 			delete state.name;
 			delete state.avatar;

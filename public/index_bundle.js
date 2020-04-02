@@ -1112,6 +1112,9 @@ var Login = /*#__PURE__*/function (_Component) {
         "data-target": "#rules"
       }, "Game Rules")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
         className: "col text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", {
+        "class": "btn-group",
+        role: "group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("button", {
         className: "btn btn-sm btn-outline-light mr-3",
         "data-toggle": "modal",
@@ -1120,7 +1123,7 @@ var Login = /*#__PURE__*/function (_Component) {
         className: "btn btn-sm btn-outline-light",
         "data-toggle": "modal",
         "data-target": "#register"
-      }, "Register"))));
+      }, "Register")))));
     }
   }]);
 
@@ -1168,12 +1171,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _actions_toIndex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../actions/toIndex */ "./client/js/actions/toIndex.js");
 /* harmony import */ var _actions_logout__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions/logout */ "./client/js/actions/logout.js");
-/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Login */ "./client/js/Components/Login.jsx");
-/* harmony import */ var _LobbyList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./LobbyList */ "./client/js/Components/LobbyList.jsx");
-/* harmony import */ var _Lobby__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Lobby */ "./client/js/Components/Lobby.jsx");
-/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Game */ "./client/js/Components/Game.jsx");
-/* harmony import */ var _Partials_Modal__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Partials/Modal */ "./client/js/Components/Partials/Modal.jsx");
-/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../Libs/Request */ "./client/js/Libs/Request.js");
+/* harmony import */ var _actions_changeAvatar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../actions/changeAvatar */ "./client/js/actions/changeAvatar.js");
+/* harmony import */ var _Libs_io__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Libs/io */ "./client/js/Libs/io.js");
+/* harmony import */ var _Login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Login */ "./client/js/Components/Login.jsx");
+/* harmony import */ var _LobbyList__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./LobbyList */ "./client/js/Components/LobbyList.jsx");
+/* harmony import */ var _Lobby__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Lobby */ "./client/js/Components/Lobby.jsx");
+/* harmony import */ var _Game__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Game */ "./client/js/Components/Game.jsx");
+/* harmony import */ var _Partials_Modal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Partials/Modal */ "./client/js/Components/Partials/Modal.jsx");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../Libs/Request */ "./client/js/Libs/Request.js");
 
 
 
@@ -1188,6 +1193,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
  // Read
 
  // Write
+
+
 
 
  // Components
@@ -1209,9 +1216,17 @@ var App = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(App);
 
   function App(props) {
+    var _this;
+
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, App);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _Libs_io__WEBPACK_IMPORTED_MODULE_11__["default"].on("changeAvatar", function (obj) {
+      console.log(obj);
+
+      _this.props.changeAvatar(obj);
+    });
+    return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(App, [{
@@ -1223,7 +1238,7 @@ var App = /*#__PURE__*/function (_Component) {
   }, {
     key: "goToStart",
     value: function goToStart() {
-      var p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_15__["Post"]("/".concat(this.props.store.name, "/leaveGame"));
+      var p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_17__["Post"]("/".concat(this.props.store.name, "/leaveGame"));
       p.send();
       this.props.toIndex();
     }
@@ -1243,31 +1258,31 @@ var App = /*#__PURE__*/function (_Component) {
         className: "jumbotron text-light"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
         className: "App container align-items-center"
-      }, this.content)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }, this.content)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "makeLobby",
         title: "Create Lobby",
         body: "Lobby"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "register",
         title: "Register",
         body: "Register"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "login",
         title: "Login",
         body: "Login"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "changeColor",
         title: "Change Color",
         body: "ChangeColor"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "rules",
         title: "Rules",
         body: "Rules"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "changePassword",
         title: "Change Password",
         body: "ChangePassword"
-      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Partials_Modal__WEBPACK_IMPORTED_MODULE_16__["default"], {
         id: "changeAvatar",
         title: "Change Avatar",
         body: "ChangeAvatar"
@@ -1282,22 +1297,22 @@ var App = /*#__PURE__*/function (_Component) {
       switch (state) {
         case "Login":
           {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_10__["default"], null);
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Login__WEBPACK_IMPORTED_MODULE_12__["default"], null);
           }
 
         case "LobbyList":
           {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_LobbyList__WEBPACK_IMPORTED_MODULE_11__["default"], null);
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_LobbyList__WEBPACK_IMPORTED_MODULE_13__["default"], null);
           }
 
         case "Lobby":
           {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Lobby__WEBPACK_IMPORTED_MODULE_12__["default"], null);
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Lobby__WEBPACK_IMPORTED_MODULE_14__["default"], null);
           }
 
         default:
           {
-            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Game__WEBPACK_IMPORTED_MODULE_13__["default"], null);
+            return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(_Game__WEBPACK_IMPORTED_MODULE_15__["default"], null);
           }
       }
     }
@@ -1367,7 +1382,8 @@ function read(store) {
 function write(dispatch) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_7__["bindActionCreators"])({
     toIndex: _actions_toIndex__WEBPACK_IMPORTED_MODULE_8__["default"],
-    logout: _actions_logout__WEBPACK_IMPORTED_MODULE_9__["default"]
+    logout: _actions_logout__WEBPACK_IMPORTED_MODULE_9__["default"],
+    changeAvatar: _actions_changeAvatar__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, dispatch);
 }
 
@@ -1710,18 +1726,18 @@ var Chat = /*#__PURE__*/function (_Component) {
       }, this.chatMessages()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        className: "col pr-0"
+        className: "col input-group"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("input", {
         id: "textbox",
-        className: "form-control w-100 ",
+        className: "form-control",
         ref: this.nameRef,
         onChange: this.onChange,
         type: "text",
         onKeyPress: this.onEnter.bind(this)
-      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        classname: "col"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
+        className: "input-group-append"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        "class": "btn-group dropup"
+        "class": "dropup"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("button", {
         type: "button",
         "class": "btn btn-outline-light dropdown-toggle",
@@ -1730,12 +1746,10 @@ var Chat = /*#__PURE__*/function (_Component) {
         "aria-expanded": "false"
       }, "Dropup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
         "class": "dropdown-menu"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(Test, null)))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("div", {
-        className: "col-md-auto pl-1 align-self-center"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("button", {
-        className: "btn btn-sm btn-outline-light",
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(Test, null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement("button", {
+        className: "btn btn-outline-light",
         onClick: this.sendMessage.bind(this)
-      }, "Send")))));
+      }, "Send"))))));
     }
   }, {
     key: "messages",
@@ -3644,6 +3658,25 @@ function confirmCards(mode) {
 
 /***/ }),
 
+/***/ "./client/js/actions/changeAvatar.js":
+/*!*******************************************!*\
+  !*** ./client/js/actions/changeAvatar.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return updateCards; });
+function updateCards(mode) {
+  return {
+    type: "CHANGE_AVATAR",
+    value: mode
+  };
+}
+
+/***/ }),
+
 /***/ "./client/js/actions/changeColor.js":
 /*!******************************************!*\
   !*** ./client/js/actions/changeColor.js ***!
@@ -4141,6 +4174,20 @@ var reducer = function reducer() {
     case "CHANGE_COLOR":
       {
         state.color = action.value;
+        return _objectSpread({}, state);
+      }
+
+    case "CHANGE_AVATAR":
+      {
+        var updated = "avatars/".concat(action.value.avatar);
+        state.avatar = updated;
+        console.log(action.value);
+        console.log(state.users.filter(function (u) {
+          return u.name === action.value.user;
+        })[0]);
+        state.users.filter(function (u) {
+          return u.name === action.value.user;
+        })[0].avatar = updated;
         return _objectSpread({}, state);
       }
 
@@ -7901,7 +7948,7 @@ module.exports = function(a, b){
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".card p{\r\n    user-select: none;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\nh1, h2, h3 {\r\n    font-weight: bold;\r\n}\r\n\r\nnav {\r\n    position: absolute !important;\r\n    top: 0;\r\n    width: 100%;\r\n    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)) !important;\r\n}\r\n\r\nbody {\r\n\tbackground-image: url(\"/bg.png\");\r\n\tbackground-size: cover;\r\n}\r\n\r\nfooter {\r\n\tbackground-color: rgba(0,0,0,.42);\r\n\tborder-radius: 0 15px 0 0;\r\n\tcolor: white;\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding: 1rem 1rem;\r\n\ttext-align: center;\r\n}\r\n\r\n.shadow {\r\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;\r\n\r\n}\r\n\r\n.footer-images img{\r\n\tvertical-align:bottom;\r\n\tborder:0;\r\n}\r\n\r\n.jumbotron {\r\n    position: absolute;\r\n    padding-top: 1rem;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    padding-bottom: 1rem;\r\n    top: 50%;\r\n    left:50%;\r\n    transform: translate(-50%,-50%);\r\n    width: 60%;\r\n    background-color: rgba(0,0,0,.42);\r\n}\r\n\r\n.dropdown-menu {\r\n\tbackground-color: #343a40;\r\n}\r\n\r\n.dropdown-item {\r\n\tcolor: white;\r\n}\r\n\r\n.chat {\r\n    height: 500px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.miniChat {\r\n    height: 150px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.avatarSmall, .avatar {\r\n    border-radius: 8px;\r\n}\r\n\r\n.avatar {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.avatarSmall {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n.member {\r\n    color: paleturquoise;\r\n}\r\n\r\n.paleturquoise {\r\n    color: paleturquoise;\r\n}\r\n\r\n.red {\r\n\tcolor: red;\r\n}\r\n\r\n.white {\r\n\tcolor: white;\r\n}\r\n\r\n.green {\r\n\tcolor: lawngreen;\r\n}\r\n\r\n.orange {\r\n\tcolor: orange;\r\n}\r\n\r\n#userCorner {\r\n\tuser-select: none;\r\n}\r\n\r\n#navbarBrand {\r\n\tcursor: pointer;\r\n}\r\n\r\n#lobbySearch {\r\n\tmargin-bottom: 15px;\r\n}", ""]);
+exports.push([module.i, ".card p{\r\n    user-select: none;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\nh1, h2, h3 {\r\n    font-weight: bold;\r\n}\r\n\r\nnav {\r\n    position: absolute !important;\r\n    top: 0;\r\n    width: 100%;\r\n    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)) !important;\r\n}\r\n\r\nbody {\r\n\tbackground-image: url(\"/bg.png\");\r\n\tbackground-size: cover;\r\n}\r\n\r\nfooter {\r\n\tbackground-color: rgba(0,0,0,.42);\r\n\tborder-radius: 0 15px 0 0;\r\n\tcolor: white;\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding: 1rem 1rem;\r\n\ttext-align: center;\r\n}\r\n\r\n.shadow {\r\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;\r\n\r\n}\r\n\r\n.footer-images img{\r\n\tvertical-align:bottom;\r\n\tborder:0;\r\n}\r\n\r\n.input-group-append button {\r\n\tborder-radius: 0;\r\n}\r\n\r\n.jumbotron {\r\n    position: absolute;\r\n    padding-top: 1rem;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    padding-bottom: 1rem;\r\n    top: 50%;\r\n    left:50%;\r\n    transform: translate(-50%,-50%);\r\n    width: 60%;\r\n    background-color: rgba(0,0,0,.42);\r\n}\r\n\r\n.dropdown-menu {\r\n\tbackground-color: #343a40;\r\n}\r\n\r\n.dropdown-item {\r\n\tcolor: white;\r\n}\r\n\r\n.chat {\r\n    height: 500px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.miniChat {\r\n    height: 150px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.avatarSmall, .avatar {\r\n    border-radius: 8px;\r\n}\r\n\r\n.avatar {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.avatarSmall {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n.member {\r\n    color: paleturquoise;\r\n}\r\n\r\n.paleturquoise {\r\n    color: paleturquoise;\r\n}\r\n\r\n.red {\r\n\tcolor: red;\r\n}\r\n\r\n.white {\r\n\tcolor: white;\r\n}\r\n\r\n.green {\r\n\tcolor: lawngreen;\r\n}\r\n\r\n.orange {\r\n\tcolor: orange;\r\n}\r\n\r\n#userCorner {\r\n\tuser-select: none;\r\n}\r\n\r\n#navbarBrand {\r\n\tcursor: pointer;\r\n}\r\n\r\n#lobbySearch {\r\n\tmargin-bottom: 15px;\r\n}", ""]);
 
 
 
