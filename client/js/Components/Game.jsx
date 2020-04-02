@@ -23,14 +23,16 @@ class Game extends Component {
     constructor(props) {
         super(props);
 		this.getCards();
-		this.onNewCards = this.onNewCards.bind(this);
-		this.onJudgeTurn = this.onJudgeTurn.bind(this);
-		this.onNewTurn = this.onNewTurn.bind(this);
-		this.onGameOver = this.onGameOver.bind(this);
-		socket.on("updateCards", this.onNewCards);
-		socket.on("judgeTurn", this.onJudgeTurn);
-		socket.on("newTurn", this.onNewTurn);
-		socket.on("gameOver", this.onGameOver);
+
+		this.onNewCards 	= this.onNewCards.bind(this);
+		this.onJudgeTurn 	= this.onJudgeTurn.bind(this);
+		this.onNewTurn 		= this.onNewTurn.bind(this);
+		this.onGameOver 	= this.onGameOver.bind(this);
+		
+		socket.on("updateCards"	, this.onNewCards);
+		socket.on("judgeTurn"	, this.onJudgeTurn);
+		socket.on("newTurn"		, this.onNewTurn);
+		socket.on("gameOver"	, this.onGameOver);
 	}
 
     async getCards() {

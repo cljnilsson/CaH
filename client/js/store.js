@@ -101,7 +101,7 @@ const reducer = function(state=settings.standard, action) {
 			state.currentGame = action.value;
 			state.messages = [];
 			state.messages[state.currentGame] = [];
-			socket.emit("joinedLobby", {user: state.name, lobby: action.value});
+			//socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state};
 		}
 		case "UPDATE_LOBBY": {

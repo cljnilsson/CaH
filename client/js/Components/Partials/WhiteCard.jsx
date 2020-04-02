@@ -56,7 +56,8 @@ class WhiteCard extends Component {
 			"text-dark": true,
             "border-dark": true,
             "animated fadeIn": this.props.animate != false,
-        });
+		});
+		
         return(
             <div className={classes + " " + this.color} onClick={this.onClick.bind(this)}>
                 <div className="card-body text-center">

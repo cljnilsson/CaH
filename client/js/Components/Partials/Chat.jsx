@@ -1,4 +1,4 @@
-import React, { Component, useState}from 'react';
+import React, { Component, useState, useEffect}from 'react';
 import {connect} 					from "react-redux"; // Read
 import {bindActionCreators} 		from "redux"; // Write
 
@@ -26,6 +26,12 @@ function typeInTextarea(el, newText) {
 const Test = () => {
     const [chosenEmoji, setChosenEmoji] = useState(null);
  
+	useEffect(() => {
+		return () => {
+
+		}
+	});
+
     const onEmojiClick = (event, emojiObject) => {
 		setChosenEmoji(emojiObject);
 
@@ -138,9 +144,9 @@ class Chat extends Component {
             let ref = arr.length -1 === i ? this.lastMessage : "";
             if(obj.user) {
                 let user = this.props.store.users.filter(u => u.name === obj.user)[0]
-                text = <p ref={ref} className="mb-0"><b className={user.color ? user.color : ""}>{obj.user}</b>: {obj.text}</p>;
+                text = <p key={i} ref={ref} className="mb-0"><b className={user.color ? user.color : ""}>{obj.user}</b>: {obj.text}</p>;
             } else {
-                text = <p className="mb-0" ref={ref}>{obj.text}</p>;
+                text = <p key={i} className="mb-0" ref={ref}>{obj.text}</p>;
             }
             all.push(text)
         }.bind(this));
@@ -174,11 +180,11 @@ class Chat extends Component {
                         <div className="col input-group">
                             <input id="textbox" className="form-control" ref={this.nameRef} onChange={this.onChange} type="text" onKeyPress={this.onEnter.bind(this)}></input>
 							<div className="input-group-append">
-								<div class="dropup">
-									<button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-										Dropup
+								<div className="dropup">
+									<button type="button" className="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Emojis
 									</button>
-									<div class="dropdown-menu">
+									<div className="dropdown-menu">
 										<Test/>
 									</div>
 								</div>

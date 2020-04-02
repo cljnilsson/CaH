@@ -6,7 +6,6 @@ import {Get}  from "../Libs/Request";
 import socket from "../Libs/io";
 
 import LobbyEntry  from "./Partials/LobbyEntry"
-import joinLobby   from "../actions/joiningLobby";
 import updateLobby from "../actions/updateLobby";
 
 class LobbyList extends Component {
@@ -94,7 +93,6 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-        joinLobby: joinLobby,
         updateLobby: updateLobby
 	}, dispatch);
 }

@@ -50,7 +50,7 @@ class Game {
     }
 
     get nextJudge() {
-        let arr = this.players;
+        let arr   = this.players;
         let index = arr.indexOf(this.judge) + 1;
         let next;
         if(index < this.players.length) {
@@ -71,9 +71,9 @@ class Game {
     }
 
     endTurn() {
-        this.turn = new Turn(this);
+        this.turn 		= new Turn(this);
         this.judge.type = "Player";
-        this.nextJudge = this.nextJudge;
+        this.nextJudge 	= this.nextJudge;
     }
 
     async addPlayer(name) {
@@ -111,7 +111,20 @@ class Game {
 
     static getByName(name) {
         return games[name];
-    }
+	}
+	
+	static isPlayerInExistingGame(player) {
+		let check = false;
+		for(let g of Object.values(games)) {
+			for(let p of g.players) {
+				if(p.name === player) {
+					check = true;
+					console.log(`${player} is already in: ${g.name}`);
+				}
+			}
+		}
+		return check;
+	}
 
     remove() {
         Mongo.deleteLobby(this.name);

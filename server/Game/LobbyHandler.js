@@ -15,17 +15,20 @@ class LobbyHandler {
 		if(user != undefined) {
 			let p = Player.getByPlayerName(user);
 			let game = Game.getByName(p.game);
-			
-			await Mongo.removeCurrentCount(game.name);
-			game.removePlayer(user);
-			users.delete(user);
-	
-			if(game.players.length === 0) {
-				game.remove();
+			if(game != undefined) {
+				await Mongo.removeCurrentCount(game.name);
+				game.removePlayer(user);
+				users.delete(user);
+		
+				if(game.players.length === 0) {
+					game.remove();
+				}
+		
+				io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
+				io.emit("userLeft", {destination: game.name, user: user, all: game.players});
+			} else {
+				console.log("The disconnected player was not in a lobby")
 			}
-	
-			io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
-			io.emit("userLeft", {destination: game.name, user: user, all: game.players});
 		}
 	
 		if(Guest.all.has(this.id)) {
@@ -35,23 +38,27 @@ class LobbyHandler {
 		}
 	}
 	
-	static async onJoinLobby(test) {
-		console.log(`${test.user} joined ${test.lobby}`);
+	static async onJoin(test) {
+		let ingame = Game.isPlayerInExistingGame(test.user);
+		if(!ingame) {
+			console.log(`${test.user} joined ${test.lobby}`);
 	
-		await Mongo.addCurrentCount(test.lobby);
-	
-		let game = Game.getByName(test.lobby);
-		if(game === undefined) {
-			game = await Game.create(test.lobby);
+			await Mongo.addCurrentCount(test.lobby);
+		
+			let game = Game.getByName(test.lobby);
+			if(game === undefined) {
+				game = await Game.create(test.lobby);
+			}
+		
+			await game.addPlayer(test.user);
+		
+			test.all = game.players;
+			io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
+			io.emit("userJoin", test);
+		
+			users.set(this.id, test.user);
 		}
-	
-		await game.addPlayer(test.user);
-	
-		test.all = game.players;
-		io.emit("newLobby", {all: await Mongo.getLobbies()}); // Updates all lobbies to keep player count updated for all users
-		io.emit("userJoin", test);
-	
-		users.set(this.id, test.user);
+		return !ingame; //Returns true if player may join the game
 	}
 }
 

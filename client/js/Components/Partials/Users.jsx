@@ -44,7 +44,7 @@ class Users extends Component {
 			let u = this.props.store.users[i];
 			let prefix = u.type;
 			users.push(
-			<div className="row border-bottom">
+			<div className="row border-bottom" key={i}>
 				<div className="col">
 					<div className="row align-items-center">
 						<div className="col text-center">

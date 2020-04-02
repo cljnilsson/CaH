@@ -118,6 +118,13 @@ app.post("/login", async function(req, res) {
     res.status(correct ? 200 : 300).send(JSON.stringify({...data, error: error}));
 });
 
+app.post("/:user/joinGame", async function(req, res) {
+	// Should check if body exists
+	console.log(`${req.params.user} is trying to join ${req.body.lobby}!`);
+	let check = await LobbyHandler.onJoin(req.body);
+    res.sendStatus(check ? 200 : 300);
+});
+
 app.post("/:user/leaveGame", async function(req, res) {
 	// Should check if body exists
 	console.log(`${req.params.user} might have left a game!`);

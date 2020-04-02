@@ -22,12 +22,13 @@ function onGameStart(obj) {
     io.emit("newGame", obj);
 }
 
+// TODO: do we really need to wrap this?
 async function onDisconnect() {
 	LobbyHandler.onDisconnect();
 }
 
 async function onJoinLobby(test) {
-	LobbyHandler.onJoinLobby(test);
+	//LobbyHandler.onJoinLobby(test);
 }
 
 function onChatMessage(test) {

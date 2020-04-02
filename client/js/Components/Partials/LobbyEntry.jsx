@@ -1,13 +1,25 @@
 import React, { Component } from 'react';
-import {connect} from "react-redux"; // Read
+import {connect} 			from "react-redux"; // Read
 import {bindActionCreators} from "redux"; // Write
 
-import joinLobby from "../../actions/joiningLobby"
+import classNames 	from "classnames";
+
+import joinLobby 	from "../../actions/joiningLobby"
+import {Post} 		from "../../Libs/Request";
 
 class LobbyEntry extends Component {
-    onClick(e) {
-        console.log(this.props.name); 
-        this.props.joinLobby(this.props.name);
+    async onClick(e) {
+		let p = new Post(`/${this.props.store.name}/joinGame`);
+		
+		p.data = {
+			user: this.props.store.name, lobby: this.props.name
+		}
+
+		let resp = await p.send();
+
+		if(resp.status === 200) {
+			this.props.joinLobby(this.props.name);
+		}
     }
 
     get button() {
@@ -19,11 +31,19 @@ class LobbyEntry extends Component {
     }
 
     render() {
+		let sizeClasses = classNames({
+			"text-success": this.props.sizeState === "Full" ? true : false,
+			"text-muted": this.props.sizeState !== "Full" ? true : false,
+			"mt-0": true,
+			"form-text": true
+		});
+
+
         return (
             <div className="row animated fadeIn">
                 <div className="col align-self-center text-right font-weight-bold">
                     <span>{this.props.title}</span>
-                    <small className="form-text text-muted mt-0">{this.props.sizeState}</small>
+                    <small className={sizeClasses}>{this.props.sizeState}</small>
                 </div>
                 <div className="col align-self-center text-left pl-0">
                     {this.button}
@@ -34,7 +54,7 @@ class LobbyEntry extends Component {
 }
 
 function read(store) {
-	return{};
+	return{store: store.general};
 }
   
 function write(dispatch) {

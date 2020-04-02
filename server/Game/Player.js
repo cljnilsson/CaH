@@ -34,7 +34,6 @@ class Player {
     async generateHand() {
         let cards = await await this.deck.drawX(4);
         this._hand.set(0, cards);
-        console.log(this.hand);
         this.cards = this.hand;
     }
 
