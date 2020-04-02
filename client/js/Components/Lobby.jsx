@@ -20,7 +20,7 @@ class Lobby extends Component {
     }
 
     get startButton() {
-        return <button className="btn-lg btn-outline-light animated fadeIn" onClick={this.onClick.bind(this)}>Start Game</button>
+        return <button className="btn btn-lg btn-outline-light animated fadeIn" onClick={this.onClick.bind(this)}>Start Game</button>
     }
 
     buttonIfHost () {

@@ -111,6 +111,12 @@ class Mongo {
         return data;
 	}
 
+	static async userExist(name) {
+		let model = Model.accounts;
+        let data = await model.findOne({username: name});
+        return data != null
+	}
+
 	static async changeColor(name, color) {
         let model = Model.accounts;
         let data = await model.findOne({username: name});

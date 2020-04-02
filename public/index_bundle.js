@@ -634,7 +634,7 @@ var Lobby = /*#__PURE__*/function (_Component) {
     key: "startButton",
     get: function get() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
-        className: "btn-lg btn-outline-light animated fadeIn",
+        className: "btn btn-lg btn-outline-light animated fadeIn",
         onClick: this.onClick.bind(this)
       }, "Start Game");
     }
@@ -3405,6 +3405,7 @@ var WhiteCard = /*#__PURE__*/function (_Component) {
     value: function render() {
       var classes = classnames__WEBPACK_IMPORTED_MODULE_9___default()({
         "card": true,
+        "text-dark": true,
         "border-dark": true,
         "animated fadeIn": this.props.animate != false
       });

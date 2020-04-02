@@ -52,7 +52,8 @@ class WhiteCard extends Component {
     
     render() {
         let classes = classNames({
-            "card": true,
+			"card": true,
+			"text-dark": true,
             "border-dark": true,
             "animated fadeIn": this.props.animate != false,
         });

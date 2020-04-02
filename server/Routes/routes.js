@@ -85,7 +85,7 @@ app.post("/register", async function(req, res) {
 	let check = req.body.username && req.body.password;
 	let toSend = {};
     if(check) {
-		if(await Mongo.userExist() === false) {
+		if(await Mongo.userExist(req.body.username) === false) {
 			Mongo.makeAccount(req.body.username, req.body.password);
 		} else {
 			toSend.error = "Account name is taken";
