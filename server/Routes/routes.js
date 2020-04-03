@@ -1,18 +1,19 @@
 const
     mongoose 		= require('mongoose'),
-    Mongo    		= require("../MongoDB/mongo"),
 	app 			= require("../server.js").a,
+	Mongo    		= require("../MongoDB/mongo"),
 	Game 			= require("../Game/Game"),
+	Lobby			= require("../MongoDB/Lobby"),
 	LobbyHandler 	= require("../Game/LobbyHandler"),
-    schemas 		= require("../MongoDB/schemas/schemas"),
-    bcrypt 			= require("bcrypt"),
 	Guest 			= require("../guests"),
-    Player 			= require("../Game/Player"),
+	Player 			= require("../Game/Player"),
+	schemas 		= require("../MongoDB/schemas/schemas"),
+    bcrypt 			= require("bcrypt"),
 	fs 				= require("fs"),
-    io  			= require("../io"); //required
-
-var multer  = require('multer');
-var storage = multer.diskStorage({
+	multer  		= require('multer'),
+	io  			= require("../io"); //required
+	
+let storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 	  cb(null, './public/avatars')
 	},
@@ -21,16 +22,16 @@ var storage = multer.diskStorage({
 		cb(null, req.params.user + "_avatar" + name.substring(name.length - 4, name.length)); //lazy solution should look for the last . in string and use that for first index.
 	}
   })
-var upload = multer({ storage: storage });
+let upload = multer({ storage: storage });
 
 app.get("/", (req, res) => {
     res.sendfile("./public/index.html")
 })
 
 app.get("/:game/:player/cards", async function(req, res) {
-    let name 	= req.params.game;
+	let name 	= req.params.game;
+	let pname 	= req.params.player;
     let game 	= Game.getByName(name);
-    let pname 	= req.params.player;
     let player 	= game.getPlayer(pname);
     
     let whiteCards = player.hand;
@@ -43,28 +44,6 @@ app.get("/:game/:player/cards", async function(req, res) {
 })
 
 // ---------------------
-
-class Lobby {
-    constructor(name, host, max, permanent = false) {
-        this.name 		= name;
-        this.host 		= host;
-        this.max  		= max;
-        this.permanent 	= permanent;
-	}
-	
-    async make() {
-        let Schema = mongoose.model("Lobbies", schemas.get("lobby"));
-        let s = await new Schema({
-            max: this.max,
-            host: this.host,
-            name: this.name,
-            permanent: this.permanent,
-            current: 0
-        }).save();
-        io.emit("newLobby",{all: await Mongo.getLobbies()});
-        return s;
-    }
-}
 
 app.get("/lobby", async function(req, res) {
     let lobbies = await Mongo.getLobbies();

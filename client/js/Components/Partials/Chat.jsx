@@ -2,6 +2,8 @@ import React, { Component, useState, useEffect}from 'react';
 import {connect} 					from "react-redux"; // Read
 import {bindActionCreators} 		from "redux"; // Write
 
+import Linkify from 'react-linkify';
+
 import Picker, { SKIN_TONE_MEDIUM_LIGHT }  from 'emoji-picker-react';
 import Users 						from "./Users";
 
@@ -116,18 +118,14 @@ class Chat extends Component {
     }
 
     sendMessage() {
-        this.props.sendMessage(this.nameRef.current.value)
+		let current = this.nameRef.current.value;
+        this.props.sendMessage(current)
         this.nameRef.current.value = ""
     }
 
 	onChange(e) {
 		let target 	= $(e.target);
 		let str 	= $(target).val();
-
-		if(str.includes(" :)")) {
-			$(target).val(str.replace(" :)", '\U+1F600'));
-		}
-		// 😀
 	}
 
     onEnter(e) {
@@ -144,7 +142,7 @@ class Chat extends Component {
             let ref = arr.length -1 === i ? this.lastMessage : "";
             if(obj.user) {
                 let user = this.props.store.users.filter(u => u.name === obj.user)[0]
-                text = <p key={i} ref={ref} className="mb-0"><b className={user.color ? user.color : ""}>{obj.user}</b>: {obj.text}</p>;
+				text = <p key={i} ref={ref} className="mb-0"><b className={user.color ? user.color : ""}>{obj.user}</b>: <Linkify>{obj.text}</Linkify></p>;
             } else {
                 text = <p key={i} className="mb-0" ref={ref}>{obj.text}</p>;
             }

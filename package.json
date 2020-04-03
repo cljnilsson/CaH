@@ -64,6 +64,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.13.1",
+    "react-linkify": "^1.0.0-alpha",
     "react-redux": "^5.1.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",

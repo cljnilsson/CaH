@@ -11,11 +11,13 @@ const PlayerTypes = {
 };
 
 class Game {
+	#players;
+	#turn;
     constructor(name) {
         games[name] = this
         this.name = name;
-        this._players = new Map();
-        this.turn = new Turn(this);
+        this.#players = new Map();
+        this.#turn = new Turn(this);
     }
 
     static async create(name) {
@@ -28,11 +30,11 @@ class Game {
     }
 
     get players() {
-        return Array.from(this._players.values());
+        return Array.from(this.#players.values());
     }
 
     set players(value) {
-        this._players = new Map(value);
+        this.#players = new Map(value);
     }
 
     get selections() {
@@ -71,7 +73,7 @@ class Game {
     }
 
     endTurn() {
-        this.turn 		= new Turn(this);
+        this.#turn 		= new Turn(this);
         this.judge.type = "Player";
         this.nextJudge 	= this.nextJudge;
     }
@@ -86,14 +88,14 @@ class Game {
             p = await Player.create(name, PlayerTypes.Player, this.name, this.deck);
         }
 
-        this._players.set(name, p);
+        this.#players.set(name, p);
     }
 
     removePlayer(name) {
         let p = this.getPlayer(name);
         switch(p.type) {
             case PlayerTypes.Judge:
-                if(this._players.size > 1) {
+                if(this.players.size > 1) {
                     this.nextJudge = this.nextJudge;
                 } else {
                     this.judge = undefined;
@@ -102,11 +104,11 @@ class Game {
             case PlayerTypes.Player:
                 break;
         }
-        this._players.delete(name);
+        this.#players.delete(name);
     }
 
     getPlayer(name) {
-        return this._players.get(name);
+        return this.#players.get(name);
     }
 
     static getByName(name) {
