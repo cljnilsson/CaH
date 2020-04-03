@@ -38,7 +38,6 @@ class LobbyEntry extends Component {
 			"form-text": true
 		});
 
-
         return (
             <div className="row animated fadeIn">
                 <div className="col align-self-center text-right font-weight-bold">

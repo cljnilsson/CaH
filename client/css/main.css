@@ -67,6 +67,32 @@ footer {
 	color: white;
 }
 
+.card {
+	transition: transform .1s;
+}
+
+.card:hover {
+	transform: scale(1.5);
+	z-index: 10000 !important;
+}
+
+.fadeIn {
+	opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: .5s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
 .chat {
     height: 500px;
     overflow-y: auto;
