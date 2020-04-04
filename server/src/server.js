@@ -76,7 +76,7 @@ class Server {
         app.use(session(sessionSettings));
         app.use(bodyParser.json());
         app.use(compression());
-        app.use(express.static(__dirname + "/../public"));
+        app.use(express.static(__dirname + "/../../public"));
     }
 
     async startup() {

@@ -1,18 +1,18 @@
 const
-    mongoose 		= require('mongoose'),
 	app 			= require("../server.js").a,
-	Mongo    		= require("../MongoDB/mongo"),
 	Game 			= require("../Game/Game"),
 	Lobby			= require("../MongoDB/Lobby"),
 	LobbyHandler 	= require("../Game/LobbyHandler"),
-	Guest 			= require("../guests"),
 	Player 			= require("../Game/Player"),
-	schemas 		= require("../MongoDB/schemas/schemas"),
     bcrypt 			= require("bcrypt"),
 	fs 				= require("fs"),
 	multer  		= require('multer'),
 	io  			= require("../io"); //required
 	
+import Mongo from "../MongoDB/mongo";
+import Guest from "../guests";
+
+
 let storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 	  cb(null, './public/avatars')

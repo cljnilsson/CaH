@@ -1,0 +1,14 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const accountSchema = new Schema({
+    username: String,
+    password: String,
+    salt: String,
+    avatar: String,
+    color: String
+});
+module.exports = {
+    name: "account",
+    schema: accountSchema
+};
+//# sourceMappingURL=account.js.map

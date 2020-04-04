@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server/Routes/routes.js",
+    "server": "nodemon server/dist/Routes/routes.js",
     "dev": "concurrently --kill-others-on-fail \"npm run b\" \"npm run server\"",
     "start": "npm run server",
     "b": "node_modules/.bin/webpack --config webpack.config.js --mode development"
@@ -14,7 +14,8 @@
   "nodemonConfig": {
     "ignore": [
       "client/",
-      "public/"
+	  "public/",
+	  "server/src"
     ],
     "delay": "1000"
   },

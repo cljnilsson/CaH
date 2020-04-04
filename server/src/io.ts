@@ -1,6 +1,6 @@
 const
     io 				= require("./server").io,
-    Mongo 			= require("./MongoDB/mongo.js"),
+    Mongo 			= require("./MongoDB/mongo"),
     Guest 			= require("./guests"),
 	Player 			= require("./Game/Player"),
 	LobbyHandler 	= require("./Game/LobbyHandler"),
@@ -71,4 +71,4 @@ function onEndTurn(obj) {
     io.emit("newTurn", {game: obj.game, all: game.players, winner: obj.selection});
 }
 
-module.exports = io;
+export default io;

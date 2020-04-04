@@ -5,6 +5,7 @@ Fanmade Cards Against Humanity game with the purpose of improving my knowledge o
 ### How to run
 * Install the latest stable version of Node.js
 * navigate to the project folder with your command line tool of choice (I use git bash)
+* Install typescript globally if you intend to change the source code. Skiip this step if you just want to run the site without edits.
 * type "npm install" to get all dependencies
 * type "npm start" to run the project
 * Go to localhost:3001 in your web browser to check the site
@@ -17,6 +18,7 @@ Alternatively, check the demo here: https://fancah.herokuapp.com/
 * Socket.io
 * Redux
 * MongoDB
+* Typescript
 
 ### Dev Tools
 * Webpack

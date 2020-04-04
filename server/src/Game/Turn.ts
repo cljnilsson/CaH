@@ -1,9 +1,13 @@
+import Game from "./Game";
+
 class Turn {
+	private game			: Game;
+	private judged 			: boolean 	= false;
+	private usersSubmitted 	: boolean 	= false;
+	private finishedPlayers 			= new Map();
+
     constructor(game) {
         this.game = game;
-        this.judged = false; // Judge has not chosen
-        this.usersSubmitted = false; // All users have selected cards
-        this.finishedPlayers = new Map();
     }
 
     get players() {
@@ -40,4 +44,4 @@ class Turn {
     }
 }
 
-module.exports = Turn;
+export default Turn;

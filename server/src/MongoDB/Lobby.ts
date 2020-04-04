@@ -1,5 +1,16 @@
+import io 		from "../io";
+import Mongo 	from "../MongoDB/mongo";
+import mongoose from "mongoose";
+import schemas 	from "../MongoDB/schemas/schemas";
+
+
 class Lobby {
-    constructor(name, host, max, permanent = false) {
+	private name : string;
+	private host : string;
+	private max : number;
+	private permanent : boolean;
+
+    constructor(name: string, host: string, max: number, permanent : boolean = false) {
         this.name 		= name;
         this.host 		= host;
         this.max  		= max;

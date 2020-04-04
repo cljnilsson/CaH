@@ -1,26 +1,29 @@
-const
-    Mongo = require("../MongoDB/mongo"),
-    Turn = require("./Turn"),
-    Deck = require("./Deck"),
-    Player = require("./Player");
+import Deck from "./Deck";
+import Turn from "./Turn";
+import Player from "./Player";
+import Mongo from "../MongoDB/mongo";
 
-let games = [];
+let games : Array<Game> = [];
 const PlayerTypes = {
     Judge: "Judge",
     Player: "Player"
 };
 
 class Game {
-	#players;
-	#turn;
+	private _players: Map<string, Player> = new Map();
+	private turn : Turn;
+	private name: string;
+	private deck : Deck;
+	private blackCard;
+	private judge;
+
     constructor(name) {
-        games[name] = this
-        this.name = name;
-        this.#players = new Map();
-        this.#turn = new Turn(this);
+        games[name] 	= this
+        this.name 		= name;
+        this.turn 		= new Turn(this);
     }
 
-    static async create(name) {
+    static async create(name) : Promise<Game> {
         let game = new Game(name);
 
         game.deck = await Deck.create();
@@ -29,13 +32,13 @@ class Game {
         return game;
     }
 
-    get players() {
-        return Array.from(this.#players.values());
+    get players() : Array<Player> {
+        return Array.from(this._players.values());
     }
 
-    set players(value) {
-        this.#players = new Map(value);
-    }
+    /*set players(value) {
+        this._players = new Map(value);
+    }*/
 
     get selections() {
         let all = [];
@@ -73,7 +76,7 @@ class Game {
     }
 
     endTurn() {
-        this.#turn 		= new Turn(this);
+        this.turn 		= new Turn(this);
         this.judge.type = "Player";
         this.nextJudge 	= this.nextJudge;
     }
@@ -88,14 +91,14 @@ class Game {
             p = await Player.create(name, PlayerTypes.Player, this.name, this.deck);
         }
 
-        this.#players.set(name, p);
+        this._players.set(name, p);
     }
 
     removePlayer(name) {
         let p = this.getPlayer(name);
         switch(p.type) {
             case PlayerTypes.Judge:
-                if(this.players.size > 1) {
+                if(this.players.length > 1) {
                     this.nextJudge = this.nextJudge;
                 } else {
                     this.judge = undefined;
@@ -104,20 +107,20 @@ class Game {
             case PlayerTypes.Player:
                 break;
         }
-        this.#players.delete(name);
+        this._players.delete(name);
     }
 
     getPlayer(name) {
-        return this.#players.get(name);
+        return this._players.get(name);
     }
 
     static getByName(name) {
         return games[name];
 	}
 	
-	static isPlayerInExistingGame(player) {
+	static isPlayerInExistingGame(player: string) {
 		let check = false;
-		for(let g of Object.values(games)) {
+		for(let g of games) {
 			for(let p of g.players) {
 				if(p.name === player) {
 					check = true;
@@ -135,4 +138,4 @@ class Game {
     }
 }
 
-module.exports = Game;
+export default Game;

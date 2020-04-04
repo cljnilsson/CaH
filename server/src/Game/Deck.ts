@@ -1,4 +1,4 @@
-const Mongo = require("../MongoDB/mongo");
+import Mongo from "../MongoDB/mongo";
 
 /* From https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array */
 function shuffle(a) {
@@ -10,10 +10,8 @@ function shuffle(a) {
 }
 
 class Deck {
-    constructor() {
-        this.backup = [];
-        this.cards = [];
-    }
+	private backup = [];
+	private cards = [];
 
     async getCards() {
         this.cards = await Mongo.getAllWhiteCards();
@@ -28,7 +26,7 @@ class Deck {
         return deck;
     }
 
-    drawX(num) {
+    drawX(num : number) {
         let arr = [];
         for(let i = 0; i < num; i++) {
             arr.push(this.draw());
@@ -60,4 +58,4 @@ class Deck {
     }
 }
 
-module.exports = Deck;
+export default Deck;

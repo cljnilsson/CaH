@@ -4,7 +4,7 @@ const
     schemas = require("./schemas/schemas"),
     bcrypt = require('bcrypt');
 
-require('dotenv').config({path: path.join(__dirname, '../../.env')});
+require('dotenv').config({path: path.join(__dirname, '../../../.env')});
 
 mongoose.connect(process.env.DB_URL, {
     user: process.env.DB_USER,
@@ -38,18 +38,18 @@ class Mongo {
         return all;
     }
 
-    static async getXCards(num, filter) {
+    static async getXCards(num: number, filter: Object) {
         let cards = Model.cards;
         let max = cards.countDocuments(filter);
         let rng = getRandomArbitrary(0, await max - num);
         return cards.find(filter, "text type").skip(rng).limit(num);
     }
     
-    static async getXWhiteCards(num) {
+    static async getXWhiteCards(num: number) {
         return await Mongo.getXCards(num, {type: "White"});
     }
     
-    static async getXBlackCards(num) {
+    static async getXBlackCards(num: number) {
         return await Mongo.getXCards(num, {type: "Black"});
     }
 
@@ -68,7 +68,7 @@ class Mongo {
         return final
     }
 
-    static async deleteLobby(name) {
+    static async deleteLobby(name: string) {
         let lobbies = Model.lobbies;
         let found = await lobbies.find({name: name});
         found = found[0]; // Does not work to put [0] at above line for some reason
@@ -77,7 +77,7 @@ class Mongo {
         }
     }
 
-    static async modifyCurrentCount(name, num) {
+    static async modifyCurrentCount(name: string, num : number) {
         let model = Model.lobbies;
         let data = await model.findOne({name: name});
         data.current = parseInt(data.current) + num;
@@ -85,11 +85,11 @@ class Mongo {
         return data;
     }
 
-    static async addCurrentCount(name) {
+    static async addCurrentCount(name: string) {
         return await this.modifyCurrentCount(name, 1);
     }
 
-    static async removeCurrentCount(name) {
+    static async removeCurrentCount(name: string) {
         return await this.modifyCurrentCount(name, -1);
     }
 
@@ -103,7 +103,7 @@ class Mongo {
 
 	}
 	
-	static async setAvatarToNonDefault(name, ending) {
+	static async setAvatarToNonDefault(name: string, ending: string) {
 		let model = Model.accounts;
         let data = await model.findOne({username: name});
         data.avatar = "avatars/" + name + "_avatar" + ending;
@@ -111,13 +111,13 @@ class Mongo {
         return data;
 	}
 
-	static async userExist(name) {
+	static async userExist(name: string) {
 		let model = Model.accounts;
         let data = await model.findOne({username: name});
         return data != null
 	}
 
-	static async changeColor(name, color) {
+	static async changeColor(name: string, color: string) {
         let model = Model.accounts;
         let data = await model.findOne({username: name});
         data.color = color;
@@ -125,7 +125,7 @@ class Mongo {
         return data;
 	}
 	
-	static async changePassword(name, newPass) {
+	static async changePassword(name: string, newPass: string) {
 		let salt = bcrypt.genSaltSync(5);
 		let model = Model.accounts;
 		let data = await model.findOne({username: name});
@@ -139,7 +139,7 @@ class Mongo {
         return data;
 	}
 
-    static async makeAccount(username, password) {
+    static async makeAccount(username: string, password: string) {
         let salt = bcrypt.genSaltSync(5);
         password = await bcrypt.hash(password, salt);
         let model = Model.accounts;
@@ -149,7 +149,7 @@ class Mongo {
         return {avatar: acc.avatar};
     }
 
-    static async getUserInfo(username) {
+    static async getUserInfo(username: string) {
         let model = Model.accounts;
         let data = await model.findOne({username: username});
         return data;
@@ -158,4 +158,4 @@ class Mongo {
 
 Mongo.resetRooms();
 
-module.exports = Mongo;
+export default Mongo;

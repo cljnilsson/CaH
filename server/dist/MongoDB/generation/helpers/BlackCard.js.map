@@ -1,0 +1,1 @@
+{"version":3,"file":"BlackCard.js","sourceRoot":"","sources":["../../../../src/MongoDB/generation/helpers/BlackCard.js"],"names":[],"mappings":"AAAA,MAAM,IAAI,GAAG,OAAO,CAAC,QAAQ,CAAC,CAAC;AAE/B,MAAM,SAAU,SAAQ,IAAI;IACxB,YAAY,IAAI;QACZ,KAAK,CAAC,OAAO,EAAE,IAAI,CAAC,CAAC;IACzB,CAAC;CACJ;AAED,MAAM,CAAC,OAAO,GAAG,SAAS,CAAC"}

@@ -1,16 +1,25 @@
-const Mongo = require("../MongoDB/mongo");
+import Mongo from "../MongoDB/mongo";
 
 let players = new Map();
 
 class Player {
+	public name: string;
+	public type: string;
+	public selection;
+	private game;
+	private deck;
+	private points : number = 0;
+	private _hand = new Map();
+	private cards = []; // Specially made for React Client since socket.io cannot transport Map and hand getters does not get included
+
+	private avatar;
+	private color;
+
     constructor(name, type, game, deck) {
         this.name = name;
         this.type = type;
         this.game = game;
         this.deck = deck;
-        this.points = 0;
-        this._hand = new Map();
-        this.cards = []; // Specially made for React Client since socket.io cannot transport Map and hand getters does not get included
         players.set(name, this);
     }
 
@@ -61,4 +70,4 @@ class Player {
     }
 }
 
-module.exports = Player;
+export default Player;

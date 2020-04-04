@@ -1,11 +1,12 @@
 // Making this file to prevent duplicate code, might rename it later.abs
 
 const
-    io 				= require("../server").io,
-    Mongo 			= require("../MongoDB/mongo.js"),
-    Guest 			= require("../guests"),
-	Player 			= require("../Game/Player"),
-    Game 			= require("../Game/Game");
+    io 				= require("../server").io;
+
+import Guest from "../guests";
+import Mongo from "../MongoDB/mongo";
+import Game from "./Game";
+import Player from "./Player";
 
 let users = new Map();
 
