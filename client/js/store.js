@@ -101,7 +101,6 @@ const reducer = function(state=settings.standard, action) {
 			state.currentGame = action.value;
 			state.messages = [];
 			state.messages[state.currentGame] = [];
-			//socket.emit("joinedLobby", {user: state.name, lobby: action.value});
 			return {...state};
 		}
 		case "UPDATE_LOBBY": {
@@ -130,8 +129,9 @@ const reducer = function(state=settings.standard, action) {
 			state.state = GameState.LobbyList;
 			return {...state};
 		}
+		case "QUIT_LOBBY":
 		case "TO_INDEX": {
-			if(state.state != GameState.Login) {
+			if(state.state != GameState.Login && state.state != GameState.LobbyList) {
 				state.state = GameState.LobbyList;
 			}
 

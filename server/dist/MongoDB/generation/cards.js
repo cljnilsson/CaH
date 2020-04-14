@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose = require('mongoose'), schemas = require("../schemas/schemas"), data = require("./helpers/cardData"), BlackCard = require("./helpers/BlackCard"), WhiteCard = require("./helpers/WhiteCard");
 require("../mongo");
 const name = "cards";
@@ -34,4 +36,5 @@ function main() {
     });
 }
 main();
+exports.default = 0; // To avoid error, this is not meant to be imported
 //# sourceMappingURL=cards.js.map

@@ -554,9 +554,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _actions_startGame__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../actions/startGame */ "./client/js/actions/startGame.js");
-/* harmony import */ var _Partials_Chat__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Partials/Chat */ "./client/js/Components/Partials/Chat.jsx");
-/* harmony import */ var _Partials_Users__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Partials/Users */ "./client/js/Components/Partials/Users.jsx");
-/* harmony import */ var _Libs_io__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Libs/io */ "./client/js/Libs/io.js");
+/* harmony import */ var _actions_quitLobby__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../actions/quitLobby */ "./client/js/actions/quitLobby.js");
+/* harmony import */ var _Partials_Chat__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Partials/Chat */ "./client/js/Components/Partials/Chat.jsx");
+/* harmony import */ var _Partials_Users__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Partials/Users */ "./client/js/Components/Partials/Users.jsx");
+/* harmony import */ var _Libs_io__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Libs/io */ "./client/js/Libs/io.js");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../Libs/Request */ "./client/js/Libs/Request.js");
 
 
 
@@ -578,6 +580,8 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 
 
+
+
 var Lobby = /*#__PURE__*/function (_Component) {
   _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default()(Lobby, _Component);
 
@@ -589,7 +593,7 @@ var Lobby = /*#__PURE__*/function (_Component) {
     _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default()(this, Lobby);
 
     _this = _super.call(this);
-    _Libs_io__WEBPACK_IMPORTED_MODULE_12__["default"].on("newGame", function (obj) {
+    _Libs_io__WEBPACK_IMPORTED_MODULE_13__["default"].on("newGame", function (obj) {
       if (obj.destination == this.props.store.currentGame) {
         this.props.startGame(obj.users);
       }
@@ -618,17 +622,30 @@ var Lobby = /*#__PURE__*/function (_Component) {
       this.props.startGameClick();
     }
   }, {
+    key: "onQuit",
+    value: function onQuit() {
+      var p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_14__["Post"]("/".concat(this.props.store.name, "/leaveGame"));
+      p.send();
+      this.props.quitLobby();
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         className: "row border-bottom"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
-        className: "col text-center"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h3", null, this.props.store.currentGame))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
-        className: "row pl-1 pt-2"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_Partials_Users__WEBPACK_IMPORTED_MODULE_11__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
         className: "col"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_Partials_Chat__WEBPACK_IMPORTED_MODULE_10__["default"], null), this.buttonIfHost())));
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("h3", null, this.props.store.currentGame)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "col text-right"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("button", {
+        id: "lobbyQuit",
+        className: "btn btn-outline-light",
+        onClick: this.onQuit.bind(this)
+      }, "Leave Game"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "row pl-1 pt-2"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_Partials_Users__WEBPACK_IMPORTED_MODULE_12__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement("div", {
+        className: "col"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_6___default.a.createElement(_Partials_Chat__WEBPACK_IMPORTED_MODULE_11__["default"], null), this.buttonIfHost())));
     }
   }, {
     key: "startButton",
@@ -652,7 +669,8 @@ function read(store) {
 function write(dispatch) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_8__["bindActionCreators"])({
     startGameClick: _actions_startGame__WEBPACK_IMPORTED_MODULE_9__["startGameClick"],
-    startGame: _actions_startGame__WEBPACK_IMPORTED_MODULE_9__["startGame"]
+    startGame: _actions_startGame__WEBPACK_IMPORTED_MODULE_9__["startGame"],
+    quitLobby: _actions_quitLobby__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, dispatch);
 }
 
@@ -1659,8 +1677,11 @@ var Chat = /*#__PURE__*/function (_Component) {
     key: "sendMessage",
     value: function sendMessage() {
       var current = this.nameRef.current.value;
-      this.props.sendMessage(current);
-      this.nameRef.current.value = "";
+
+      if (current != "") {
+        this.props.sendMessage(current);
+        this.nameRef.current.value = "";
+      }
     }
   }, {
     key: "onChange",
@@ -1816,7 +1837,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _actions_joiningLobby__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../actions/joiningLobby */ "./client/js/actions/joiningLobby.js");
-/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Libs/Request */ "./client/js/Libs/Request.js");
+/* harmony import */ var _actions_toIndex__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../actions/toIndex */ "./client/js/actions/toIndex.js");
+/* harmony import */ var _Libs_Request__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../Libs/Request */ "./client/js/Libs/Request.js");
 
 
 
@@ -1833,6 +1855,7 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
  // Read
 
  // Write
+
 
 
 
@@ -1858,22 +1881,24 @@ var LobbyEntry = /*#__PURE__*/function (_Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_12__["Post"]("/".concat(this.props.store.name, "/joinGame"));
+                this.props.joinLobby(this.props.name);
+                p = new _Libs_Request__WEBPACK_IMPORTED_MODULE_13__["Post"]("/".concat(this.props.store.name, "/joinGame"));
                 p.data = {
                   user: this.props.store.name,
                   lobby: this.props.name
                 };
-                _context.next = 4;
+                _context.next = 5;
                 return p.send();
 
-              case 4:
+              case 5:
                 resp = _context.sent;
 
-                if (resp.status === 200) {
-                  this.props.joinLobby(this.props.name);
+                if (resp.status != 200) {
+                  //this should never happen unless server is restarted and the user has not refreshed the site
+                  this.props.toIndex();
                 }
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -1931,7 +1956,8 @@ function read(store) {
 
 function write(dispatch) {
   return Object(redux__WEBPACK_IMPORTED_MODULE_9__["bindActionCreators"])({
-    joinLobby: _actions_joiningLobby__WEBPACK_IMPORTED_MODULE_11__["default"]
+    joinLobby: _actions_joiningLobby__WEBPACK_IMPORTED_MODULE_11__["default"],
+    toIndex: _actions_toIndex__WEBPACK_IMPORTED_MODULE_12__["default"]
   }, dispatch);
 }
 
@@ -3849,6 +3875,25 @@ function newMessage(mode) {
 
 /***/ }),
 
+/***/ "./client/js/actions/quitLobby.js":
+/*!****************************************!*\
+  !*** ./client/js/actions/quitLobby.js ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return updateCards; });
+function updateCards(mode) {
+  return {
+    type: "QUIT_LOBBY",
+    value: mode
+  };
+}
+
+/***/ }),
+
 /***/ "./client/js/actions/recievedCards.js":
 /*!********************************************!*\
   !*** ./client/js/actions/recievedCards.js ***!
@@ -4165,8 +4210,7 @@ var reducer = function reducer() {
         state.state = GameState.Lobby;
         state.currentGame = action.value;
         state.messages = [];
-        state.messages[state.currentGame] = []; //socket.emit("joinedLobby", {user: state.name, lobby: action.value});
-
+        state.messages[state.currentGame] = [];
         return _objectSpread({}, state);
       }
 
@@ -4213,9 +4257,10 @@ var reducer = function reducer() {
         return _objectSpread({}, state);
       }
 
+    case "QUIT_LOBBY":
     case "TO_INDEX":
       {
-        if (state.state != GameState.Login) {
+        if (state.state != GameState.Login && state.state != GameState.LobbyList) {
           state.state = GameState.LobbyList;
         }
 
@@ -7999,7 +8044,7 @@ module.exports = function(a, b){
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".card p{\r\n    user-select: none;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\nh1, h2, h3 {\r\n    font-weight: bold;\r\n}\r\n\r\nnav {\r\n    position: absolute !important;\r\n    top: 0;\r\n    width: 100%;\r\n    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)) !important;\r\n}\r\n\r\nbody {\r\n\tbackground-image: url(\"/bg.png\");\r\n\tbackground-size: cover;\r\n}\r\n\r\nfooter {\r\n\tbackground-color: rgba(0,0,0,.42);\r\n\tborder-radius: 0 15px 0 0;\r\n\tcolor: white;\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding: 1rem 1rem;\r\n\ttext-align: center;\r\n}\r\n\r\n.shadow {\r\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;\r\n\r\n}\r\n\r\n.footer-images img{\r\n\tvertical-align:bottom;\r\n\tborder:0;\r\n}\r\n\r\n.input-group-append button {\r\n\tborder-radius: 0;\r\n}\r\n\r\n.jumbotron {\r\n    position: absolute;\r\n    padding-top: 1rem;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    padding-bottom: 1rem;\r\n    top: 50%;\r\n    left:50%;\r\n    transform: translate(-50%,-50%);\r\n    width: 60%;\r\n    background-color: rgba(0,0,0,.42);\r\n}\r\n\r\n.dropdown-menu {\r\n\tbackground-color: #343a40;\r\n}\r\n\r\n.dropdown-item {\r\n\tcolor: white;\r\n}\r\n\r\n.card {\r\n\ttransition: transform .1s;\r\n}\r\n\r\n.card:hover {\r\n\ttransform: scale(1.5);\r\n\tz-index: 10000 !important;\r\n}\r\n\r\n.fadeIn {\r\n\topacity: 1;\r\n\tanimation-name: fadeInOpacity;\r\n\tanimation-iteration-count: 1;\r\n\tanimation-timing-function: ease-in;\r\n\tanimation-duration: .5s;\r\n}\r\n\r\n@keyframes fadeInOpacity {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t}\r\n}\r\n\r\n.chat {\r\n    height: 500px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.miniChat {\r\n    height: 150px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.avatarSmall, .avatar {\r\n    border-radius: 8px;\r\n}\r\n\r\n.avatar {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.avatarSmall {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n.member {\r\n    color: paleturquoise;\r\n}\r\n\r\n.paleturquoise {\r\n    color: paleturquoise;\r\n}\r\n\r\n.red {\r\n\tcolor: red;\r\n}\r\n\r\n.white {\r\n\tcolor: white;\r\n}\r\n\r\n.green {\r\n\tcolor: lawngreen;\r\n}\r\n\r\n.orange {\r\n\tcolor: orange;\r\n}\r\n\r\n#userCorner {\r\n\tuser-select: none;\r\n}\r\n\r\n#navbarBrand {\r\n\tcursor: pointer;\r\n}\r\n\r\n#lobbySearch {\r\n\tmargin-bottom: 15px;\r\n}", ""]);
+exports.push([module.i, ".card p{\r\n    user-select: none;\r\n}\r\n\r\nul {\r\n    list-style: none;\r\n}\r\n\r\nh1, h2, h3 {\r\n    font-weight: bold;\r\n}\r\n\r\nnav {\r\n    position: absolute !important;\r\n    top: 0;\r\n    width: 100%;\r\n    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.2)) !important;\r\n}\r\n\r\nbody {\r\n\tbackground-image: url(\"/bg.png\");\r\n\tbackground-size: cover;\r\n}\r\n\r\nfooter {\r\n\tbackground-color: rgba(0,0,0,.42);\r\n\tborder-radius: 0 15px 0 0;\r\n\tcolor: white;\r\n\tposition: absolute;\r\n\tbottom: 0;\r\n\tpadding: 1rem 1rem;\r\n\ttext-align: center;\r\n}\r\n\r\n.shadow {\r\n    box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12) !important;\r\n\r\n}\r\n\r\n.footer-images img{\r\n\tvertical-align:bottom;\r\n\tborder:0;\r\n}\r\n\r\n.input-group-append button {\r\n\tborder-radius: 0;\r\n}\r\n\r\n.jumbotron {\r\n    position: absolute;\r\n    padding-top: 1rem;\r\n    padding-left: 0;\r\n    padding-right: 0;\r\n    padding-bottom: 1rem;\r\n    top: 50%;\r\n    left:50%;\r\n    transform: translate(-50%,-50%);\r\n    width: 60%;\r\n    background-color: rgba(0,0,0,.42);\r\n}\r\n\r\n.dropdown-menu {\r\n\tbackground-color: #343a40;\r\n}\r\n\r\n.dropdown-item {\r\n\tcolor: white;\r\n}\r\n\r\n.card {\r\n\ttransition: transform .1s;\r\n}\r\n\r\n.card:hover {\r\n\ttransform: scale(1.5);\r\n\tz-index: 10000 !important;\r\n}\r\n\r\n.fadeIn {\r\n\topacity: 1;\r\n\tanimation-name: fadeInOpacity;\r\n\tanimation-iteration-count: 1;\r\n\tanimation-timing-function: ease-in;\r\n\tanimation-duration: .5s;\r\n}\r\n\r\n@keyframes fadeInOpacity {\r\n\t0% {\r\n\t\topacity: 0;\r\n\t}\r\n\t100% {\r\n\t\topacity: 1;\r\n\t}\r\n}\r\n\r\n.chat {\r\n    height: 500px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.miniChat {\r\n    height: 150px;\r\n    overflow-y: auto;\r\n}\r\n\r\n.avatarSmall, .avatar {\r\n    border-radius: 8px;\r\n}\r\n\r\n.avatar {\r\n    width: 32px;\r\n    height: 32px;\r\n}\r\n\r\n.avatarSmall {\r\n    width: 16px;\r\n    height: 16px;\r\n}\r\n\r\n.member {\r\n    color: paleturquoise;\r\n}\r\n\r\n.paleturquoise {\r\n    color: paleturquoise;\r\n}\r\n\r\n.red {\r\n\tcolor: red;\r\n}\r\n\r\n.white {\r\n\tcolor: white;\r\n}\r\n\r\n.green {\r\n\tcolor: lawngreen;\r\n}\r\n\r\n.orange {\r\n\tcolor: orange;\r\n}\r\n\r\n#userCorner {\r\n\tuser-select: none;\r\n}\r\n\r\n#navbarBrand {\r\n\tcursor: pointer;\r\n}\r\n\r\n#lobbySearch {\r\n\tmargin-bottom: 1rem;\r\n}\r\n\r\n#lobbyQuit {\r\n\tmargin-bottom: 1rem;\r\n}\r\n\r\n@media only screen and (max-width: 768px) {\r\n\t/* For mobile phones: */\r\n\r\n\tfooter {\r\n\t\tposition: fixed;\r\n\t\tmargin: auto;\r\n\t\tmargin-bottom: 0;\r\n\t\tmargin-top: 0;\r\n\t\tpadding: 0;\r\n\t\tbottom: 0;\r\n\t}\r\n\r\n\t.jumbotron {\r\n\t\tposition: fixed;\r\n\t\tleft: 0;\r\n\t\ttop: 50%;\r\n\t\ttransform: translateY(-50%);\r\n\t\twidth: 100%;\r\n\t\tbackground-color: rgba(0,0,0,.42);\r\n\t\tmax-height: 70%;\r\n\t}\r\n\r\n\t.chat {\r\n\t\theight: 300px;\r\n\t}\r\n\t\r\n\t.container {\r\n\t\tmax-height: 70%;\r\n\t}\r\n\r\n\t.col-2 {\r\n\t\tmax-width: 250px;\r\n\t}\r\n}", ""]);
 
 
 

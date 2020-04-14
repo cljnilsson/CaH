@@ -4,27 +4,13 @@ const
     server      = require("http").createServer(app),
     io          = require("socket.io")(server);
     bodyParser  = require("body-parser"),
-    exphbs      = require("express-handlebars"),
-	session     = require('express-session'),
     helmet      = require('helmet'),
-    nconf       = require('nconf'),
     compression = require("compression"),
     ngrok       = require('ngrok'),
     path        = require('path');
 
 require("./MongoDB/mongo")
 require('dotenv').config({path:join('../.env')});
-
-const sessionSettings = {
-    name: "session",
-    secret: process.env.SECRET,
-    saveUninitialized: false,
-    resave: false,
-    cookie: {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24
-    }
-};
 
 function join(dir) {
     return path.join(__dirname, dir);
@@ -53,27 +39,12 @@ class Server {
     }
 
     dependencies() {
-        nconf.env();
-        nconf.file({file: join("../config.json")});
-
-        let hbs = exphbs.create({
-            extname: ".hbs",
-            defaultLayout: 'main',
-            layoutsDir: join("../views/Layouts"),
-            partialsDir: join("../views/partials")
-        });
-        
-        app.engine(".hbs", hbs.engine);
-        
-        app.set("view engine", ".hbs");
-        app.set('views', join('../views'));
     }
 
     middleware() {
         app.use(bodyParser.urlencoded({ extended: false }));
         app.use(header);
         app.use(helmet());
-        app.use(session(sessionSettings));
         app.use(bodyParser.json());
         app.use(compression());
         app.use(express.static(__dirname + "/../../public"));

@@ -119,8 +119,10 @@ class Chat extends Component {
 
     sendMessage() {
 		let current = this.nameRef.current.value;
-        this.props.sendMessage(current)
-        this.nameRef.current.value = ""
+		if(current != "") {
+			this.props.sendMessage(current)
+			this.nameRef.current.value = ""
+		}
     }
 
 	onChange(e) {

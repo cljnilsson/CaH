@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
-import { connect } from "react-redux"; // Read
-import { bindActionCreators } from "redux"; // Write
+import React, { Component } 	from 'react';
+import { connect } 				from "react-redux"; // Read
+import { bindActionCreators } 	from "redux"; // Write
 
 import {startGame, startGameClick} from "../actions/startGame";
+import quitLobby from "../actions/quitLobby";
 
 import Chat  from "./Partials/Chat";
 import Users from "./Partials/Users";
 
 import socket from "../Libs/io";
+
+import {Post} from "../Libs/Request";
 
 class Lobby extends Component {
     constructor() {
@@ -41,15 +44,25 @@ class Lobby extends Component {
 
     onClick() {
         this.props.startGameClick();
-    }
+	}
+	
+	onQuit() {
+		let p = new Post(`/${this.props.store.name}/leaveGame`);
+		p.send();
+
+		this.props.quitLobby();
+	}
 
     render() {
         return (
             <div>
                 <div className="row border-bottom">
-                    <div className="col text-center">
+                    <div className="col">
                         <h3>{this.props.store.currentGame}</h3>
                     </div>
+					<div className="col text-right">
+						<button id="lobbyQuit" className="btn btn-outline-light" onClick={this.onQuit.bind(this)}>Leave Game</button>
+					</div>
                 </div>
                 <div className="row pl-1 pt-2">
                     <Users/>
@@ -70,7 +83,8 @@ function read(store) {
 function write(dispatch) {
     return bindActionCreators({
         startGameClick: startGameClick,
-        startGame: startGame
+		startGame: startGame,
+		quitLobby: quitLobby
     }, dispatch);
 }
 

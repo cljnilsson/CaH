@@ -4,11 +4,14 @@ import {bindActionCreators} from "redux"; // Write
 
 import classNames 	from "classnames";
 
-import joinLobby 	from "../../actions/joiningLobby"
+import joinLobby 	from "../../actions/joiningLobby";
+import toIndex		from "../../actions/toIndex";
 import {Post} 		from "../../Libs/Request";
 
 class LobbyEntry extends Component {
     async onClick(e) {
+		this.props.joinLobby(this.props.name);
+
 		let p = new Post(`/${this.props.store.name}/joinGame`);
 		
 		p.data = {
@@ -17,8 +20,8 @@ class LobbyEntry extends Component {
 
 		let resp = await p.send();
 
-		if(resp.status === 200) {
-			this.props.joinLobby(this.props.name);
+		if(resp.status != 200) { //this should never happen unless server is restarted and the user has not refreshed the site
+			this.props.toIndex();
 		}
     }
 
@@ -58,7 +61,8 @@ function read(store) {
   
 function write(dispatch) {
 	return bindActionCreators({
-        joinLobby: joinLobby
+		joinLobby: joinLobby,
+		toIndex: toIndex
 	}, dispatch);
 }
 
